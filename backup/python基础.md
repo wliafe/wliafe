@@ -35,8 +35,7 @@ a,b,c=map(int,input().split())
 print(a,b,c)
 ```
 
-![](1.png)
-
+![1](https://github.com/user-attachments/assets/a962ddb7-0fbf-4c48-9beb-0ee969b025d3)
 
 **输出变量，更改间隔符号**
 
