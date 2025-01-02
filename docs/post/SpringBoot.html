@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://wliafe.github.io/wliafe.jpg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="# 第一个项目
+
+## 项目创建
+
+![1](https://github.com/user-attachments/assets/bd9f75b4-d73c-44f5-832f-2b197741ff12)
+
+![2](https://github.com/user-attachments/assets/b5d17599-91c0-4c4e-8db6-5343fa03f0bc)
+
+![3](https://github.com/user-attachments/assets/8076e8f1-82b4-41f6-be92-bd61d7b143bf)
+
+## 文件编写
+
+application.yml
+
+```yml
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.120:3306/Users
+    username: root
+    password: Mysql.123
+```
+
+User.java
+
+```java
+public class User implements Serializable {
+    private Integer id;
+    private String name;
+    private String password;
+
+    @Override
+    public String toString() {
+        return 'User{' +
+                'id=' + id +
+                ', name='' + name + '\'' +
+                ', password='' + password + '\'' +
+                '}';
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+```
+
+UserMapper
+
+```java
+@Mapper
+public interface UserMapper {
+    @Insert('insert into users(name,password) values(#{name},#{password})')
+    void save(User user);
+
+    @Delete('delete from users where id = #{id}')
+    void delete(Integer id);
+
+    @Update('update users set name= #{name},password= #{password} where id= #{id}')
+    void update(User user);
+
+    @Select('select * from users')
+    List<User> findAll();
+
+    @Select('select * from users where id = #{id}')
+    User findById(Integer id);
+}
+
+```
+
+UserService
+
+```java
+public interface UserService {
+    boolean save(User user);
+
+    boolean update(User user);
+
+    boolean delete(Integer id);
+
+    User findById(Integer id);
+
+    List<User> findAll();
+}
+```
+
+UserServiceImpl
+
+```java
+@Service
+public class UserServiceImpl implements UserService {
+    @Autowired
+    private UserMapper userDao;
+
+    public boolean save(User user) {
+        userDao.save(user);
+        return true;
+    }
+
+    public boolean update(User user) {
+        userDao.update(user);
+        return true;
+    }
+
+    public boolean delete(Integer id) {
+        userDao.delete(id);
+        return true;
+    }
+
+    public User findById(Integer id) {
+        return userDao.findById(id);
+    }
+
+    public List<User> findAll() {
+        return userDao.findAll();
+    }
+}
+```
+
+UserController
+
+```java
+@RestController
+@RequestMapping('/users')
+public class UserController {
+
+    @Autowired
+    UserService userService;
+
+    @PostMapping
+    public boolean save(@RequestBody User user) {
+        userService.save(user);
+        return true;
+    }
+
+    @PutMapping
+    public boolean update(@RequestBody User user) {
+        userService.update(user);
+        return true;
+    }
+
+    @DeleteMapping('/{id}')
+    public boolean delete(@PathVariable Integer id) {
+        userService.delete(id);
+        return true;
+    }
+
+    @GetMapping('/{id}')
+    public User findById(@PathVariable Integer id) {
+        return userService.findById(id);
+    }
+
+    @GetMapping
+    public List<User> findAll() {
+        return userService.findAll();
+    }
+}
+```
+
+## 运行
+
+![4](https://github.com/user-attachments/assets/cec1368d-e978-4665-9a35-58743224fe5e)
+
+![5](https://github.com/user-attachments/assets/a2d437d2-3cec-44fd-9584-94e792bac260)
+
+# 多环境配置
+
+>开发SpringBoot应用的时候，通常程序需要在测试环境测试成功后才会上线到生产环境。">
+<meta property="og:title" content="SpringBoot">
+<meta property="og:description" content="# 第一个项目
+
+## 项目创建
+
+![1](https://github.com/user-attachments/assets/bd9f75b4-d73c-44f5-832f-2b197741ff12)
+
+![2](https://github.com/user-attachments/assets/b5d17599-91c0-4c4e-8db6-5343fa03f0bc)
+
+![3](https://github.com/user-attachments/assets/8076e8f1-82b4-41f6-be92-bd61d7b143bf)
+
+## 文件编写
+
+application.yml
+
+```yml
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.120:3306/Users
+    username: root
+    password: Mysql.123
+```
+
+User.java
+
+```java
+public class User implements Serializable {
+    private Integer id;
+    private String name;
+    private String password;
+
+    @Override
+    public String toString() {
+        return 'User{' +
+                'id=' + id +
+                ', name='' + name + '\'' +
+                ', password='' + password + '\'' +
+                '}';
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+```
+
+UserMapper
+
+```java
+@Mapper
+public interface UserMapper {
+    @Insert('insert into users(name,password) values(#{name},#{password})')
+    void save(User user);
+
+    @Delete('delete from users where id = #{id}')
+    void delete(Integer id);
+
+    @Update('update users set name= #{name},password= #{password} where id= #{id}')
+    void update(User user);
+
+    @Select('select * from users')
+    List<User> findAll();
+
+    @Select('select * from users where id = #{id}')
+    User findById(Integer id);
+}
+
+```
+
+UserService
+
+```java
+public interface UserService {
+    boolean save(User user);
+
+    boolean update(User user);
+
+    boolean delete(Integer id);
+
+    User findById(Integer id);
+
+    List<User> findAll();
+}
+```
+
+UserServiceImpl
+
+```java
+@Service
+public class UserServiceImpl implements UserService {
+    @Autowired
+    private UserMapper userDao;
+
+    public boolean save(User user) {
+        userDao.save(user);
+        return true;
+    }
+
+    public boolean update(User user) {
+        userDao.update(user);
+        return true;
+    }
+
+    public boolean delete(Integer id) {
+        userDao.delete(id);
+        return true;
+    }
+
+    public User findById(Integer id) {
+        return userDao.findById(id);
+    }
+
+    public List<User> findAll() {
+        return userDao.findAll();
+    }
+}
+```
+
+UserController
+
+```java
+@RestController
+@RequestMapping('/users')
+public class UserController {
+
+    @Autowired
+    UserService userService;
+
+    @PostMapping
+    public boolean save(@RequestBody User user) {
+        userService.save(user);
+        return true;
+    }
+
+    @PutMapping
+    public boolean update(@RequestBody User user) {
+        userService.update(user);
+        return true;
+    }
+
+    @DeleteMapping('/{id}')
+    public boolean delete(@PathVariable Integer id) {
+        userService.delete(id);
+        return true;
+    }
+
+    @GetMapping('/{id}')
+    public User findById(@PathVariable Integer id) {
+        return userService.findById(id);
+    }
+
+    @GetMapping
+    public List<User> findAll() {
+        return userService.findAll();
+    }
+}
+```
+
+## 运行
+
+![4](https://github.com/user-attachments/assets/cec1368d-e978-4665-9a35-58743224fe5e)
+
+![5](https://github.com/user-attachments/assets/a2d437d2-3cec-44fd-9584-94e792bac260)
+
+# 多环境配置
+
+>开发SpringBoot应用的时候，通常程序需要在测试环境测试成功后才会上线到生产环境。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wliafe.github.io/post/SpringBoot.html">
+<meta property="og:image" content="https://wliafe.github.io/wliafe.jpg">
+<title>SpringBoot</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">SpringBoot</h1>
+<div class="title-right">
+    <a href="https://wliafe.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/wliafe/wliafe.github.io/issues/26" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h1>第一个项目</h1>
+<h2>项目创建</h2>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/bd9f75b4-d73c-44f5-832f-2b197741ff12"><img src="https://github.com/user-attachments/assets/bd9f75b4-d73c-44f5-832f-2b197741ff12" alt="1" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b5d17599-91c0-4c4e-8db6-5343fa03f0bc"><img src="https://github.com/user-attachments/assets/b5d17599-91c0-4c4e-8db6-5343fa03f0bc" alt="2" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/8076e8f1-82b4-41f6-be92-bd61d7b143bf"><img src="https://github.com/user-attachments/assets/8076e8f1-82b4-41f6-be92-bd61d7b143bf" alt="3" style="max-width: 100%;"></a></p>
+<h2>文件编写</h2>
+<p>application.yml</p>
+<div class="highlight highlight-source-yaml"><pre class="notranslate"><span class="pl-ent">spring</span>:
+  <span class="pl-ent">datasource</span>:
+    <span class="pl-ent">driver-class-name</span>: <span class="pl-s">com.mysql.cj.jdbc.Driver</span>
+    <span class="pl-ent">url</span>: <span class="pl-s">jdbc:mysql://192.168.1.120:3306/Users</span>
+    <span class="pl-ent">username</span>: <span class="pl-s">root</span>
+    <span class="pl-ent">password</span>: <span class="pl-s">Mysql.123</span></pre></div>
+<p>User.java</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">User</span> <span class="pl-k">implements</span> <span class="pl-smi">Serializable</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">Integer</span> <span class="pl-s1">id</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">password</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>() {
+        <span class="pl-k">return</span> <span class="pl-s">"User{"</span> +
+                <span class="pl-s">"id="</span> + <span class="pl-s1">id</span> +
+                <span class="pl-s">", name='"</span> + <span class="pl-s1">name</span> + <span class="pl-s">'\''</span> +
+                <span class="pl-s">", password='"</span> + <span class="pl-s1">password</span> + <span class="pl-s">'\''</span> +
+                <span class="pl-s">'}'</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">Integer</span> <span class="pl-en">getId</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">id</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setId</span>(<span class="pl-smi">Integer</span> <span class="pl-s1">id</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">id</span> = <span class="pl-s1">id</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getName</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">name</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setName</span>(<span class="pl-smi">String</span> <span class="pl-s1">name</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">name</span> = <span class="pl-s1">name</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">getPassword</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">password</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setPassword</span>(<span class="pl-smi">String</span> <span class="pl-s1">password</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">password</span> = <span class="pl-s1">password</span>;
+    }
+}</pre></div>
+<p>UserMapper</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Mapper</span>
+<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">UserMapper</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Insert</span>(<span class="pl-s">"insert into users(name,password) values(#{name},#{password})"</span>)
+    <span class="pl-smi">void</span> <span class="pl-en">save</span>(<span class="pl-smi">User</span> <span class="pl-s1">user</span>);
+
+    <span class="pl-c1">@</span><span class="pl-c1">Delete</span>(<span class="pl-s">"delete from users where id = #{id}"</span>)
+    <span class="pl-smi">void</span> <span class="pl-en">delete</span>(<span class="pl-smi">Integer</span> <span class="pl-s1">id</span>);
+
+    <span class="pl-c1">@</span><span class="pl-c1">Update</span>(<span class="pl-s">"update users set name= #{name},password= #{password} where id= #{id}"</span>)
+    <span class="pl-smi">void</span> <span class="pl-en">update</span>(<span class="pl-smi">User</span> <span class="pl-s1">user</span>);
+
+    <span class="pl-c1">@</span><span class="pl-c1">Select</span>(<span class="pl-s">"select * from users"</span>)
+    <span class="pl-smi">List</span>&lt;<span class="pl-smi">User</span>&gt; <span class="pl-en">findAll</span>();
+
+    <span class="pl-c1">@</span><span class="pl-c1">Select</span>(<span class="pl-s">"select * from users where id = #{id}"</span>)
+    <span class="pl-smi">User</span> <span class="pl-en">findById</span>(<span class="pl-smi">Integer</span> <span class="pl-s1">id</span>);
+}</pre></div>
+<p>UserService</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">UserService</span> {
+    <span class="pl-smi">boolean</span> <span class="pl-en">save</span>(<span class="pl-smi">User</span> <span class="pl-s1">user</span>);
+
+    <span class="pl-smi">boolean</span> <span class="pl-en">update</span>(<span class="pl-smi">User</span> <span class="pl-s1">user</span>);
+
+    <span class="pl-smi">boolean</span> <span class="pl-en">delete</span>(<span class="pl-smi">Integer</span> <span class="pl-s1">id</span>);
+
+    <span class="pl-smi">User</span> <span class="pl-en">findById</span>(<span class="pl-smi">Integer</span> <span class="pl-s1">id</span>);
+
+    <span class="pl-smi">List</span>&lt;<span class="pl-smi">User</span>&gt; <span class="pl-en">findAll</span>();
+}</pre></div>
+<p>UserServiceImpl</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Service</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">UserServiceImpl</span> <span class="pl-k">implements</span> <span class="pl-smi">UserService</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">private</span> <span class="pl-smi">UserMapper</span> <span class="pl-s1">userDao</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">save</span>(<span class="pl-smi">User</span> <span class="pl-s1">user</span>) {
+        <span class="pl-s1">userDao</span>.<span class="pl-en">save</span>(<span class="pl-s1">user</span>);
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">update</span>(<span class="pl-smi">User</span> <span class="pl-s1">user</span>) {
+        <span class="pl-s1">userDao</span>.<span class="pl-en">update</span>(<span class="pl-s1">user</span>);
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">delete</span>(<span class="pl-smi">Integer</span> <span class="pl-s1">id</span>) {
+        <span class="pl-s1">userDao</span>.<span class="pl-en">delete</span>(<span class="pl-s1">id</span>);
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">User</span> <span class="pl-en">findById</span>(<span class="pl-smi">Integer</span> <span class="pl-s1">id</span>) {
+        <span class="pl-k">return</span> <span class="pl-s1">userDao</span>.<span class="pl-en">findById</span>(<span class="pl-s1">id</span>);
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">List</span>&lt;<span class="pl-smi">User</span>&gt; <span class="pl-en">findAll</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">userDao</span>.<span class="pl-en">findAll</span>();
+    }
+}</pre></div>
+<p>UserController</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">RestController</span>
+<span class="pl-c1">@</span><span class="pl-c1">RequestMapping</span>(<span class="pl-s">"/users"</span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">UserController</span> {
+
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-smi">UserService</span> <span class="pl-s1">userService</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">PostMapping</span>
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">save</span>(<span class="pl-c1">@</span><span class="pl-c1">RequestBody</span> <span class="pl-smi">User</span> <span class="pl-s1">user</span>) {
+        <span class="pl-s1">userService</span>.<span class="pl-en">save</span>(<span class="pl-s1">user</span>);
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">PutMapping</span>
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">update</span>(<span class="pl-c1">@</span><span class="pl-c1">RequestBody</span> <span class="pl-smi">User</span> <span class="pl-s1">user</span>) {
+        <span class="pl-s1">userService</span>.<span class="pl-en">update</span>(<span class="pl-s1">user</span>);
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">DeleteMapping</span>(<span class="pl-s">"/{id}"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">delete</span>(<span class="pl-c1">@</span><span class="pl-c1">PathVariable</span> <span class="pl-smi">Integer</span> <span class="pl-s1">id</span>) {
+        <span class="pl-s1">userService</span>.<span class="pl-en">delete</span>(<span class="pl-s1">id</span>);
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">GetMapping</span>(<span class="pl-s">"/{id}"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">User</span> <span class="pl-en">findById</span>(<span class="pl-c1">@</span><span class="pl-c1">PathVariable</span> <span class="pl-smi">Integer</span> <span class="pl-s1">id</span>) {
+        <span class="pl-k">return</span> <span class="pl-s1">userService</span>.<span class="pl-en">findById</span>(<span class="pl-s1">id</span>);
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">GetMapping</span>
+    <span class="pl-k">public</span> <span class="pl-smi">List</span>&lt;<span class="pl-smi">User</span>&gt; <span class="pl-en">findAll</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">userService</span>.<span class="pl-en">findAll</span>();
+    }
+}</pre></div>
+<h2>运行</h2>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/cec1368d-e978-4665-9a35-58743224fe5e"><img src="https://github.com/user-attachments/assets/cec1368d-e978-4665-9a35-58743224fe5e" alt="4" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/a2d437d2-3cec-44fd-9584-94e792bac260"><img src="https://github.com/user-attachments/assets/a2d437d2-3cec-44fd-9584-94e792bac260" alt="5" style="max-width: 100%;"></a></p>
+<h1>多环境配置</h1>
+<blockquote>
+<p>开发SpringBoot应用的时候，通常程序需要在测试环境测试成功后才会上线到生产环境。而测试环境和生产环境的数据库地址、服务器端口等配置都不同。在为不同环境打jar包时，需要频繁的修改application.yml配置文件，十分麻烦。</p>
+<p>可以采用创建多个配置文件的方法解决这一问题。</p>
+</blockquote>
+<p>创建以下三个文件，配置不同环境的地址信息，存放在application.yml同一目录下：</p>
+<ul>
+<li>
+<p>application-dev.yml：本地开发环境</p>
+</li>
+<li>
+<p>application-test.yml：测试环境</p>
+</li>
+<li>
+<p>application-prod.yml：生产环境</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/3e964f88-a19d-4f16-9771-3ee4d86a2b37"><img src="https://github.com/user-attachments/assets/3e964f88-a19d-4f16-9771-3ee4d86a2b37" alt="6" style="max-width: 100%;"></a></p>
+<p>其中application.yml存放公共配置，可通过修改active切换读取的配置文件，比如active: dev改成active: test就是将读取application-dev.yml改为application-test.yml，环境也从本地开发变成了测试环境</p>
+<p>application-dev.yml</p>
+<div class="highlight highlight-source-yaml"><pre class="notranslate"><span class="pl-ent">spring</span>:
+  <span class="pl-ent">profiles</span>:
+    <span class="pl-ent">active</span>: <span class="pl-s">dev</span>
+  <span class="pl-ent">application</span>:
+    <span class="pl-ent">name</span>: <span class="pl-s">data-transceivers </span><span class="pl-c"><span class="pl-c">#</span>当前服务的名称</span></pre></div>
+<p>application-test.yml：</p>
+<div class="highlight highlight-source-yaml"><pre class="notranslate"><span class="pl-ent">spring</span>:
+  <span class="pl-ent">kafka</span>:
+    <span class="pl-ent">bootstrap-servers</span>: <span class="pl-s">10.10.5.70:6667,10.10.5.71:6667,10.10.5.72:6667 </span><span class="pl-c"><span class="pl-c">#</span>测试环境地址</span>
+<span class="pl-ent">server</span>:
+  <span class="pl-ent">port</span>: <span class="pl-c1">8312</span></pre></div>
+<p>application-prod.yml：</p>
+<div class="highlight highlight-source-yaml"><pre class="notranslate"><span class="pl-ent">spring</span>:
+  <span class="pl-ent">kafka</span>:
+    <span class="pl-ent">bootstrap-servers</span>: <span class="pl-s">10.10.2.92:6667,10.10.2.93:6667,10.10.2.94:6667 </span><span class="pl-c"><span class="pl-c">#</span>生产环境地址</span>
+<span class="pl-ent">server</span>:
+  <span class="pl-ent">port</span>: <span class="pl-c1">8312</span></pre></div>
+<h1>SpringBoot启动报错</h1>
+<h2>报错内容</h2>
+<pre lang="text" class="notranslate"><code class="notranslate">java.lang.IllegalStateException: Failed to load property source from 'file:/D:/IDEA/spring-cloud/sp05-eureka/target/classes/application.yml' (classpath:/application.yml)
+ 
+Caused by: org.yaml.snakeyaml.error.YAMLException: java.nio.charset.MalformedInputException: Input length = 1
+</code></pre>
+<h2>错误原因</h2>
+<p>出现这个的原因，就是解析yml文件时，中文字符集不是utf-8的原因，</p>
+<p>但是通过cmd命令，mvn clean compile 后，项目又可以成功运行</p>
+<p>找了很久问题，使用eclipse和idea同时测试，最终发现，是maven在项目编译时，默认字符集编码是GBK</p>
+<h2>检查pom文件</h2>
+<p>我们首先需要在pom文件中设置，编译时编码utf-8即可，如果解决不了进行第二步</p>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">properties</span>&gt;
+   &lt;<span class="pl-ent">java</span>.version&gt;1.8&lt;/<span class="pl-ent">java</span>.version&gt;
+    &lt;<span class="pl-ent">spring-cloud</span>.version&gt;Hoxton.SR6&lt;/<span class="pl-ent">spring-cloud</span>.version&gt;
+    &lt;<span class="pl-ent">project</span>.build.sourceEncoding&gt;UTF-8&lt;/<span class="pl-ent">project</span>.build.sourceEncoding&gt;
+    &lt;<span class="pl-ent">project</span>.reporting.outputEncoding&gt;UTF-8&lt;/<span class="pl-ent">project</span>.reporting.outputEncoding&gt;
+    &lt;<span class="pl-ent">maven</span>.compiler.encoding&gt;UTF-8&lt;/<span class="pl-ent">maven</span>.compiler.encoding&gt;
+&lt;/<span class="pl-ent">properties</span>&gt;</pre></div>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/25b4bc95-e64e-474e-ae2c-df7a658d8c21"><img src="https://github.com/user-attachments/assets/25b4bc95-e64e-474e-ae2c-df7a658d8c21" alt="7" style="max-width: 100%;"></a></p>
+<h2>修改编码格式</h2>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b5c48be4-3917-4bf5-bbd5-c79dc8c2b855"><img src="https://github.com/user-attachments/assets/b5c48be4-3917-4bf5-bbd5-c79dc8c2b855" alt="8" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/8953da9f-f84c-4163-a2aa-454b0ae75cde"><img src="https://github.com/user-attachments/assets/8953da9f-f84c-4163-a2aa-454b0ae75cde" alt="9" style="max-width: 100%;"></a></p>
+<p>然后重新启动项目！！！！</p>
+<h2>最不应该出现的错误</h2>
+<p>就是你的application.yml文件是通过把其他类型的文件后缀名直接改为yml生成的，这时就需要你把application.yml中的内容全部复制，然后删除，再新建一个application.yml文件，将复制的内容拷贝进去再运行项目就不会报错了。</p>
+<h2>总结</h2>
+<p>这个问题，在一般成熟的项目里面是不会出现的，他一般出现在新建的项目上面，因为一般新建的项目有些配置不够完善，这一块是需要注意的地方。</p></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://wliafe.github.io">wliafe</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","wliafe/wliafe.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+
+
+</html>
