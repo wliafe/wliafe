@@ -1,5 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 12:01:25 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>SpringBoot</title><link>https://wliafe.github.io/post/SpringBoot.html</link><description># 第一个项目&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 12:11:50 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>SpringSecurity</title><link>https://wliafe.github.io/post/SpringSecurity.html</link><description>&#13;
+# 简介&#13;
+&#13;
+SpringSecurity是Spring安全框架的一种，这里是[哔哩哔哩视频](https://www.bilibili.com/video/BV1mm4y1X7Hc/)，以下内容是对SpringSecurity补充。</description><guid isPermaLink="true">https://wliafe.github.io/post/SpringSecurity.html</guid><pubDate>Thu, 02 Jan 2025 12:11:17 +0000</pubDate></item><item><title>SpringBoot</title><link>https://wliafe.github.io/post/SpringBoot.html</link><description># 第一个项目&#13;
 &#13;
 ## 项目创建&#13;
 &#13;

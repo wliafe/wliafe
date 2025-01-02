@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://wliafe.github.io/wliafe.jpg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="
+# 简介
+
+SpringSecurity是Spring安全框架的一种，这里是[哔哩哔哩视频](https://www.bilibili.com/video/BV1mm4y1X7Hc/)，以下内容是对SpringSecurity补充。">
+<meta property="og:title" content="SpringSecurity">
+<meta property="og:description" content="
+# 简介
+
+SpringSecurity是Spring安全框架的一种，这里是[哔哩哔哩视频](https://www.bilibili.com/video/BV1mm4y1X7Hc/)，以下内容是对SpringSecurity补充。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wliafe.github.io/post/SpringSecurity.html">
+<meta property="og:image" content="https://wliafe.github.io/wliafe.jpg">
+<title>SpringSecurity</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">SpringSecurity</h1>
+<div class="title-right">
+    <a href="https://wliafe.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/wliafe/wliafe.github.io/issues/27" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h1>简介</h1>
+<p>SpringSecurity是Spring安全框架的一种，这里是<a href="https://www.bilibili.com/video/BV1mm4y1X7Hc/" rel="nofollow">哔哩哔哩视频</a>，以下内容是对SpringSecurity补充。</p>
+<h1>Spring Security替换WebSecurityConfigurerAdapter(Deprecated)的方法</h1>
+<h2>简介</h2>
+<p>在本文中，我将提供一个解决方案来配置Spring 安全性，而无需 WebSecurityConfigurerAdapter 类。从 Spring Security 5.7 开始，WebSecurityConfigurerAdapter类已被弃用，Spring 团队鼓励用户转向基于组件的安全配置。</p>
+<h2>使用 WebSecurityConfigurerAdapter</h2>
+<p>在WebSecurityConfigurerAdapter类被弃用之前，我们正在编写这样的代码。我们创建了一个Spring Java配置类，它扩展了WebSecurityConfigurerAdapter类并覆盖了几个configure()方法：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Configuration</span>
+<span class="pl-c1">@</span><span class="pl-c1">EnableWebSecurity</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SecurityConfiguration</span> <span class="pl-k">extends</span> <span class="pl-smi">WebSecurityConfigurerAdapter</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">protected</span> <span class="pl-smi">void</span> <span class="pl-en">configure</span>(<span class="pl-smi">HttpSecurity</span> <span class="pl-s1">http</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-c">// configure HTTP security...         </span>
+    }
+ 
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">configure</span>(<span class="pl-smi">WebSecurity</span> <span class="pl-s1">web</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {         
+        <span class="pl-c">// configure Web security...         </span>
+    }      
+}</pre></div>
+<p>从春季安全 5.7.0-M2 开始。WebSecurityConfigurerAdapter类已被弃用，Spring 团队鼓励用户转向基于组件的安全配置。</p>
+<h2>没有网络安全配置器适配器</h2>
+<p>在使用基于组件的 Spring 安全配置的新方法中，您需要遵循以下非常简单的步骤：</p>
+<ul>
+<li>
+<p>删除 WebSecurityConfigurerAdapter 类（不要扩展WebSecurityConfigurerAdapter）</p>
+</li>
+<li>
+<p>删除网络安全配置器适配器类的所有重写方法</p>
+</li>
+<li>
+<p>使用SecurityFilterChain 配置 HttpSecurity，使用WebSecurityCustomizer 配置 WebSecurity：</p>
+</li>
+</ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Configuration</span>
+<span class="pl-c1">@</span><span class="pl-c1">EnableWebSecurity</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SecurityConfiguration</span> {
+         
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-k">public</span> <span class="pl-smi">SecurityFilterChain</span> <span class="pl-en">filterChain</span>(<span class="pl-smi">HttpSecurity</span> <span class="pl-s1">http</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+      <span class="pl-c">// configure HTTP security...     </span>
+    }
+     
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-k">public</span> <span class="pl-smi">WebSecurityCustomizer</span> <span class="pl-en">webSecurityCustomizer</span>() {
+          <span class="pl-c">// configure Web security...   </span>
+    }    
+}</pre></div>
+<p>让我们看一个完整的示例供您参考。</p>
+<h2>没有网络安全的 Spring 安全性配置器适配器示例</h2>
+<p>考虑我们在下面使用WebSecurityConfigurerAdapter类进行 Spring 安全配置，稍后我们将看到如何将此安全配置迁移到基于组件的方法。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">net</span>.<span class="pl-s1">javaguides</span>.<span class="pl-s1">springboot</span>.<span class="pl-s1">config</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Autowired</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Bean</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Configuration</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">dao</span>.<span class="pl-s1">DaoAuthenticationProvider</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">builders</span>.<span class="pl-s1">AuthenticationManagerBuilder</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">web</span>.<span class="pl-s1">builders</span>.<span class="pl-s1">HttpSecurity</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">web</span>.<span class="pl-s1">configuration</span>.<span class="pl-s1">EnableWebSecurity</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">web</span>.<span class="pl-s1">configuration</span>.<span class="pl-s1">WebSecurityConfigurerAdapter</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">crypto</span>.<span class="pl-s1">bcrypt</span>.<span class="pl-s1">BCryptPasswordEncoder</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">web</span>.<span class="pl-s1">util</span>.<span class="pl-s1">matcher</span>.<span class="pl-s1">AntPathRequestMatcher</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">net</span>.<span class="pl-s1">javaguides</span>.<span class="pl-s1">springboot</span>.<span class="pl-s1">service</span>.<span class="pl-s1">UserService</span>;
+
+<span class="pl-c1">@</span><span class="pl-c1">Configuration</span>
+<span class="pl-c1">@</span><span class="pl-c1">EnableWebSecurity</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SecurityConfiguration</span> <span class="pl-k">extends</span> <span class="pl-smi">WebSecurityConfigurerAdapter</span> {
+
+	<span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+	<span class="pl-k">private</span> <span class="pl-smi">UserService</span> <span class="pl-s1">userService</span>;
+	
+	<span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-k">public</span> <span class="pl-smi">BCryptPasswordEncoder</span> <span class="pl-en">passwordEncoder</span>() {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">BCryptPasswordEncoder</span>();
+    }
+	
+	<span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-k">public</span> <span class="pl-smi">DaoAuthenticationProvider</span> <span class="pl-en">authenticationProvider</span>() {
+        <span class="pl-smi">DaoAuthenticationProvider</span> <span class="pl-s1">auth</span> = <span class="pl-k">new</span> <span class="pl-smi">DaoAuthenticationProvider</span>();
+        <span class="pl-s1">auth</span>.<span class="pl-en">setUserDetailsService</span>(<span class="pl-s1">userService</span>);
+        <span class="pl-s1">auth</span>.<span class="pl-en">setPasswordEncoder</span>(<span class="pl-en">passwordEncoder</span>());
+        <span class="pl-k">return</span> <span class="pl-s1">auth</span>;
+    }
+	
+	<span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">protected</span> <span class="pl-smi">void</span> <span class="pl-en">configure</span>(<span class="pl-smi">AuthenticationManagerBuilder</span> <span class="pl-s1">auth</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-s1">auth</span>.<span class="pl-en">authenticationProvider</span>(<span class="pl-en">authenticationProvider</span>());
+    }
+	
+	<span class="pl-c1">@</span><span class="pl-c1">Override</span>
+	<span class="pl-k">protected</span> <span class="pl-smi">void</span> <span class="pl-en">configure</span>(<span class="pl-smi">HttpSecurity</span> <span class="pl-s1">http</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+		<span class="pl-s1">http</span>.<span class="pl-en">authorizeRequests</span>().<span class="pl-en">antMatchers</span>(
+				 <span class="pl-s">"/registration**"</span>,
+	                <span class="pl-s">"/js/**"</span>,
+	                <span class="pl-s">"/css/**"</span>,
+	                <span class="pl-s">"/img/**"</span>).<span class="pl-en">permitAll</span>()
+		.<span class="pl-en">anyRequest</span>().<span class="pl-en">authenticated</span>()
+		.<span class="pl-en">and</span>()
+		.<span class="pl-en">formLogin</span>()
+		.<span class="pl-en">loginPage</span>(<span class="pl-s">"/login"</span>)
+		.<span class="pl-en">permitAll</span>()
+		.<span class="pl-en">and</span>()
+		.<span class="pl-en">logout</span>()
+		.<span class="pl-en">invalidateHttpSession</span>(<span class="pl-c1">true</span>)
+		.<span class="pl-en">clearAuthentication</span>(<span class="pl-c1">true</span>)
+		.<span class="pl-en">logoutRequestMatcher</span>(<span class="pl-k">new</span> <span class="pl-smi">AntPathRequestMatcher</span>(<span class="pl-s">"/logout"</span>))
+		.<span class="pl-en">logoutSuccessUrl</span>(<span class="pl-s">"/login?logout"</span>)
+		.<span class="pl-en">permitAll</span>();
+	}
+
+}</pre></div>
+<p>接下来，这是没有 WebSecurityConfigurerAdapter 的基于组件的替代方法：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">net</span>.<span class="pl-s1">javaguides</span>.<span class="pl-s1">springboot</span>.<span class="pl-s1">config</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Autowired</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Bean</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Configuration</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">builders</span>.<span class="pl-s1">AuthenticationManagerBuilder</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">web</span>.<span class="pl-s1">builders</span>.<span class="pl-s1">HttpSecurity</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">web</span>.<span class="pl-s1">configuration</span>.<span class="pl-s1">EnableWebSecurity</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">userdetails</span>.<span class="pl-s1">UserDetailsService</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">crypto</span>.<span class="pl-s1">bcrypt</span>.<span class="pl-s1">BCryptPasswordEncoder</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">crypto</span>.<span class="pl-s1">password</span>.<span class="pl-s1">PasswordEncoder</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">web</span>.<span class="pl-s1">SecurityFilterChain</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">web</span>.<span class="pl-s1">util</span>.<span class="pl-s1">matcher</span>.<span class="pl-s1">AntPathRequestMatcher</span>;
+
+<span class="pl-c1">@</span><span class="pl-c1">Configuration</span>
+<span class="pl-c1">@</span><span class="pl-c1">EnableWebSecurity</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SpringSecurity</span> {
+
+<span class="pl-c">//    @Autowired</span>
+<span class="pl-c">//    private UserDetailsService userDetailsService;</span>
+
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">PasswordEncoder</span> <span class="pl-en">passwordEncoder</span>(){
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">BCryptPasswordEncoder</span>();
+    }
+
+    <span class="pl-c">// configure SecurityFilterChain</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-k">public</span> <span class="pl-smi">SecurityFilterChain</span> <span class="pl-en">filterChain</span>(<span class="pl-smi">HttpSecurity</span> <span class="pl-s1">http</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-s1">http</span>.<span class="pl-en">csrf</span>().<span class="pl-en">disable</span>()
+                .<span class="pl-en">authorizeRequests</span>()
+                .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/register/**"</span>).<span class="pl-en">permitAll</span>()
+                .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/index"</span>).<span class="pl-en">permitAll</span>()
+                .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/users"</span>).<span class="pl-en">hasRole</span>(<span class="pl-s">"ADMIN"</span>)
+                .<span class="pl-en">and</span>()
+                .<span class="pl-en">formLogin</span>(
+                        <span class="pl-s1">form</span> -&gt; <span class="pl-s1">form</span>
+                                .<span class="pl-en">loginPage</span>(<span class="pl-s">"/login"</span>)
+                                .<span class="pl-en">loginProcessingUrl</span>(<span class="pl-s">"/login"</span>)
+                                .<span class="pl-en">defaultSuccessUrl</span>(<span class="pl-s">"/users"</span>)
+                                .<span class="pl-en">permitAll</span>()
+                ).<span class="pl-en">logout</span>(
+                        <span class="pl-s1">logout</span> -&gt; <span class="pl-s1">logout</span>
+                                .<span class="pl-en">logoutRequestMatcher</span>(<span class="pl-k">new</span> <span class="pl-smi">AntPathRequestMatcher</span>(<span class="pl-s">"/logout"</span>))
+                                .<span class="pl-en">permitAll</span>()
+
+                );
+        <span class="pl-k">return</span> <span class="pl-s1">http</span>.<span class="pl-en">build</span>();
+    }
+
+<span class="pl-c">//    @Autowired</span>
+<span class="pl-c">//    public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception {</span>
+<span class="pl-c">//        builder.userDetailsService(userDetailsService)</span>
+<span class="pl-c">//                .passwordEncoder(passwordEncoder());</span>
+<span class="pl-c">//    }</span>
+}</pre></div>
+<p>在上面的例子中，我们遵循最佳实践，使用 Spring Security lambda DSL 和方法HttpSecurity#authorizeHttpRequests来定义我们的授权规则。如果你不熟悉lambda DSL，你可以在这篇博文中阅读它。</p>
+<p>重要：我们不再需要手动将UserDetailsService和PasswordEncoder设置为AuthenticationManager实例，它只需要存在于spring上下文中。一旦我们将UserDetailsService和PasswordEncoder配置为Spring bean，Spring Security就会自动设置为AuthenticationManager。</p>
+<h2>Spring Security JWT （JSON Web Token） without WebSecurityConfigurerAdapter</h2>
+<p>考虑我们有以下的 spring 安全性和使用WebSecurityConfigurerAdapter类的 JWT 配置，稍后我们将看到如何将此安全配置迁移到基于组件的方法。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">springboot</span>.<span class="pl-s1">blog</span>.<span class="pl-s1">config</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">com</span>.<span class="pl-s1">springboot</span>.<span class="pl-s1">blog</span>.<span class="pl-s1">security</span>.<span class="pl-s1">CustomUserDetailsService</span>;
+<span class="pl-k">import</span> <span class="pl-s1">com</span>.<span class="pl-s1">springboot</span>.<span class="pl-s1">blog</span>.<span class="pl-s1">security</span>.<span class="pl-s1">JwtAuthenticationEntryPoint</span>;
+<span class="pl-k">import</span> <span class="pl-s1">com</span>.<span class="pl-s1">springboot</span>.<span class="pl-s1">blog</span>.<span class="pl-s1">security</span>.<span class="pl-s1">JwtAuthenticationFilter</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Autowired</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Bean</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Configuration</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">http</span>.<span class="pl-s1">HttpMethod</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">AuthenticationManager</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">builders</span>.<span class="pl-s1">AuthenticationManagerBuilder</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">method</span>.<span class="pl-s1">configuration</span>.<span class="pl-s1">EnableGlobalMethodSecurity</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">web</span>.<span class="pl-s1">builders</span>.<span class="pl-s1">HttpSecurity</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">web</span>.<span class="pl-s1">configuration</span>.<span class="pl-s1">EnableWebSecurity</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">web</span>.<span class="pl-s1">configuration</span>.<span class="pl-s1">WebSecurityConfigurerAdapter</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">http</span>.<span class="pl-s1">SessionCreationPolicy</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">userdetails</span>.<span class="pl-s1">User</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">userdetails</span>.<span class="pl-s1">UserDetails</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">userdetails</span>.<span class="pl-s1">UserDetailsService</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">crypto</span>.<span class="pl-s1">bcrypt</span>.<span class="pl-s1">BCryptPasswordEncoder</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">crypto</span>.<span class="pl-s1">password</span>.<span class="pl-s1">PasswordEncoder</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">provisioning</span>.<span class="pl-s1">InMemoryUserDetailsManager</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">web</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">UsernamePasswordAuthenticationFilter</span>;
+
+<span class="pl-c1">@</span><span class="pl-c1">Configuration</span>
+<span class="pl-c1">@</span><span class="pl-c1">EnableWebSecurity</span>
+<span class="pl-c1">@</span><span class="pl-c1">EnableGlobalMethodSecurity</span>(<span class="pl-s1">prePostEnabled</span> = <span class="pl-c1">true</span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SecurityConfig</span> <span class="pl-k">extends</span> <span class="pl-smi">WebSecurityConfigurerAdapter</span> {
+
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">private</span> <span class="pl-smi">CustomUserDetailsService</span> <span class="pl-s1">userDetailsService</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">private</span> <span class="pl-smi">JwtAuthenticationEntryPoint</span> <span class="pl-s1">authenticationEntryPoint</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-k">public</span> <span class="pl-smi">JwtAuthenticationFilter</span> <span class="pl-en">jwtAuthenticationFilter</span>(){
+        <span class="pl-k">return</span>  <span class="pl-k">new</span> <span class="pl-smi">JwtAuthenticationFilter</span>();
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-smi">PasswordEncoder</span> <span class="pl-en">passwordEncoder</span>(){
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">BCryptPasswordEncoder</span>();
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">protected</span> <span class="pl-smi">void</span> <span class="pl-en">configure</span>(<span class="pl-smi">HttpSecurity</span> <span class="pl-s1">http</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-s1">http</span>
+                .<span class="pl-en">csrf</span>().<span class="pl-en">disable</span>()
+                .<span class="pl-en">exceptionHandling</span>()
+                .<span class="pl-en">authenticationEntryPoint</span>(<span class="pl-s1">authenticationEntryPoint</span>)
+                .<span class="pl-en">and</span>()
+                .<span class="pl-en">sessionManagement</span>()
+                .<span class="pl-en">sessionCreationPolicy</span>(<span class="pl-smi">SessionCreationPolicy</span>.<span class="pl-c1">STATELESS</span>)
+                .<span class="pl-en">and</span>()
+                .<span class="pl-en">authorizeRequests</span>()
+                .<span class="pl-en">antMatchers</span>(<span class="pl-smi">HttpMethod</span>.<span class="pl-c1">GET</span>, <span class="pl-s">"/api/v1/**"</span>).<span class="pl-en">permitAll</span>()
+                .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/api/v1/auth/**"</span>).<span class="pl-en">permitAll</span>()
+                .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/v2/api-docs/**"</span>).<span class="pl-en">permitAll</span>()
+                .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/swagger-ui/**"</span>).<span class="pl-en">permitAll</span>()
+                .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/swagger-resources/**"</span>).<span class="pl-en">permitAll</span>()
+                .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/swagger-ui.html"</span>).<span class="pl-en">permitAll</span>()
+                .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/webjars/**"</span>).<span class="pl-en">permitAll</span>()
+                .<span class="pl-en">anyRequest</span>()
+                .<span class="pl-en">authenticated</span>();
+        <span class="pl-s1">http</span>.<span class="pl-en">addFilterBefore</span>(<span class="pl-en">jwtAuthenticationFilter</span>(), <span class="pl-smi">UsernamePasswordAuthenticationFilter</span>.<span class="pl-k">class</span>);
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">protected</span> <span class="pl-smi">void</span> <span class="pl-en">configure</span>(<span class="pl-smi">AuthenticationManagerBuilder</span> <span class="pl-s1">auth</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-s1">auth</span>.<span class="pl-en">userDetailsService</span>(<span class="pl-s1">userDetailsService</span>)
+                .<span class="pl-en">passwordEncoder</span>(<span class="pl-en">passwordEncoder</span>());
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-k">public</span> <span class="pl-smi">AuthenticationManager</span> <span class="pl-en">authenticationManagerBean</span>() <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-k">return</span> <span class="pl-en">super</span>.<span class="pl-en">authenticationManagerBean</span>();
+    }
+
+    <span class="pl-c">//    @Override</span>
+<span class="pl-c">//    @Bean</span>
+<span class="pl-c">//    protected UserDetailsService userDetailsService() {</span>
+<span class="pl-c">//        UserDetails ramesh = User.builder().username("ramesh").password(passwordEncoder()</span>
+<span class="pl-c">//                .encode("password")).roles("USER").build();</span>
+<span class="pl-c">//        UserDetails admin = User.builder().username("admin").password(passwordEncoder()</span>
+<span class="pl-c">//                .encode("admin")).roles("ADMIN").build();</span>
+<span class="pl-c">//        return new InMemoryUserDetailsManager(ramesh, admin);</span>
+<span class="pl-c">//    }</span>
+}</pre></div>
+<p>接下来，这是没有 WebSecurityConfigurerAdapter 的基于组件的替代方法：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">package</span> <span class="pl-s1">com</span>.<span class="pl-s1">springboot</span>.<span class="pl-s1">blog</span>.<span class="pl-s1">config</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">com</span>.<span class="pl-s1">springboot</span>.<span class="pl-s1">blog</span>.<span class="pl-s1">security</span>.<span class="pl-s1">CustomUserDetailsService</span>;
+<span class="pl-k">import</span> <span class="pl-s1">com</span>.<span class="pl-s1">springboot</span>.<span class="pl-s1">blog</span>.<span class="pl-s1">security</span>.<span class="pl-s1">JwtAuthenticationEntryPoint</span>;
+<span class="pl-k">import</span> <span class="pl-s1">com</span>.<span class="pl-s1">springboot</span>.<span class="pl-s1">blog</span>.<span class="pl-s1">security</span>.<span class="pl-s1">JwtAuthenticationFilter</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Autowired</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Bean</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Configuration</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">http</span>.<span class="pl-s1">HttpMethod</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">AuthenticationManager</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">builders</span>.<span class="pl-s1">AuthenticationManagerBuilder</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">configuration</span>.<span class="pl-s1">AuthenticationConfiguration</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">method</span>.<span class="pl-s1">configuration</span>.<span class="pl-s1">EnableGlobalMethodSecurity</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">web</span>.<span class="pl-s1">builders</span>.<span class="pl-s1">HttpSecurity</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">web</span>.<span class="pl-s1">configuration</span>.<span class="pl-s1">EnableWebSecurity</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">web</span>.<span class="pl-s1">configuration</span>.<span class="pl-s1">WebSecurityConfigurerAdapter</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">http</span>.<span class="pl-s1">SessionCreationPolicy</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">userdetails</span>.<span class="pl-s1">User</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">userdetails</span>.<span class="pl-s1">UserDetails</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">userdetails</span>.<span class="pl-s1">UserDetailsService</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">crypto</span>.<span class="pl-s1">bcrypt</span>.<span class="pl-s1">BCryptPasswordEncoder</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">crypto</span>.<span class="pl-s1">password</span>.<span class="pl-s1">PasswordEncoder</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">provisioning</span>.<span class="pl-s1">InMemoryUserDetailsManager</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">web</span>.<span class="pl-s1">SecurityFilterChain</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">web</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">UsernamePasswordAuthenticationFilter</span>;
+
+<span class="pl-c1">@</span><span class="pl-c1">Configuration</span>
+<span class="pl-c1">@</span><span class="pl-c1">EnableWebSecurity</span>
+<span class="pl-c1">@</span><span class="pl-c1">EnableGlobalMethodSecurity</span>(<span class="pl-s1">prePostEnabled</span> = <span class="pl-c1">true</span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">SecurityConfig</span> {
+
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">private</span> <span class="pl-smi">CustomUserDetailsService</span> <span class="pl-s1">userDetailsService</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">private</span> <span class="pl-smi">JwtAuthenticationEntryPoint</span> <span class="pl-s1">authenticationEntryPoint</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-k">public</span> <span class="pl-smi">JwtAuthenticationFilter</span> <span class="pl-en">jwtAuthenticationFilter</span>(){
+        <span class="pl-k">return</span>  <span class="pl-k">new</span> <span class="pl-smi">JwtAuthenticationFilter</span>();
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-smi">PasswordEncoder</span> <span class="pl-en">passwordEncoder</span>(){
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">BCryptPasswordEncoder</span>();
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-k">protected</span> <span class="pl-smi">SecurityFilterChain</span> <span class="pl-en">securityFilterChain</span>(<span class="pl-smi">HttpSecurity</span> <span class="pl-s1">http</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-s1">http</span>
+                .<span class="pl-en">csrf</span>().<span class="pl-en">disable</span>()
+                .<span class="pl-en">exceptionHandling</span>()
+                .<span class="pl-en">authenticationEntryPoint</span>(<span class="pl-s1">authenticationEntryPoint</span>)
+                .<span class="pl-en">and</span>()
+                .<span class="pl-en">sessionManagement</span>()
+                .<span class="pl-en">sessionCreationPolicy</span>(<span class="pl-smi">SessionCreationPolicy</span>.<span class="pl-c1">STATELESS</span>)
+                .<span class="pl-en">and</span>()
+                .<span class="pl-en">authorizeRequests</span>((<span class="pl-s1">authorize</span>) -&gt; <span class="pl-s1">authorize</span>
+                        .<span class="pl-en">antMatchers</span>(<span class="pl-smi">HttpMethod</span>.<span class="pl-c1">GET</span>, <span class="pl-s">"/api/v1/**"</span>).<span class="pl-en">permitAll</span>()
+                        .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/api/v1/auth/**"</span>).<span class="pl-en">permitAll</span>()
+                        .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/v2/api-docs/**"</span>).<span class="pl-en">permitAll</span>()
+                        .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/swagger-ui/**"</span>).<span class="pl-en">permitAll</span>()
+                        .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/swagger-resources/**"</span>).<span class="pl-en">permitAll</span>()
+                        .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/swagger-ui.html"</span>).<span class="pl-en">permitAll</span>()
+                        .<span class="pl-en">antMatchers</span>(<span class="pl-s">"/webjars/**"</span>).<span class="pl-en">permitAll</span>()
+                        .<span class="pl-en">anyRequest</span>()
+                        .<span class="pl-en">authenticated</span>()
+                );
+        <span class="pl-s1">http</span>.<span class="pl-en">addFilterBefore</span>(<span class="pl-en">jwtAuthenticationFilter</span>(), <span class="pl-smi">UsernamePasswordAuthenticationFilter</span>.<span class="pl-k">class</span>);
+        <span class="pl-k">return</span> <span class="pl-s1">http</span>.<span class="pl-en">build</span>();
+    }
+
+
+<span class="pl-c">//    @Override</span>
+<span class="pl-c">//    protected void configure(HttpSecurity http) throws Exception {</span>
+<span class="pl-c">//        http</span>
+<span class="pl-c">//                .csrf().disable()</span>
+<span class="pl-c">//                .exceptionHandling()</span>
+<span class="pl-c">//                .authenticationEntryPoint(authenticationEntryPoint)</span>
+<span class="pl-c">//                .and()</span>
+<span class="pl-c">//                .sessionManagement()</span>
+<span class="pl-c">//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)</span>
+<span class="pl-c">//                .and()</span>
+<span class="pl-c">//                .authorizeRequests()</span>
+<span class="pl-c">//                .antMatchers(HttpMethod.GET, "/api/v1/**").permitAll()</span>
+<span class="pl-c">//                .antMatchers("/api/v1/auth/**").permitAll()</span>
+<span class="pl-c">//                .antMatchers("/v2/api-docs/**").permitAll()</span>
+<span class="pl-c">//                .antMatchers("/swagger-ui/**").permitAll()</span>
+<span class="pl-c">//                .antMatchers("/swagger-resources/**").permitAll()</span>
+<span class="pl-c">//                .antMatchers("/swagger-ui.html").permitAll()</span>
+<span class="pl-c">//                .antMatchers("/webjars/**").permitAll()</span>
+<span class="pl-c">//                .anyRequest()</span>
+<span class="pl-c">//                .authenticated();</span>
+<span class="pl-c">//        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);</span>
+<span class="pl-c">//    }</span>
+
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-k">public</span> <span class="pl-smi">AuthenticationManager</span> <span class="pl-en">authenticationManager</span>(
+            <span class="pl-smi">AuthenticationConfiguration</span> <span class="pl-s1">authenticationConfiguration</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-k">return</span> <span class="pl-s1">authenticationConfiguration</span>.<span class="pl-en">getAuthenticationManager</span>();
+    }
+
+<span class="pl-c">//    @Override</span>
+<span class="pl-c">//    @Bean</span>
+<span class="pl-c">//    public AuthenticationManager authenticationManagerBean() throws Exception {</span>
+<span class="pl-c">//        return super.authenticationManagerBean();</span>
+<span class="pl-c">//    }</span>
+
+    <span class="pl-c">//    @Override</span>
+<span class="pl-c">//    @Bean</span>
+<span class="pl-c">//    protected UserDetailsService userDetailsService() {</span>
+<span class="pl-c">//        UserDetails ramesh = User.builder().username("ramesh").password(passwordEncoder()</span>
+<span class="pl-c">//                .encode("password")).roles("USER").build();</span>
+<span class="pl-c">//        UserDetails admin = User.builder().username("admin").password(passwordEncoder()</span>
+<span class="pl-c">//                .encode("admin")).roles("ADMIN").build();</span>
+<span class="pl-c">//        return new InMemoryUserDetailsManager(ramesh, admin);</span>
+<span class="pl-c">//    }</span>
+}</pre></div>
+<h1>SpringSecurity邮箱验证码登录配置方式</h1>
+<h2>简介</h2>
+<p>实现邮箱认证码登录步骤：</p>
+<ul>
+<li>
+<p>电子邮件原理</p>
+</li>
+<li>
+<p>开发邮箱验证码接口</p>
+</li>
+<li>
+<p>校验邮箱验证码并登录</p>
+</li>
+<li>
+<p>重构代码</p>
+</li>
+</ul>
+<h2>发送接收电子邮件原理</h2>
+<p><strong>电子邮件服务器</strong></p>
+<p>用户要在Internet上提供电子邮件功能，必须有专门的电子邮件服务器。</p>
+<p>邮件服务器就好像是互联网世界的邮局。可以划分为两种类型：</p>
+<ul>
+<li>
+<p>SMTP邮件服务器：用户替用户发送邮件外面发送给本地用户的邮件。(邮递员)</p>
+</li>
+<li>
+<p>POP3/IMAP邮件服务器：用户帮助用户读取SMTP邮件服务器接收进来的邮件。(门前邮递箱)</p>
+</li>
+</ul>
+<p><strong>电子邮箱</strong></p>
+<p>而电子邮箱(163、qq、gmail)其实就是用户在电子邮件服务器上申请的账户</p>
+<p><strong>邮件客户端</strong></p>
+<p>而邮件客户端(FoxMail、Outlook等)集发送和收发功能于一体，帮助用户将邮件发送给SMTP邮件服务器和从POP3/IMAP邮件服务器读取用户的电子邮件。</p>
+<p><strong>邮件传输协议</strong></p>
+<ul>
+<li>
+<p>简单邮件传输协议（Simple Mail Transfer Protocol，SMTP）：定义了客户端和SMTP邮件发送服务器之间，以及两台SMTP邮件服务器之间的通信规则。</p>
+</li>
+<li>
+<p>邮局协议（Post Office Protocol，POP3）：定义了客户端和POP3邮件接收服务器的通信规则。</p>
+</li>
+<li>
+<p>消息访问协议 （Internet Message Access Protocol，IMAP）：对POP3协议的一种扩展，也是定义了客户端和IMAP邮件服务器的通信规则。</p>
+</li>
+</ul>
+<p><strong>邮件格式</strong></p>
+<p>邮件内容的基本格式和具体细节分别是由RFC822文档和MIME协议定义的。</p>
+<ul>
+<li>
+<p>RFC822文档</p>
+<p>定义的文件格式包括两个部分：邮件头、邮件体。</p>
+</li>
+<li>
+<p>复杂邮件体的格式（Multipurpose Internet Mail Extensions，MIME）</p>
+<ul>
+<li>
+<p>可以表达多段平行的文本内容和非文本的邮件内容，例如，在邮件体中内嵌的图像数据和邮件附件等。</p>
+</li>
+<li>
+<p>MIME协议的数据格式也可以避免邮件内容在传输过程中发生信息丢失。</p>
+</li>
+<li>
+<p>MIME协议不是对RFC822邮件格式的升级和替代，而是基于RFC822邮件格式的扩展应用。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>一言以蔽之，RFC822定义了邮件内容的格式和邮件头字段的详细细节，MIME协议则是定义了如何在邮件体部分表达出的丰富多样的数据内容。</p>
+<p><strong>电子邮件发送和接收流程</strong></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/1305a4ab-6944-45eb-a9a9-9c6391a094bc"><img src="https://github.com/user-attachments/assets/1305a4ab-6944-45eb-a9a9-9c6391a094bc" alt="1" style="max-width: 100%;"></a></p>
+<ul>
+<li>
+<p>用户A的电子邮箱为：<a href="mailto:xx@qq.com">xx@qq.com</a>，通过邮件客户端软件写好一封邮件，交到QQ的邮件服务器，这一步使用的协议是SMTP,对应图示的①；</p>
+</li>
+<li>
+<p>QQ邮箱服务器 会根据用户A发送的邮件进行解析，根据收件地址判断是否是自己管辖的账户</p>
+<p>如果收件地址也是 QQ邮箱服务器 内，那么会直接存放到自己的存储空间。</p>
+<p>如果发送给其他服务器（如163），那么QQ邮箱就会将邮件转发到163邮箱服务器，转发使用SMTP协议，对应图示的②；</p>
+</li>
+<li>
+<p>163邮箱服务器接收到QQ邮箱服务器转发过来的邮件</p>
+<p>会判断收件地址是否在自己内部，发现是自己的账户，那么就会将QQ邮箱转发过来的邮件存放到自己的内部存储空间，对应图示的③；</p>
+</li>
+<li>
+<p>用户B会通过邮件客户端软件先向163邮箱服务器请求，要求收取自己的邮件，对应图示的④；使用的协议是POP3</p>
+</li>
+<li>
+<p>163邮箱服务器收到用户B的请求后，会从自己的存储空间中取出B未收取的邮件，对应图示⑤；使用的协议是POP3</p>
+</li>
+<li>
+<p>163邮箱服务器取出用户B未收取的邮件后，将邮件发给用户B，对应图示的⑥；使用的协议是POP3</p>
+</li>
+</ul>
+<h2>开发邮箱验证码接口</h2>
+<p><strong>邮箱服务器打开smtp服务</strong></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/351543f4-f119-4d68-b15c-332841e6d216"><img src="https://github.com/user-attachments/assets/351543f4-f119-4d68-b15c-332841e6d216" alt="2" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/7644f7e3-7ad9-4c14-8253-d5e7716a12a4"><img src="https://github.com/user-attachments/assets/7644f7e3-7ad9-4c14-8253-d5e7716a12a4" alt="3" style="max-width: 100%;"></a></p>
+<p><strong>引入依赖</strong></p>
+<div class="highlight highlight-text-xml"><pre class="notranslate"><span class="pl-c"><span class="pl-c">&lt;!--</span>发送邮件:实现邮箱验证码<span class="pl-c">--&gt;</span></span>
+&lt;<span class="pl-ent">dependency</span>&gt;
+    &lt;<span class="pl-ent">groupId</span>&gt;org.springframework.boot&lt;/<span class="pl-ent">groupId</span>&gt;
+    &lt;<span class="pl-ent">artifactId</span>&gt;spring-boot-starter-mail&lt;/<span class="pl-ent">artifactId</span>&gt;
+&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+<p>发送email的依赖，springboot帮我们封装好了</p>
+<p>可以看到，底层用的sun公司的api</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/1917cdf7-a60a-4816-8024-6bfe1a3beeca"><img src="https://github.com/user-attachments/assets/1917cdf7-a60a-4816-8024-6bfe1a3beeca" alt="4" style="max-width: 100%;"></a></p>
+<div class="highlight highlight-source-yaml"><pre class="notranslate"><span class="pl-ent">spring</span>:
+  <span class="pl-ent">mail</span>:
+    <span class="pl-c"><span class="pl-c">#</span> 设置邮箱主机</span>
+    <span class="pl-ent">host</span>: <span class="pl-s">smtp.163.com</span>
+    <span class="pl-c"><span class="pl-c">#</span> 非SSL的端口</span>
+    <span class="pl-ent">port</span>: <span class="pl-c1">25</span>
+    <span class="pl-c"><span class="pl-c">#</span> 默认即为smtp</span>
+    <span class="pl-ent">protocol</span>: <span class="pl-s">smtp</span>
+    <span class="pl-c"><span class="pl-c">#</span> 设置用户名</span>
+    <span class="pl-ent">username</span>: <span class="pl-s">xxxxxxxxxxxxxxxxxx@163.com</span>
+    <span class="pl-c"><span class="pl-c">#</span> 设置密码，该处的密码是QQ邮箱开启SMTP的授权码而非登录密码</span>
+    <span class="pl-ent">password</span>: <span class="pl-s">xxxxxxxxxxxxxxxxxxxxxxxx</span>
+    <span class="pl-c"><span class="pl-c">#</span> 默认即为utf8</span>
+    <span class="pl-ent">default-encoding</span>: <span class="pl-s">utf-8</span></pre></div>
+<p><strong>编写EmailCodeSender实现</strong></p>
+<p>对springboot的sender进一步封装，通过接口能快速更换api</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">cn</span>.<span class="pl-s1">vshop</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">properties</span>.<span class="pl-s1">SecurityProperties</span>;
+<span class="pl-k">import</span> <span class="pl-s1">lombok</span>.<span class="pl-s1">Setter</span>;
+<span class="pl-k">import</span> <span class="pl-s1">lombok</span>.<span class="pl-s1">extern</span>.<span class="pl-s1">slf4j</span>.<span class="pl-s1">Slf4j</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Autowired</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Value</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">mail</span>.<span class="pl-s1">SimpleMailMessage</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">mail</span>.<span class="pl-s1">javamail</span>.<span class="pl-s1">JavaMailSender</span>;
+
+<span class="pl-c">/**</span>
+<span class="pl-c"> * 邮箱发送类的实现</span>
+<span class="pl-c"> *</span>
+<span class="pl-c"> * @author alan smith</span>
+<span class="pl-c"> * @version 1.0</span>
+<span class="pl-c"> * @date 2020/4/6 0:47</span>
+<span class="pl-c"> */</span>
+<span class="pl-c1">@</span><span class="pl-c1">Slf4j</span>
+<span class="pl-c1">@</span><span class="pl-c1">Setter</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">DefaultEmailCodeSender</span> <span class="pl-k">implements</span> <span class="pl-smi">EmailCodeSender</span> {
+
+    <span class="pl-c1">@</span><span class="pl-c1">Value</span>(<span class="pl-s">"${spring.mail.username}"</span>)
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">from</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">private</span> <span class="pl-smi">JavaMailSender</span> <span class="pl-s1">mailSender</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">private</span> <span class="pl-smi">SecurityProperties</span> <span class="pl-s1">securityProperties</span>;
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 简单文本邮件</span>
+<span class="pl-c">     */</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">send</span>(<span class="pl-smi">String</span> <span class="pl-s1">to</span>, <span class="pl-smi">String</span> <span class="pl-s1">code</span>) {
+        <span class="pl-smi">SimpleMailMessage</span> <span class="pl-s1">message</span> = <span class="pl-k">new</span> <span class="pl-smi">SimpleMailMessage</span>();
+        <span class="pl-c">// 设置邮件主题</span>
+        <span class="pl-c">//message.setSubject("登录验证码");</span>
+        <span class="pl-c">// 邮件的内容</span>
+        <span class="pl-s1">message</span>.<span class="pl-en">setText</span>(<span class="pl-en">contentBild</span>(<span class="pl-s1">code</span>, <span class="pl-s1">securityProperties</span>.<span class="pl-en">getCode</span>().<span class="pl-en">getEmail</span>().<span class="pl-en">getExpireIn</span>()));
+        <span class="pl-c">// 设置接收者邮箱</span>
+        <span class="pl-s1">message</span>.<span class="pl-en">setTo</span>(<span class="pl-s1">to</span>);
+        <span class="pl-c">// 设置发送者邮箱</span>
+        <span class="pl-s1">message</span>.<span class="pl-en">setFrom</span>(<span class="pl-s1">from</span>);
+        <span class="pl-c">// 发送</span>
+        <span class="pl-s1">mailSender</span>.<span class="pl-en">send</span>(<span class="pl-s1">message</span>);
+    }
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 生成邮箱信息</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-en">contentBild</span>(<span class="pl-smi">String</span> <span class="pl-s1">code</span>, <span class="pl-smi">int</span> <span class="pl-s1">expireIn</span>) {
+        <span class="pl-smi">StringBuilder</span> <span class="pl-s1">sb</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>();
+        <span class="pl-s1">sb</span>.<span class="pl-en">append</span>(<span class="pl-s">"您的验证码:"</span>);
+        <span class="pl-s1">sb</span>.<span class="pl-en">append</span>(<span class="pl-s1">code</span>);
+        <span class="pl-s1">sb</span>.<span class="pl-en">append</span>(<span class="pl-s">",有效时效:"</span>);
+        <span class="pl-s1">sb</span>.<span class="pl-en">append</span>(<span class="pl-s1">expireIn</span>);
+        <span class="pl-k">return</span> <span class="pl-s1">sb</span>.<span class="pl-en">toString</span>();
+    }
+
+
+}</pre></div>
+<p><strong>编写EmailCodeSender接口</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">/**</span>
+<span class="pl-c"> * 邮箱发送器接口</span>
+<span class="pl-c"> *</span>
+<span class="pl-c"> * @author alan smith</span>
+<span class="pl-c"> * @version 1.0</span>
+<span class="pl-c"> * @date 2020/4/6 0:42</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">EmailCodeSender</span> {
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 发送验证码到目标邮箱</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * @param to 目标邮箱</span>
+<span class="pl-c">     * @param code  验证码</span>
+<span class="pl-c">     */</span>
+    <span class="pl-smi">void</span> <span class="pl-en">send</span>(<span class="pl-smi">String</span> <span class="pl-s1">to</span>, <span class="pl-smi">String</span> <span class="pl-s1">code</span>);
+}</pre></div>
+<p><strong>编写校验码生成器EmailCodeGenerator</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">cn</span>.<span class="pl-s1">vshop</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">properties</span>.<span class="pl-s1">SecurityProperties</span>;
+<span class="pl-k">import</span> <span class="pl-s1">cn</span>.<span class="pl-s1">vshop</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">validate</span>.<span class="pl-s1">code</span>.<span class="pl-s1">ValidateCode</span>;
+<span class="pl-k">import</span> <span class="pl-s1">cn</span>.<span class="pl-s1">vshop</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">validate</span>.<span class="pl-s1">code</span>.<span class="pl-s1">ValidateCodeGenerator</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Autowired</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">javax</span>.<span class="pl-s1">servlet</span>.<span class="pl-s1">http</span>.<span class="pl-s1">HttpServletRequest</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Random</span>;
+
+<span class="pl-c">/**</span>
+<span class="pl-c"> * @author alan smith</span>
+<span class="pl-c"> * @version 1.0</span>
+<span class="pl-c"> * @date 2020/4/6 11:33</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">EmailCodeGenerator</span> <span class="pl-k">implements</span> <span class="pl-smi">ValidateCodeGenerator</span> {
+
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">private</span> <span class="pl-smi">SecurityProperties</span> <span class="pl-s1">securityProperties</span>;
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">ValidateCode</span> <span class="pl-en">generate</span>(<span class="pl-smi">HttpServletRequest</span> <span class="pl-s1">request</span>) {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">ValidateCode</span>(<span class="pl-en">getCode</span>(), <span class="pl-s1">securityProperties</span>.<span class="pl-en">getCode</span>().<span class="pl-en">getEmail</span>().<span class="pl-en">getExpireIn</span>());
+    }
+
+    <span class="pl-k">private</span> <span class="pl-smi">Random</span> <span class="pl-s1">random</span> = <span class="pl-k">new</span> <span class="pl-smi">Random</span>();
+
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-en">getCode</span>() {
+        <span class="pl-smi">StringBuilder</span> <span class="pl-s1">sb</span> = <span class="pl-k">new</span> <span class="pl-smi">StringBuilder</span>();
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">securityProperties</span>.<span class="pl-en">getCode</span>().<span class="pl-en">getEmail</span>().<span class="pl-en">getLength</span>(); <span class="pl-s1">i</span>++) {
+            <span class="pl-s1">sb</span>.<span class="pl-en">append</span>(<span class="pl-s1">random</span>.<span class="pl-en">nextInt</span>(<span class="pl-c1">10</span>));
+        }
+        <span class="pl-k">return</span> <span class="pl-s1">sb</span>.<span class="pl-en">toString</span>();
+    }
+
+}</pre></div>
+<p><strong>修改ValidateCodeController</strong></p>
+<p>在ValidateCodeController中添加接口，和相应的依赖</p>
+<p>按情况修改前面代码的名称，使代码读起来更加合理</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">cn</span>.<span class="pl-s1">vshop</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">validate</span>.<span class="pl-s1">code</span>.<span class="pl-s1">email</span>.<span class="pl-s1">EmailCodeSender</span>;
+<span class="pl-k">import</span> <span class="pl-s1">cn</span>.<span class="pl-s1">vshop</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">validate</span>.<span class="pl-s1">code</span>.<span class="pl-s1">image</span>.<span class="pl-s1">ImageCode</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Autowired</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Qualifier</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">social</span>.<span class="pl-s1">connect</span>.<span class="pl-s1">web</span>.<span class="pl-s1">HttpSessionSessionStrategy</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">social</span>.<span class="pl-s1">connect</span>.<span class="pl-s1">web</span>.<span class="pl-s1">SessionStrategy</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">ServletRequestBindingException</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">ServletRequestUtils</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">GetMapping</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">RestController</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">context</span>.<span class="pl-s1">request</span>.<span class="pl-s1">ServletWebRequest</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">javax</span>.<span class="pl-s1">imageio</span>.<span class="pl-s1">ImageIO</span>;
+<span class="pl-k">import</span> <span class="pl-s1">javax</span>.<span class="pl-s1">servlet</span>.<span class="pl-s1">http</span>.<span class="pl-s1">HttpServletRequest</span>;
+<span class="pl-k">import</span> <span class="pl-s1">javax</span>.<span class="pl-s1">servlet</span>.<span class="pl-s1">http</span>.<span class="pl-s1">HttpServletResponse</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">io</span>.<span class="pl-s1">IOException</span>;
+
+<span class="pl-c">/**</span>
+<span class="pl-c"> * @author alan smith</span>
+<span class="pl-c"> * @version 1.0</span>
+<span class="pl-c"> * @date 2020/4/5 1:33</span>
+<span class="pl-c"> */</span>
+<span class="pl-c1">@</span><span class="pl-c1">RestController</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ValidateCodeController</span> {
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 图片校验码信息存入session中的key</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-c1">IMAGE_SESSION_KEY</span> = <span class="pl-s">"SESSION_KEY_IMAGE_CODE"</span>;
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 邮箱校验码信息存入session中的key</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-c1">EMAIL_SESSION_KEY</span> = <span class="pl-s">"SESSION_KEY_EMAIL_CODE"</span>;
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 注入接口，接口的实现完成【图片】验证码的生成和封装</span>
+<span class="pl-c">     */</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Qualifier</span>(<span class="pl-s">"imageCodeGenerator"</span>)
+    <span class="pl-k">private</span> <span class="pl-smi">ValidateCodeGenerator</span> <span class="pl-s1">imageCodeGenerator</span>;
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 注入接口，接口的实现完成【邮箱】验证码的生成和封装</span>
+<span class="pl-c">     */</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Qualifier</span>(<span class="pl-s">"emailCodeGenerator"</span>)
+    <span class="pl-k">private</span> <span class="pl-smi">ValidateCodeGenerator</span> <span class="pl-s1">emailCodeGenerator</span>;
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 发送邮箱的工具实现</span>
+<span class="pl-c">     */</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Qualifier</span>(<span class="pl-s">"emailCodeSender"</span>)
+    <span class="pl-k">private</span> <span class="pl-smi">EmailCodeSender</span> <span class="pl-s1">emailCodeSender</span> ;
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Spring 的工具类，用以操作session</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">private</span> <span class="pl-smi">SessionStrategy</span> <span class="pl-s1">sessionStrategy</span> = <span class="pl-k">new</span> <span class="pl-smi">HttpSessionSessionStrategy</span>();
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 图片验证码接口</span>
+<span class="pl-c">     */</span>
+    <span class="pl-c1">@</span><span class="pl-c1">GetMapping</span>(<span class="pl-s">"/code/image"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">createCode</span>(<span class="pl-smi">HttpServletRequest</span> <span class="pl-s1">request</span>, <span class="pl-smi">HttpServletResponse</span> <span class="pl-s1">response</span>) <span class="pl-k">throws</span> <span class="pl-smi">IOException</span> {
+        <span class="pl-c">// 生成随机的验证码，并封装为 ImageCode</span>
+        <span class="pl-smi">ImageCode</span> <span class="pl-s1">imageCode</span> = (<span class="pl-smi">ImageCode</span>) <span class="pl-s1">imageCodeGenerator</span>.<span class="pl-en">generate</span>(<span class="pl-s1">request</span>);
+        <span class="pl-c">// 获取session，并把键值对存入session</span>
+        <span class="pl-s1">sessionStrategy</span>.<span class="pl-en">setAttribute</span>(
+                <span class="pl-c">// ServletWebRequest 是一个适配器（Adapter），把servlet封装成spring的WebRequest（继承了RequestAttributes）</span>
+                <span class="pl-c">// 通过把请求传进来，sessionStrategy会从请求中获取session</span>
+                <span class="pl-k">new</span> <span class="pl-smi">ServletWebRequest</span>(<span class="pl-s1">request</span>),
+                <span class="pl-c">// 存入session中的key</span>
+                <span class="pl-c1">IMAGE_SESSION_KEY</span>,
+                <span class="pl-c">// 存入session中的值</span>
+                <span class="pl-s1">imageCode</span>);
+        <span class="pl-c">// javax的io工具包</span>
+        <span class="pl-c">// 将BufferedImage以指定格式写入输出流中</span>
+        <span class="pl-smi">ImageIO</span>.<span class="pl-en">write</span>(
+                <span class="pl-c">// 以BufferedImage类型的图片</span>
+                <span class="pl-s1">imageCode</span>.<span class="pl-en">getImage</span>(),
+                <span class="pl-c">// 输出的图片格式</span>
+                <span class="pl-s">"JPEG"</span>,
+                <span class="pl-c">// 输出流，输出到响应体中</span>
+                <span class="pl-s1">response</span>.<span class="pl-en">getOutputStream</span>());
+
+    }
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 邮箱验证码接口</span>
+<span class="pl-c">     */</span>
+    <span class="pl-c1">@</span><span class="pl-c1">GetMapping</span>(<span class="pl-s">"/code/email"</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">createSmsCode</span>(<span class="pl-smi">HttpServletRequest</span> <span class="pl-s1">request</span>, <span class="pl-smi">HttpServletResponse</span> <span class="pl-s1">response</span>) <span class="pl-k">throws</span> <span class="pl-smi">ServletRequestBindingException</span> {
+        <span class="pl-c">// 生成邮箱形式的验证码(普通的验证码)</span>
+        <span class="pl-smi">ValidateCode</span> <span class="pl-s1">emailCode</span> = <span class="pl-s1">emailCodeGenerator</span>.<span class="pl-en">generate</span>(<span class="pl-s1">request</span>);
+        <span class="pl-c">// 将验证码放入session</span>
+        <span class="pl-s1">sessionStrategy</span>.<span class="pl-en">setAttribute</span>(<span class="pl-k">new</span> <span class="pl-smi">ServletWebRequest</span>(<span class="pl-s1">request</span>), <span class="pl-c1">EMAIL_SESSION_KEY</span>, <span class="pl-s1">emailCode</span>);
+        <span class="pl-c">// 请求参数中获取目标eamil</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">email</span> = <span class="pl-smi">ServletRequestUtils</span>.<span class="pl-en">getRequiredStringParameter</span>(<span class="pl-s1">request</span>, <span class="pl-s">"email"</span>) ;
+        <span class="pl-c">// 发送短信</span>
+        <span class="pl-s1">emailCodeSender</span>.<span class="pl-en">send</span>(<span class="pl-s1">email</span>, <span class="pl-s1">emailCode</span>.<span class="pl-en">getCode</span>());
+    }
+
+}</pre></div>
+<p><strong>打开接口的访问权限</strong></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/e5d59a91-3cbf-43a2-b23e-de116ca06275"><img src="https://github.com/user-attachments/assets/e5d59a91-3cbf-43a2-b23e-de116ca06275" alt="5" style="max-width: 100%;"></a></p>
+<p><strong>修改application.yml</strong></p>
+<p>把登录的界面改成新写的界面</p>
+<div class="highlight highlight-source-yaml"><pre class="notranslate"><span class="pl-ent">v</span>:
+  <span class="pl-ent">security</span>:
+    <span class="pl-ent">browser</span>:
+      <span class="pl-c"><span class="pl-c">#</span> 登录页面</span>
+      <span class="pl-ent">loginPage</span>: <span class="pl-s">/login3.html</span></pre></div>
+<p><strong>前端代码</strong></p>
+<p>创建新的登录页面 login3.html</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/a629904f-06e0-4c68-8743-063c33b05750"><img src="https://github.com/user-attachments/assets/a629904f-06e0-4c68-8743-063c33b05750" alt="6" style="max-width: 100%;"></a></p>
+<p>前端代码bug不深究</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/de58af5d-45f7-4198-beed-f685fd8dc581"><img src="https://github.com/user-attachments/assets/de58af5d-45f7-4198-beed-f685fd8dc581" alt="7" style="max-width: 100%;"></a></p>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate"><span class="pl-c1">&lt;!DOCTYPE html<span class="pl-kos">&gt;</span></span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">html</span> <span class="pl-c1">lang</span>="<span class="pl-s">en</span>"<span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">head</span><span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;</span><span class="pl-ent">meta</span> <span class="pl-c1">charset</span>="<span class="pl-s">UTF-8</span>"<span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;</span><span class="pl-ent">title</span><span class="pl-kos">&gt;</span>Title<span class="pl-kos">&lt;/</span><span class="pl-ent">title</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">head</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">body</span><span class="pl-kos">&gt;</span>
+
+<span class="pl-kos">&lt;</span><span class="pl-ent">h2</span><span class="pl-kos">&gt;</span>邮箱登录<span class="pl-kos">&lt;/</span><span class="pl-ent">h2</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">form</span> <span class="pl-c1">id</span>="<span class="pl-s">loginForm</span>" <span class="pl-c1">method</span>="<span class="pl-s">post</span>" <span class="pl-c1">action</span>="<span class="pl-s">/authentication/email</span>"<span class="pl-kos">&gt;</span>
+    邮箱: <span class="pl-kos">&lt;</span><span class="pl-ent">input</span> <span class="pl-c1">type</span>="<span class="pl-s">text</span>" <span class="pl-c1">name</span>="<span class="pl-s">email</span>" <span class="pl-c1">value</span>="<span class="pl-s">1191693505@qq.com</span>"<span class="pl-kos">&gt;</span><span class="pl-kos">&lt;</span><span class="pl-ent">br</span><span class="pl-kos">&gt;</span>
+    验证码:<span class="pl-kos">&lt;</span><span class="pl-ent">input</span> <span class="pl-c1">type</span>="<span class="pl-s">text</span>" <span class="pl-c1">name</span>="<span class="pl-s">emailCode</span>"<span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;</span><span class="pl-ent">button</span> <span class="pl-c1">onclick</span>="<span class="pl-s">sendCode(this)</span>"<span class="pl-kos">&gt;</span>发送验证码<span class="pl-kos">&lt;/</span><span class="pl-ent">button</span><span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;</span><span class="pl-ent">br</span><span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;</span><span class="pl-ent">input</span> <span class="pl-c1">type</span>="<span class="pl-s">checkbox</span>" <span class="pl-c1">value</span>="<span class="pl-s">true</span>" <span class="pl-c1">name</span>="<span class="pl-s">remember-me</span>"<span class="pl-kos">&gt;</span>记住我<span class="pl-kos">&lt;</span><span class="pl-ent">br</span><span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;</span><span class="pl-ent">input</span> <span class="pl-c1">type</span>="<span class="pl-s">submit</span>" <span class="pl-c1">value</span>="<span class="pl-s">登录</span>"<span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">form</span><span class="pl-kos">&gt;</span>
+
+<span class="pl-kos">&lt;</span><span class="pl-ent">script</span><span class="pl-kos">&gt;</span>
+    <span class="pl-k">let</span> <span class="pl-s1">form</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">FormData</span><span class="pl-kos">(</span><span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">getElementById</span><span class="pl-kos">(</span><span class="pl-s">"loginForm"</span><span class="pl-kos">)</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+
+    <span class="pl-k">function</span> <span class="pl-en">sendCode</span><span class="pl-kos">(</span><span class="pl-s1">o</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-k">let</span> <span class="pl-s1">xhr</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">XMLHttpRequest</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-s1">xhr</span><span class="pl-kos">.</span><span class="pl-en">open</span><span class="pl-kos">(</span><span class="pl-s">'GET'</span><span class="pl-kos">,</span> <span class="pl-en">path</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-s1">xhr</span><span class="pl-kos">.</span><span class="pl-en">send</span><span class="pl-kos">(</span><span class="pl-c1">null</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-s1">xhr</span><span class="pl-kos">.</span><span class="pl-en">onload</span> <span class="pl-c1">=</span> <span class="pl-k">function</span> <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+            <span class="pl-en">alert</span><span class="pl-kos">(</span><span class="pl-s">"验证码发送成功!"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-kos">}</span>
+        <span class="pl-en">time</span><span class="pl-kos">(</span><span class="pl-s1">o</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span>
+
+    <span class="pl-k">function</span> <span class="pl-en">path</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-k">let</span> <span class="pl-s1">email</span> <span class="pl-c1">=</span> <span class="pl-s1">form</span><span class="pl-kos">.</span><span class="pl-en">get</span><span class="pl-kos">(</span><span class="pl-s">"email"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-k">return</span> <span class="pl-s">"/code/email?email="</span> <span class="pl-c1">+</span> <span class="pl-s1">email</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span>
+
+    <span class="pl-k">let</span> <span class="pl-s1">wait</span> <span class="pl-c1">=</span> <span class="pl-c1">60</span> <span class="pl-kos">;</span>
+    <span class="pl-k">let</span> <span class="pl-s1">content</span> <span class="pl-c1">=</span> <span class="pl-s">"发送验证码"</span>
+
+    <span class="pl-k">function</span> <span class="pl-en">time</span><span class="pl-kos">(</span><span class="pl-s1">o</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">wait</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+            <span class="pl-s1">o</span><span class="pl-kos">.</span><span class="pl-en">removeAttribute</span><span class="pl-kos">(</span><span class="pl-s">"disabled"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+            <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">content</span><span class="pl-kos">)</span> <span class="pl-s1">o</span><span class="pl-kos">.</span><span class="pl-c1">innerHTML</span> <span class="pl-c1">=</span> <span class="pl-s1">content</span><span class="pl-kos">;</span>
+            <span class="pl-s1">wait</span> <span class="pl-c1">=</span> <span class="pl-c1">60</span><span class="pl-kos">;</span>
+        <span class="pl-kos">}</span> <span class="pl-k">else</span> <span class="pl-kos">{</span>
+            <span class="pl-s1">o</span><span class="pl-kos">.</span><span class="pl-en">setAttribute</span><span class="pl-kos">(</span><span class="pl-s">"disabled"</span><span class="pl-kos">,</span> <span class="pl-c1">true</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+            <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">o</span><span class="pl-kos">.</span><span class="pl-c1">innerHTML</span><span class="pl-kos">)</span> <span class="pl-s1">content</span> <span class="pl-c1">=</span> <span class="pl-s1">o</span><span class="pl-kos">.</span><span class="pl-c1">innerHTML</span><span class="pl-kos">;</span>
+            <span class="pl-s1">o</span><span class="pl-kos">.</span><span class="pl-c1">innerHTML</span> <span class="pl-c1">=</span> <span class="pl-s1">wait</span> <span class="pl-c1">+</span> <span class="pl-s">"秒后可以重新发送"</span><span class="pl-kos">;</span>
+            <span class="pl-s1">wait</span><span class="pl-c1">--</span><span class="pl-kos">;</span>
+            <span class="pl-en">setTimeout</span><span class="pl-kos">(</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-kos">{</span>
+                <span class="pl-en">time</span><span class="pl-kos">(</span><span class="pl-s1">o</span><span class="pl-kos">)</span>
+            <span class="pl-kos">}</span><span class="pl-kos">,</span> <span class="pl-c1">1000</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-kos">}</span>
+    <span class="pl-kos">}</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">script</span><span class="pl-kos">&gt;</span>
+
+<span class="pl-kos">&lt;/</span><span class="pl-ent">body</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">html</span><span class="pl-kos">&gt;</span></pre></div>
+<p><strong>访问测试</strong></p>
+<p><a href="http://localhost:8080/login3.html" rel="nofollow">http://localhost:8080/login3.html</a></p>
+<p>写入邮箱，</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/65821308-f03e-4f57-b162-0a33791d7413"><img src="https://github.com/user-attachments/assets/65821308-f03e-4f57-b162-0a33791d7413" alt="8" style="max-width: 100%;"></a></p>
+<h2>重构代码（一）</h2>
+<p>重构思路是用模板方法把代码（分级）抽出</p>
+<ul>
+<li>
+<p>声明ValidateCodeProcessor接口（处理验证码生成整个流程）</p>
+<p>生成验证码过程抽象为三步：生成、存储、发送</p>
+<p>如果整个验证码逻辑发生改变，只需要借助一级创建一个新接口实现即可。</p>
+</li>
+<li>
+<p>接口有一个抽象的实现 AbstractValidateCodeProcessor</p>
+<p>实现两步：生成、存储</p>
+<p>其中生成逻辑封装在：ValidateCodeGenerator，根据不同类型认证码给出不同实现</p>
+</li>
+<li>
+<p>而不一样的部分：发送（邮箱发送、图片发送）则写到子类ImageCodeProcessor和EmailCodeProcessor</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b977658c-56a6-445d-b8f5-1dcd2f21a591"><img src="https://github.com/user-attachments/assets/b977658c-56a6-445d-b8f5-1dcd2f21a591" alt="9" style="max-width: 100%;"></a></p>
+<p><strong>重构抽象类 generate方法时，用到 spring 常见的开发技巧：依赖查找</strong></p>
+<p>因为图形验证码和邮箱验证码的生成逻辑都是封装在ValidateCodeGenerator接口下面，当我们（下图）形式注入时</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/464a1add-14d5-4812-94d5-4048b67d56a7"><img src="https://github.com/user-attachments/assets/464a1add-14d5-4812-94d5-4048b67d56a7" alt="10" style="max-width: 100%;"></a></p>
+<p>spring会把实现了接口的bean，以名字作为key，bean的值作为value存入</p>
+<p>当收到请求，会从请求中截取认证类型的部分，调用相应的认证类型的 ValidateCodeGenerator</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/9a3f8c3a-be50-482a-bd9d-77b0485234bb"><img src="https://github.com/user-attachments/assets/9a3f8c3a-be50-482a-bd9d-77b0485234bb" alt="11" style="max-width: 100%;"></a></p>
+<h2>校验邮箱验证码并登录</h2>
+<p>仿照（下图）用户密码登录流程，给出邮箱验证码验证流程</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/cafddc75-3723-496b-b30a-c297295c01d3"><img src="https://github.com/user-attachments/assets/cafddc75-3723-496b-b30a-c297295c01d3" alt="12" style="max-width: 100%;"></a></p>
+<p>要创建下面几个类：</p>
+<ul>
+<li>
+<p>EmailCodeFilter：拦截邮件认证请求，校验邮箱认证码是否正确</p>
+</li>
+<li>
+<p>EmailAuthenticationFilter：拦截邮件认证请求，通过邮箱获取角色认证</p>
+</li>
+<li>
+<p>EmailAuthenticationToken：短信认证Token，封装邮件登录信息</p>
+</li>
+<li>
+<p>EmailAuthenticaionProvider：能对邮件认证Token处理的Provider解析成UserDetails</p>
+</li>
+<li>
+<p>EmailUserDetailsService：根据邮箱获取UserDetails</p>
+</li>
+</ul>
+<p>因为无论是浏览器亦或者手机端均会使用短信验证，因此写在 core 模块中。</p>
+<p><strong>编写EmailAuthenticationToken</strong></p>
+<p>直接复制 UsernamePasswordAuthenticationToken,并且去掉Credential(密码)部分即可</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/4770a1a6-b8a9-47f0-892e-ec4200e5c329"><img src="https://github.com/user-attachments/assets/4770a1a6-b8a9-47f0-892e-ec4200e5c329" alt="13" style="max-width: 100%;"></a></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">AbstractAuthenticationToken</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">UsernamePasswordAuthenticationToken</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">GrantedAuthority</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">SpringSecurityCoreVersion</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Collection</span>;
+
+<span class="pl-c">/**</span>
+<span class="pl-c"> * 封装登录信息</span>
+<span class="pl-c"> * &lt;p&gt;</span>
+<span class="pl-c"> * 直接复制 {@link UsernamePasswordAuthenticationToken},并且去掉Credential(密码)部分</span>
+<span class="pl-c"> *</span>
+<span class="pl-c"> * @author alan smith</span>
+<span class="pl-c"> * @version 1.0</span>
+<span class="pl-c"> * @date 2020/4/6 22:26</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">EmailCodeAuthenticationToken</span> <span class="pl-k">extends</span> <span class="pl-smi">AbstractAuthenticationToken</span> {
+
+    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">long</span> <span class="pl-s1">serialVersionUID</span> = <span class="pl-smi">SpringSecurityCoreVersion</span>.<span class="pl-c1">SERIAL_VERSION_UID</span>;
+
+    <span class="pl-c">// ~ Instance fields</span>
+    <span class="pl-c">// ================================================================================================</span>
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 登录前：邮箱</span>
+<span class="pl-c">     * 登录后：用户信息</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">Object</span> <span class="pl-s1">principal</span>;
+
+    <span class="pl-c">// ~ Constructors</span>
+    <span class="pl-c">// ===================================================================================================</span>
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * This constructor can be safely used by any code that wishes to create a</span>
+<span class="pl-c">     * &lt;code&gt;UsernamePasswordAuthenticationToken&lt;/code&gt;, as the {@link #isAuthenticated()}</span>
+<span class="pl-c">     * will return &lt;code&gt;false&lt;/code&gt;.</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">public</span> <span class="pl-smi">EmailCodeAuthenticationToken</span>(<span class="pl-smi">Object</span> <span class="pl-s1">email</span>) {
+        <span class="pl-en">super</span>(<span class="pl-c1">null</span>);
+        <span class="pl-smi">this</span>.<span class="pl-s1">principal</span> = <span class="pl-s1">email</span>;
+        <span class="pl-en">setAuthenticated</span>(<span class="pl-c1">false</span>);
+    }
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * This constructor should only be used by &lt;code&gt;AuthenticationManager&lt;/code&gt; or</span>
+<span class="pl-c">     * &lt;code&gt;AuthenticationProvider&lt;/code&gt; implementations that are satisfied with</span>
+<span class="pl-c">     * producing a trusted (i.e. {@link #isAuthenticated()} = &lt;code&gt;true&lt;/code&gt;)</span>
+<span class="pl-c">     * authentication token.</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * @param principal</span>
+<span class="pl-c">     * @param authorities</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">public</span> <span class="pl-smi">EmailCodeAuthenticationToken</span>(<span class="pl-smi">Object</span> <span class="pl-s1">principal</span>, <span class="pl-smi">Collection</span>&lt;? <span class="pl-k">extends</span> <span class="pl-smi">GrantedAuthority</span>&gt; <span class="pl-s1">authorities</span>) {
+        <span class="pl-en">super</span>(<span class="pl-s1">authorities</span>);
+        <span class="pl-smi">this</span>.<span class="pl-s1">principal</span> = <span class="pl-s1">principal</span>;
+        <span class="pl-en">super</span>.<span class="pl-en">setAuthenticated</span>(<span class="pl-c1">true</span>); <span class="pl-c">// must use super, as we override</span>
+    }
+
+    <span class="pl-c">// ~ Methods</span>
+    <span class="pl-c">// ========================================================================================================</span>
+
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Object</span> <span class="pl-en">getCredentials</span>() {
+        <span class="pl-k">return</span> <span class="pl-c1">null</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Object</span> <span class="pl-en">getPrincipal</span>() {
+        <span class="pl-k">return</span> <span class="pl-smi">this</span>.<span class="pl-s1">principal</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setAuthenticated</span>(<span class="pl-smi">boolean</span> <span class="pl-s1">isAuthenticated</span>) <span class="pl-k">throws</span> <span class="pl-smi">IllegalArgumentException</span> {
+        <span class="pl-k">if</span> (<span class="pl-s1">isAuthenticated</span>) {
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">IllegalArgumentException</span>(
+                    <span class="pl-s">"Cannot set this token to trusted - use constructor which takes a GrantedAuthority list instead"</span>);
+        }
+
+        <span class="pl-en">super</span>.<span class="pl-en">setAuthenticated</span>(<span class="pl-c1">false</span>);
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">eraseCredentials</span>() {
+        <span class="pl-en">super</span>.<span class="pl-en">eraseCredentials</span>();
+    }
+
+}</pre></div>
+<p><strong>编写EmailAuthenticationFilter</strong></p>
+<p>同样的，复制 UsernamePasswordAuthenticationFilter，并改成 Email 形式</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/289c6871-5d66-4415-be0e-a0c64030edca"><img src="https://github.com/user-attachments/assets/289c6871-5d66-4415-be0e-a0c64030edca" alt="14" style="max-width: 100%;"></a></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">AuthenticationServiceException</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">Authentication</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">AuthenticationException</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">web</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">AbstractAuthenticationProcessingFilter</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">web</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">UsernamePasswordAuthenticationFilter</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">web</span>.<span class="pl-s1">util</span>.<span class="pl-s1">matcher</span>.<span class="pl-s1">AntPathRequestMatcher</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Assert</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">javax</span>.<span class="pl-s1">servlet</span>.<span class="pl-s1">http</span>.<span class="pl-s1">HttpServletRequest</span>;
+<span class="pl-k">import</span> <span class="pl-s1">javax</span>.<span class="pl-s1">servlet</span>.<span class="pl-s1">http</span>.<span class="pl-s1">HttpServletResponse</span>;
+
+<span class="pl-c">/**</span>
+<span class="pl-c"> * 拦截邮箱验证码请求，并且组装Token</span>
+<span class="pl-c"> * &lt;p&gt;</span>
+<span class="pl-c"> * 直接复制 {@link UsernamePasswordAuthenticationFilter},并作出相依修改</span>
+<span class="pl-c"> *</span>
+<span class="pl-c"> * @author alan smith</span>
+<span class="pl-c"> * @version 1.0</span>
+<span class="pl-c"> * @date 2020/4/6 22:46</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">EmailCodeAuthenticationFilter</span> <span class="pl-k">extends</span> <span class="pl-smi">AbstractAuthenticationProcessingFilter</span> {
+    <span class="pl-c">// ~ Static fields/initializers</span>
+    <span class="pl-c">// =====================================================================================</span>
+
+    <span class="pl-c">// 请求中携带参数的名字</span>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-c1">SPRING_SECURITY_FORM_EMAIL_KEY</span> = <span class="pl-s">"email"</span>;
+
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">emailParameter</span> = <span class="pl-c1">SPRING_SECURITY_FORM_EMAIL_KEY</span>;
+    <span class="pl-k">private</span> <span class="pl-smi">boolean</span> <span class="pl-s1">postOnly</span> = <span class="pl-c1">true</span>;
+
+    <span class="pl-c">// ~ Constructors</span>
+    <span class="pl-c">// ===================================================================================================</span>
+
+    <span class="pl-k">public</span> <span class="pl-smi">EmailCodeAuthenticationFilter</span>() {
+        <span class="pl-en">super</span>(<span class="pl-k">new</span> <span class="pl-smi">AntPathRequestMatcher</span>(
+                <span class="pl-c">// 匹配的请求</span>
+                <span class="pl-s">"/authentication/email"</span>, <span class="pl-s">"POST"</span>));
+    }
+
+    <span class="pl-c">// ~ Methods</span>
+    <span class="pl-c">// ========================================================================================================</span>
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Authentication</span> <span class="pl-en">attemptAuthentication</span>(<span class="pl-smi">HttpServletRequest</span> <span class="pl-s1">request</span>,
+                                                <span class="pl-smi">HttpServletResponse</span> <span class="pl-s1">response</span>) <span class="pl-k">throws</span> <span class="pl-smi">AuthenticationException</span> {
+        <span class="pl-c">// 判断当前请求是否为POST请求，如果不是就抛出异常</span>
+        <span class="pl-k">if</span> (<span class="pl-s1">postOnly</span> &amp;&amp; !<span class="pl-s1">request</span>.<span class="pl-en">getMethod</span>().<span class="pl-en">equals</span>(<span class="pl-s">"POST"</span>)) {
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">AuthenticationServiceException</span>(
+                    <span class="pl-s">"Authentication method not supported: "</span> + <span class="pl-s1">request</span>.<span class="pl-en">getMethod</span>());
+        }
+
+        <span class="pl-smi">String</span> <span class="pl-s1">email</span> = <span class="pl-en">obtainEmail</span>(<span class="pl-s1">request</span>);
+
+        <span class="pl-k">if</span> (<span class="pl-s1">email</span> == <span class="pl-c1">null</span>) {
+            <span class="pl-s1">email</span> = <span class="pl-s">""</span>;
+        }
+
+        <span class="pl-s1">email</span> = <span class="pl-s1">email</span>.<span class="pl-en">trim</span>();
+
+        <span class="pl-smi">EmailCodeAuthenticationToken</span> <span class="pl-s1">authRequest</span> = <span class="pl-k">new</span> <span class="pl-smi">EmailCodeAuthenticationToken</span>(<span class="pl-s1">email</span>);
+
+        <span class="pl-c">// 把请求信息放入Token，比如说IP、session</span>
+        <span class="pl-c">// Allow subclasses to set the "details" property</span>
+        <span class="pl-en">setDetails</span>(<span class="pl-s1">request</span>, <span class="pl-s1">authRequest</span>);
+
+        <span class="pl-c">// 使用AuthenticationManager进行认证流程</span>
+        <span class="pl-k">return</span> <span class="pl-smi">this</span>.<span class="pl-en">getAuthenticationManager</span>().<span class="pl-en">authenticate</span>(<span class="pl-s1">authRequest</span>);
+    }
+
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Enables subclasses to override the composition of the username, such as by</span>
+<span class="pl-c">     * including additional values and a separator.</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * @param request so that request attributes can be retrieved</span>
+<span class="pl-c">     * @return the username that will be presented in the &lt;code&gt;Authentication&lt;/code&gt;</span>
+<span class="pl-c">     * request token to the &lt;code&gt;AuthenticationManager&lt;/code&gt;</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">protected</span> <span class="pl-smi">String</span> <span class="pl-en">obtainEmail</span>(<span class="pl-smi">HttpServletRequest</span> <span class="pl-s1">request</span>) {
+        <span class="pl-k">return</span> <span class="pl-s1">request</span>.<span class="pl-en">getParameter</span>(<span class="pl-s1">emailParameter</span>);
+    }
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Provided so that subclasses may configure what is put into the authentication</span>
+<span class="pl-c">     * request's details property.</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * @param request     that an authentication request is being created for</span>
+<span class="pl-c">     * @param authRequest the authentication request object that should have its details</span>
+<span class="pl-c">     *                    set</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">protected</span> <span class="pl-smi">void</span> <span class="pl-en">setDetails</span>(<span class="pl-smi">HttpServletRequest</span> <span class="pl-s1">request</span>, <span class="pl-smi">EmailCodeAuthenticationToken</span> <span class="pl-s1">authRequest</span>) {
+        <span class="pl-s1">authRequest</span>.<span class="pl-en">setDetails</span>(<span class="pl-s1">authenticationDetailsSource</span>.<span class="pl-en">buildDetails</span>(<span class="pl-s1">request</span>));
+    }
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Sets the parameter name which will be used to obtain the username from the login</span>
+<span class="pl-c">     * request.</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * @param emailParameter the parameter name. Defaults to "username".</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setEmailParameter</span>(<span class="pl-smi">String</span> <span class="pl-s1">emailParameter</span>) {
+        <span class="pl-smi">Assert</span>.<span class="pl-en">hasText</span>(<span class="pl-s1">emailParameter</span>, <span class="pl-s">"Username parameter must not be empty or null"</span>);
+        <span class="pl-smi">this</span>.<span class="pl-s1">emailParameter</span> = <span class="pl-s1">emailParameter</span>;
+    }
+
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * Defines whether only HTTP POST requests will be allowed by this filter. If set to</span>
+<span class="pl-c">     * true, and an authentication request is received which is not a POST request, an</span>
+<span class="pl-c">     * exception will be raised immediately and authentication will not be attempted. The</span>
+<span class="pl-c">     * &lt;tt&gt;unsuccessfulAuthentication()&lt;/tt&gt; method will be called as if handling a failed</span>
+<span class="pl-c">     * authentication.</span>
+<span class="pl-c">     * &lt;p&gt;</span>
+<span class="pl-c">     * Defaults to &lt;tt&gt;true&lt;/tt&gt; but may be overridden by subclasses.</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">setPostOnly</span>(<span class="pl-smi">boolean</span> <span class="pl-s1">postOnly</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">postOnly</span> = <span class="pl-s1">postOnly</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-smi">String</span> <span class="pl-en">getEmailParameter</span>() {
+        <span class="pl-k">return</span> <span class="pl-s1">emailParameter</span>;
+    }
+
+}</pre></div>
+<p><strong>编写EmailCodeAuthenticationProvider</strong></p>
+<p>提供对我们自定义的EmailAuthenticationToken的认证提供者。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/f0b4b28f-4e53-48b0-9a6e-1050b16ace39"><img src="https://github.com/user-attachments/assets/f0b4b28f-4e53-48b0-9a6e-1050b16ace39" alt="15" style="max-width: 100%;"></a></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">AuthenticationProvider</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">InternalAuthenticationServiceException</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">Authentication</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">AuthenticationException</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">userdetails</span>.<span class="pl-s1">UserDetails</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">userdetails</span>.<span class="pl-s1">UserDetailsService</span>;
+
+<span class="pl-c">/**</span>
+<span class="pl-c"> * 邮箱验证码认证的提供者，</span>
+<span class="pl-c"> *</span>
+<span class="pl-c"> * @author alan smith</span>
+<span class="pl-c"> * @version 1.0</span>
+<span class="pl-c"> * @date 2020/4/6 23:05</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">EmailCodeAuthenticationProvider</span> <span class="pl-k">implements</span> <span class="pl-smi">AuthenticationProvider</span> {
+
+    <span class="pl-k">private</span> <span class="pl-smi">UserDetailsService</span> <span class="pl-s1">userDetailsService</span> ;
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 认证的主要逻辑</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * @param authentication 我们自定义的 EmailCodeAuthenticationToken</span>
+<span class="pl-c">     * @return</span>
+<span class="pl-c">     * @throws AuthenticationException</span>
+<span class="pl-c">     */</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Authentication</span> <span class="pl-en">authenticate</span>(<span class="pl-smi">Authentication</span> <span class="pl-s1">authentication</span>) <span class="pl-k">throws</span> <span class="pl-smi">AuthenticationException</span> {
+        <span class="pl-c">// supports方法通过已经说明token为EmailCodeAuthenticationToken，因此可以强转</span>
+        <span class="pl-smi">EmailCodeAuthenticationToken</span> <span class="pl-s1">authenticationToken</span> = (<span class="pl-smi">EmailCodeAuthenticationToken</span>) <span class="pl-s1">authentication</span>;
+        <span class="pl-c">// 此时principal为email，调用（自定义）UserDetailsService，通过email获取UserDetails</span>
+        <span class="pl-smi">UserDetails</span> <span class="pl-s1">user</span> = <span class="pl-s1">userDetailsService</span>.<span class="pl-en">loadUserByUsername</span>((<span class="pl-smi">String</span>) <span class="pl-s1">authenticationToken</span>.<span class="pl-en">getPrincipal</span>());
+
+        <span class="pl-k">if</span>(<span class="pl-s1">user</span>==<span class="pl-c1">null</span>){
+            <span class="pl-c">// 如果查找不到数据，抛出内部服务异常</span>
+            <span class="pl-c">// 这个InternalAuthenticationServiceException异常将被视为可处理异常，不会被最终抛出</span>
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">InternalAuthenticationServiceException</span>(<span class="pl-s">"无法获取用户信息"</span>) ;
+        }
+
+        <span class="pl-c">// 重新生成（已认证）Token</span>
+        <span class="pl-smi">EmailCodeAuthenticationToken</span> <span class="pl-s1">authenticationResult</span> = <span class="pl-k">new</span> <span class="pl-smi">EmailCodeAuthenticationToken</span>(<span class="pl-s1">user</span>, <span class="pl-s1">user</span>.<span class="pl-en">getAuthorities</span>());
+        <span class="pl-c">// 将（未认证）Token中的IP、session等信息放入（已认证）Token中</span>
+        <span class="pl-s1">authenticationResult</span>.<span class="pl-en">setDetails</span>(<span class="pl-s1">authenticationToken</span>.<span class="pl-en">getDetails</span>());
+
+        <span class="pl-k">return</span> <span class="pl-s1">authenticationResult</span>;
+    }
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 判断是否当前认证请求是否是EmailCodeAuthenticationToken</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * @param authentication 当前的请求Token</span>
+<span class="pl-c">     * @return 如果是EmailCodeAuthenticationToken或其子类，则返回true，表示支持当前认证</span>
+<span class="pl-c">     */</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">supports</span>(<span class="pl-smi">Class</span>&lt;?&gt; <span class="pl-s1">authentication</span>) {
+        <span class="pl-k">return</span> <span class="pl-smi">EmailCodeAuthenticationToken</span>.<span class="pl-k">class</span>.<span class="pl-en">isAssignableFrom</span>(<span class="pl-s1">authentication</span>);
+    }
+}</pre></div>
+<p><strong>编写EmailCodeFilter</strong></p>
+<p>拦截邮件认证请求，校验邮箱认证码是否正确</p>
+<p>参考之前写的ImageCodeFilter</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/a1ba5287-299b-42f3-8384-fdd9b3df35a2"><img src="https://github.com/user-attachments/assets/a1ba5287-299b-42f3-8384-fdd9b3df35a2" alt="16" style="max-width: 100%;"></a></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">cn</span>.<span class="pl-s1">vshop</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">properties</span>.<span class="pl-s1">SecurityProperties</span>;
+<span class="pl-k">import</span> <span class="pl-s1">cn</span>.<span class="pl-s1">vshop</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">validate</span>.<span class="pl-s1">code</span>.<span class="pl-s1">ValidateCode</span>;
+<span class="pl-k">import</span> <span class="pl-s1">cn</span>.<span class="pl-s1">vshop</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">validate</span>.<span class="pl-s1">code</span>.<span class="pl-s1">ValidateCodeException</span>;
+<span class="pl-k">import</span> <span class="pl-s1">cn</span>.<span class="pl-s1">vshop</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">validate</span>.<span class="pl-s1">code</span>.<span class="pl-s1">ValidateCodeProcessor</span>;
+<span class="pl-k">import</span> <span class="pl-s1">lombok</span>.<span class="pl-s1">Setter</span>;
+<span class="pl-k">import</span> <span class="pl-s1">lombok</span>.<span class="pl-s1">extern</span>.<span class="pl-s1">slf4j</span>.<span class="pl-s1">Slf4j</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">apache</span>.<span class="pl-s1">commons</span>.<span class="pl-s1">lang</span>.<span class="pl-s1">StringUtils</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">InitializingBean</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">social</span>.<span class="pl-s1">connect</span>.<span class="pl-s1">web</span>.<span class="pl-s1">HttpSessionSessionStrategy</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">social</span>.<span class="pl-s1">connect</span>.<span class="pl-s1">web</span>.<span class="pl-s1">SessionStrategy</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">util</span>.<span class="pl-s1">AntPathMatcher</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">ServletRequestBindingException</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">bind</span>.<span class="pl-s1">ServletRequestUtils</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">context</span>.<span class="pl-s1">request</span>.<span class="pl-s1">ServletWebRequest</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">filter</span>.<span class="pl-s1">OncePerRequestFilter</span>;
+
+<span class="pl-k">import</span> <span class="pl-s1">javax</span>.<span class="pl-s1">servlet</span>.<span class="pl-s1">FilterChain</span>;
+<span class="pl-k">import</span> <span class="pl-s1">javax</span>.<span class="pl-s1">servlet</span>.<span class="pl-s1">ServletException</span>;
+<span class="pl-k">import</span> <span class="pl-s1">javax</span>.<span class="pl-s1">servlet</span>.<span class="pl-s1">http</span>.<span class="pl-s1">HttpServletRequest</span>;
+<span class="pl-k">import</span> <span class="pl-s1">javax</span>.<span class="pl-s1">servlet</span>.<span class="pl-s1">http</span>.<span class="pl-s1">HttpServletResponse</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">io</span>.<span class="pl-s1">IOException</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">HashSet</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Set</span>;
+
+<span class="pl-c">/**</span>
+<span class="pl-c"> * 拦截邮箱认证请求，校验邮箱认证码是否正确</span>
+<span class="pl-c"> * &lt;p&gt;</span>
+<span class="pl-c"> * 每次请求只拦截一次 OncePerRequestFilter</span>
+<span class="pl-c"> * 需要初始化 InitializingBean</span>
+<span class="pl-c"> *</span>
+<span class="pl-c"> * @author alan smith</span>
+<span class="pl-c"> * @version 1.0</span>
+<span class="pl-c"> * @date 2020/4/7 0:51</span>
+<span class="pl-c"> */</span>
+<span class="pl-c1">@</span><span class="pl-c1">Slf4j</span>
+<span class="pl-c1">@</span><span class="pl-c1">Setter</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">EmailCodeFilter</span> <span class="pl-k">extends</span> <span class="pl-smi">OncePerRequestFilter</span> <span class="pl-k">implements</span> <span class="pl-smi">InitializingBean</span> {
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * spring的工具类，用来匹配Ant风格路径，如：“/user/*”</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">private</span> <span class="pl-smi">AntPathMatcher</span> <span class="pl-s1">pathMatcher</span> = <span class="pl-k">new</span> <span class="pl-smi">AntPathMatcher</span>();
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 操作session的工具类</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">private</span> <span class="pl-smi">SessionStrategy</span> <span class="pl-s1">sessionStrategy</span> = <span class="pl-k">new</span> <span class="pl-smi">HttpSessionSessionStrategy</span>();
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 需要拦截的URL</span>
+<span class="pl-c">     * (默认添加 /authentication/email)</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">private</span> <span class="pl-smi">Set</span>&lt;<span class="pl-smi">String</span>&gt; <span class="pl-s1">urls</span> = <span class="pl-k">new</span> <span class="pl-smi">HashSet</span>&lt;&gt;();
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * (需要手动注入)</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">private</span> <span class="pl-smi">SecurityProperties</span> <span class="pl-s1">securityProperties</span>;
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 如果在Spring环境中，会在配置加载后执行</span>
+<span class="pl-c">     * （这里需要手动执行）</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * @throws ServletException</span>
+<span class="pl-c">     */</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">afterPropertiesSet</span>() <span class="pl-k">throws</span> <span class="pl-smi">ServletException</span> {
+        <span class="pl-en">super</span>.<span class="pl-en">afterPropertiesSet</span>();
+        <span class="pl-smi">String</span>[] <span class="pl-s1">configUrls</span> = <span class="pl-s1">securityProperties</span>.<span class="pl-en">getCode</span>().<span class="pl-en">getEmail</span>().<span class="pl-en">getUrls</span>();
+        <span class="pl-k">for</span> (<span class="pl-smi">String</span> <span class="pl-s1">url</span> : <span class="pl-s1">configUrls</span>) {
+            <span class="pl-s1">urls</span>.<span class="pl-en">add</span>(<span class="pl-s1">url</span>);
+        }
+        <span class="pl-s1">urls</span>.<span class="pl-en">add</span>(<span class="pl-s">"/authentication/email"</span>);
+
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">protected</span> <span class="pl-smi">void</span> <span class="pl-en">doFilterInternal</span>(<span class="pl-smi">HttpServletRequest</span> <span class="pl-s1">request</span>, <span class="pl-smi">HttpServletResponse</span> <span class="pl-s1">response</span>, <span class="pl-smi">FilterChain</span> <span class="pl-s1">filterChain</span>) <span class="pl-k">throws</span> <span class="pl-smi">ServletException</span>, <span class="pl-smi">IOException</span> {
+        <span class="pl-c">// 循环判断是否执行过滤</span>
+        <span class="pl-smi">boolean</span> <span class="pl-s1">action</span> = <span class="pl-c1">false</span>;
+        <span class="pl-k">for</span> (<span class="pl-smi">String</span> <span class="pl-s1">url</span> : <span class="pl-s1">urls</span>) {
+            <span class="pl-k">if</span> (<span class="pl-s1">pathMatcher</span>.<span class="pl-en">match</span>(<span class="pl-s1">url</span>, <span class="pl-s1">request</span>.<span class="pl-en">getRequestURI</span>())) {
+                <span class="pl-s1">action</span> = <span class="pl-c1">true</span>;
+                <span class="pl-k">break</span>;
+            }
+        }
+
+        <span class="pl-c">// 如果是邮箱校验请求，执行邮箱校验逻辑</span>
+        <span class="pl-k">if</span> (<span class="pl-s1">action</span>) {
+            <span class="pl-c">// 尝试校验</span>
+            <span class="pl-en">validate</span>(<span class="pl-k">new</span> <span class="pl-smi">ServletWebRequest</span>(<span class="pl-s1">request</span>, <span class="pl-s1">response</span>));
+        }
+
+        <span class="pl-c">// 校验通过or不是email校验请求</span>
+        <span class="pl-s1">filterChain</span>.<span class="pl-en">doFilter</span>(<span class="pl-s1">request</span>, <span class="pl-s1">response</span>);
+    }
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 邮箱校验码存储在session中对应的key</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-k">static</span> <span class="pl-smi">String</span> <span class="pl-c1">SESSION_KEY_EMAIL</span> = <span class="pl-smi">ValidateCodeProcessor</span>.<span class="pl-c1">SESSION_KEY_PREFIX</span> + <span class="pl-s">"EMAIL"</span>;
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 校验的逻辑，emailCode</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * @param request</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">private</span> <span class="pl-smi">void</span> <span class="pl-en">validate</span>(<span class="pl-smi">ServletWebRequest</span> <span class="pl-s1">request</span>) <span class="pl-k">throws</span> <span class="pl-smi">ServletRequestBindingException</span> {
+        <span class="pl-c">// 从session中获取封装好的ValidateCode</span>
+        <span class="pl-smi">ValidateCode</span> <span class="pl-s1">codeInSession</span> = (<span class="pl-smi">ValidateCode</span>) <span class="pl-s1">sessionStrategy</span>.<span class="pl-en">getAttribute</span>(<span class="pl-s1">request</span>, <span class="pl-c1">SESSION_KEY_EMAIL</span>);
+        <span class="pl-c">// 从request中获取请求参数ValidateCode</span>
+        <span class="pl-smi">String</span> <span class="pl-s1">codeInRequest</span> = <span class="pl-smi">ServletRequestUtils</span>.<span class="pl-en">getStringParameter</span>(<span class="pl-s1">request</span>.<span class="pl-en">getRequest</span>(), <span class="pl-s">"emailCode"</span>);
+        <span class="pl-k">if</span> (<span class="pl-smi">StringUtils</span>.<span class="pl-en">isBlank</span>(<span class="pl-s1">codeInRequest</span>)) {
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">ValidateCodeException</span>(<span class="pl-s">"验证码的值不能为空"</span>);
+        }
+        <span class="pl-k">if</span> (<span class="pl-s1">codeInSession</span> == <span class="pl-c1">null</span>) {
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">ValidateCodeException</span>(<span class="pl-s">"验证码不存在"</span>);
+        }
+        <span class="pl-k">if</span> (<span class="pl-s1">codeInSession</span>.<span class="pl-en">isExpired</span>()) {
+            <span class="pl-s1">sessionStrategy</span>.<span class="pl-en">removeAttribute</span>(<span class="pl-s1">request</span>, <span class="pl-c1">SESSION_KEY_EMAIL</span>);
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">ValidateCodeException</span>(<span class="pl-s">"验证码已过期"</span>);
+        }
+        <span class="pl-k">if</span> (!<span class="pl-smi">StringUtils</span>.<span class="pl-en">equalsIgnoreCase</span>(<span class="pl-s1">codeInSession</span>.<span class="pl-en">getCode</span>(), <span class="pl-s1">codeInRequest</span>)) {
+            <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-smi">ValidateCodeException</span>(<span class="pl-s">"验证码不匹配"</span>);
+        }
+        <span class="pl-s1">sessionStrategy</span>.<span class="pl-en">removeAttribute</span>(<span class="pl-s1">request</span>, <span class="pl-c1">SESSION_KEY_EMAIL</span>);
+    }
+}</pre></div>
+<p><strong>编写配置类EmailCodeAuthenticationSecurityConfig</strong></p>
+<p>专门进行EmailCode（邮箱验证码）的配置</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">beans</span>.<span class="pl-s1">factory</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Autowired</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">AuthenticationManager</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">SecurityConfigurerAdapter</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">web</span>.<span class="pl-s1">builders</span>.<span class="pl-s1">HttpSecurity</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">config</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">web</span>.<span class="pl-s1">configuration</span>.<span class="pl-s1">WebSecurityConfigurerAdapter</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">core</span>.<span class="pl-s1">userdetails</span>.<span class="pl-s1">UserDetailsService</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">web</span>.<span class="pl-s1">DefaultSecurityFilterChain</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">web</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">AuthenticationFailureHandler</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">web</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">AuthenticationSuccessHandler</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">security</span>.<span class="pl-s1">web</span>.<span class="pl-s1">authentication</span>.<span class="pl-s1">UsernamePasswordAuthenticationFilter</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">stereotype</span>.<span class="pl-s1">Component</span>;
+
+<span class="pl-c">/**</span>
+<span class="pl-c"> * 关于短信验证码的配置</span>
+<span class="pl-c"> * &lt;p&gt;</span>
+<span class="pl-c"> * (因为既要在浏览器中用，也要在app中用，因此写在core内)</span>
+<span class="pl-c"> *</span>
+<span class="pl-c"> * 写好后只需在应用配置(如BrowserSecurityConfig)中导入配置即可生效</span>
+<span class="pl-c"> *</span>
+<span class="pl-c"> * @author alan smith</span>
+<span class="pl-c"> * @version 1.0</span>
+<span class="pl-c"> * @date 2020/4/7 1:47</span>
+<span class="pl-c"> */</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">EmailCodeAuthenticationSecurityConfig</span>
+        <span class="pl-c">// HttpSecurity关于DefaultSecurityFilterChain的配置适配器</span>
+        <span class="pl-k">extends</span> <span class="pl-smi">SecurityConfigurerAdapter</span>&lt;<span class="pl-smi">DefaultSecurityFilterChain</span>, <span class="pl-smi">HttpSecurity</span>&gt; {
+
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">private</span> <span class="pl-smi">AuthenticationSuccessHandler</span> <span class="pl-s1">authenticationSuccessHandler</span>;
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">private</span> <span class="pl-smi">AuthenticationFailureHandler</span> <span class="pl-s1">authenticationFailureHandler</span>;
+    <span class="pl-c1">@</span><span class="pl-c1">Autowired</span>
+    <span class="pl-k">private</span> <span class="pl-smi">UserDetailsService</span> <span class="pl-s1">userDetailsService</span>;
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 对FilterChain的配置</span>
+<span class="pl-c">     * 同{@link WebSecurityConfigurerAdapter}的configure(HttpSecurity http)</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * @param http 封装http的请求响应，可以操作FilterChain</span>
+<span class="pl-c">     * @throws Exception</span>
+<span class="pl-c">     */</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">configure</span>(<span class="pl-smi">HttpSecurity</span> <span class="pl-s1">http</span>) <span class="pl-k">throws</span> <span class="pl-smi">Exception</span> {
+        <span class="pl-s1">http</span>
+                <span class="pl-c">// 将我们自定义的provider添加到AuthenticationManager管理的provider集合内</span>
+                .<span class="pl-en">authenticationProvider</span>(<span class="pl-en">emailCodeAuthenticationProvider</span>())
+                <span class="pl-c">// 将我们自定义的filter添加到UsernamePasswordAuthenticationFilter的后面</span>
+                <span class="pl-c">// 为什么是后面？</span>
+                <span class="pl-c">// 因为其他配置均已UsernamePasswordAuthenticationFilter为基准，把校验码的校验如EmailCodeFilter配置在其之前，</span>
+                <span class="pl-c">// 对应的这类的认证过滤器就应配置在其之后</span>
+                .<span class="pl-en">addFilterAfter</span>(<span class="pl-en">getEmailCodeAuthenticationFilter</span>(<span class="pl-s1">http</span>), <span class="pl-smi">UsernamePasswordAuthenticationFilter</span>.<span class="pl-k">class</span>);
+    }
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 构造邮箱验证码校验过滤器</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * @param http</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">private</span> <span class="pl-smi">EmailCodeAuthenticationFilter</span> <span class="pl-en">getEmailCodeAuthenticationFilter</span>(<span class="pl-smi">HttpSecurity</span> <span class="pl-s1">http</span>) {
+        <span class="pl-c">// 创建邮箱验证码校验过滤器</span>
+        <span class="pl-smi">EmailCodeAuthenticationFilter</span> <span class="pl-s1">filter</span> = <span class="pl-k">new</span> <span class="pl-smi">EmailCodeAuthenticationFilter</span>();
+        <span class="pl-c">// 设置认证管理器</span>
+        <span class="pl-s1">filter</span>.<span class="pl-en">setAuthenticationManager</span>(<span class="pl-s1">http</span>.<span class="pl-en">getSharedObject</span>(<span class="pl-smi">AuthenticationManager</span>.<span class="pl-k">class</span>));
+        <span class="pl-c">// 注册successHandler</span>
+        <span class="pl-s1">filter</span>.<span class="pl-en">setAuthenticationSuccessHandler</span>(<span class="pl-s1">authenticationSuccessHandler</span>);
+        <span class="pl-c">// 注册failureHandler</span>
+        <span class="pl-s1">filter</span>.<span class="pl-en">setAuthenticationFailureHandler</span>(<span class="pl-s1">authenticationFailureHandler</span>);
+        <span class="pl-k">return</span> <span class="pl-s1">filter</span>;
+    }
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">     * 构造邮箱验证码的provider</span>
+<span class="pl-c">     *</span>
+<span class="pl-c">     * @return</span>
+<span class="pl-c">     */</span>
+    <span class="pl-k">private</span> <span class="pl-smi">EmailCodeAuthenticationProvider</span> <span class="pl-en">emailCodeAuthenticationProvider</span>() {
+        <span class="pl-smi">EmailCodeAuthenticationProvider</span> <span class="pl-s1">provider</span> = <span class="pl-k">new</span> <span class="pl-smi">EmailCodeAuthenticationProvider</span>();
+        <span class="pl-s1">provider</span>.<span class="pl-en">setUserDetailsService</span>(<span class="pl-s1">userDetailsService</span>);
+        <span class="pl-k">return</span> <span class="pl-s1">provider</span>;
+    }
+}</pre></div>
+<p><strong>修改BrowserSecurityConfig</strong></p>
+<p>在应用配置中导入新加的配置</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/f275a9c1-5a79-4979-9501-05a6803df59d"><img src="https://github.com/user-attachments/assets/f275a9c1-5a79-4979-9501-05a6803df59d" alt="17" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/131bf86b-374b-4a0c-bbad-4bc90f585867"><img src="https://github.com/user-attachments/assets/131bf86b-374b-4a0c-bbad-4bc90f585867" alt="18" style="max-width: 100%;"></a></p>
+<p><strong>登录测试</strong></p>
+<p>把两种登录方式放入了同一页面login4.html</p>
+<p><strong>不输入验证码，直接邮箱登录</strong></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/0f7184b1-4350-4a3f-a9c5-037eb8a945b8"><img src="https://github.com/user-attachments/assets/0f7184b1-4350-4a3f-a9c5-037eb8a945b8" alt="19" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ebeb83a7-2b4e-4550-8e71-25c4d9ba5d7a"><img src="https://github.com/user-attachments/assets/ebeb83a7-2b4e-4550-8e71-25c4d9ba5d7a" alt="20" style="max-width: 100%;"></a></p>
+<p>随便乱输入</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/af627fc5-1cc7-4ac3-b812-9422cd506dc6"><img src="https://github.com/user-attachments/assets/af627fc5-1cc7-4ac3-b812-9422cd506dc6" alt="21" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/0ccbb405-78dd-4211-99a1-d6468961b806"><img src="https://github.com/user-attachments/assets/0ccbb405-78dd-4211-99a1-d6468961b806" alt="22" style="max-width: 100%;"></a></p>
+<p>输入正确验证码</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/37d827fd-2312-4b8c-b8c9-5e8ec187756f"><img src="https://github.com/user-attachments/assets/37d827fd-2312-4b8c-b8c9-5e8ec187756f" alt="23" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/1aff7571-fee2-4e8a-94eb-804a7377eb02"><img src="https://github.com/user-attachments/assets/1aff7571-fee2-4e8a-94eb-804a7377eb02" alt="24" style="max-width: 100%;"></a></p>
+<p>等待60s（验证码过期）</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/53cd5106-e2d0-4624-9fec-d1ae1fda531a"><img src="https://github.com/user-attachments/assets/53cd5106-e2d0-4624-9fec-d1ae1fda531a" alt="26" style="max-width: 100%;"></a></p>
+<p>同时，图片验证码也是可用的</p>
+<h2>重构代码（二）</h2>
+<p><strong>图形验证码和邮箱验证码重复的配置部分</strong></p>
+<p>将重复部分抽出为一个个的类，用apply方法应用其配置，使其生效</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/554c13e0-c586-49ef-96c2-d23eafb76749"><img src="https://github.com/user-attachments/assets/554c13e0-c586-49ef-96c2-d23eafb76749" alt="27" style="max-width: 100%;"></a></p>
+<p>图形和短信校验码的校验过滤器（validateFilter）合并为一个。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/f36d1512-a517-4d9b-b764-d520e2dfdfa3"><img src="https://github.com/user-attachments/assets/f36d1512-a517-4d9b-b764-d520e2dfdfa3" alt="28" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/dbde8267-bb9a-4f74-834e-6ea4f61dd457"><img src="https://github.com/user-attachments/assets/dbde8267-bb9a-4f74-834e-6ea4f61dd457" alt="29" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/18e1292c-4301-4a6e-9c4e-5227348073f3"><img src="https://github.com/user-attachments/assets/18e1292c-4301-4a6e-9c4e-5227348073f3" alt="30" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/5674c3e4-b80d-42af-a776-3b0e16370cd8"><img src="https://github.com/user-attachments/assets/5674c3e4-b80d-42af-a776-3b0e16370cd8" alt="31" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/81be3fd6-dc7a-41a7-9ef5-57e382ebf52d"><img src="https://github.com/user-attachments/assets/81be3fd6-dc7a-41a7-9ef5-57e382ebf52d" alt="32" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/3e52cdb2-8ef2-425c-bc4d-d7210dd68bc1"><img src="https://github.com/user-attachments/assets/3e52cdb2-8ef2-425c-bc4d-d7210dd68bc1" alt="33" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/71a8537b-4930-4345-813a-a6c92dd2123a"><img src="https://github.com/user-attachments/assets/71a8537b-4930-4345-813a-a6c92dd2123a" alt="34" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/aca2efcd-6d4c-4942-a166-abbe3d84f2e9"><img src="https://github.com/user-attachments/assets/aca2efcd-6d4c-4942-a166-abbe3d84f2e9" alt="35" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/674221c6-6c17-45ab-8c22-5da8e95f567d"><img src="https://github.com/user-attachments/assets/674221c6-6c17-45ab-8c22-5da8e95f567d" alt="36" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/5f8cadcc-22b7-476f-ac57-9c91a2122b43"><img src="https://github.com/user-attachments/assets/5f8cadcc-22b7-476f-ac57-9c91a2122b43" alt="37" style="max-width: 100%;"></a></p></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://wliafe.github.io">wliafe</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","wliafe/wliafe.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+
+
+</html>
