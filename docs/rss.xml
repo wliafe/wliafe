@@ -1,5 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 14:59:34 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>前端工具</title><link>https://wliafe.github.io/post/qian-duan-gong-ju.html</link><description># 前端工具文档&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 15:00:34 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>前端highlightjs</title><link>https://wliafe.github.io/post/qian-duan-highlightjs.html</link><description># 使用highlight注意事项&#13;
+&#13;
+使用最新的marked时无法显示highlight高亮，需要搭配marked-highlight使用highlight&#13;
+&#13;
+这是[marked-highlight的GitHub链接](https://github.com/markedjs/marked-highlight)在README中有使用样例，可以复制使用。</description><guid isPermaLink="true">https://wliafe.github.io/post/qian-duan-highlightjs.html</guid><pubDate>Thu, 02 Jan 2025 15:00:03 +0000</pubDate></item><item><title>前端工具</title><link>https://wliafe.github.io/post/qian-duan-gong-ju.html</link><description># 前端工具文档&#13;
 &#13;
 [Vue官方文档](https://cn.vuejs.org/)，[Vite官方文档](https://cn.vitejs.dev/)&#13;
 &#13;
