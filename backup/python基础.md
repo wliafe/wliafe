@@ -222,7 +222,7 @@ a_list.index(2017,5,7)
 
 输出
 
-【5】
+![5](https://github.com/user-attachments/assets/8c06e19e-c299-4867-b4b1-e256d3f90b01)
 
 ### count( )
 
@@ -287,7 +287,7 @@ artist_intro=his_name+what_he_does+his_instrument
 print(artist_intro)
 ```
 
-【6】
+![6](https://github.com/user-attachments/assets/3130fee7-4693-4467-a9c3-86b868f46723)
 
 ## 字符串相乘
 
@@ -297,7 +297,7 @@ string='name'*num
 print(string)
 ```
 
-![](7.png)
+![7](https://github.com/user-attachments/assets/c4a62766-a007-4975-8668-6d0a11ce9129)
 
 ## 字符串替换
 
@@ -326,4 +326,4 @@ c=function(a,b)
 print(c)
 ```
 
-![](8.png)
+![8](https://github.com/user-attachments/assets/dfb3dcf8-285d-4e7b-8ecf-215b574a90d8)
