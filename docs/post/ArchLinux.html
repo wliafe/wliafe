@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://wliafe.github.io/wliafe.jpg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="# 安装ArchLinux
+
+## 文章参考
+
+- [Arch Linux 安装使用教程 - ArchTutorial - Arch Linux Studio](https://archlinuxstudio.github.io/ArchLinuxTutorial/#/rookie/archlinux_pre_install)
+
+- [ArchWiki](https://wiki.archlinux.org/)
+
+## 前期准备
+
+- 虚拟机软件：VMware Workstation Lite15.5.5
+
+    虚拟机的配置：1个处理器+2核+2G内存+20G存储（不安装图形化界面系统部分只用不到5G，包括图形化界面10G左右，虚拟机配置可自由选择。">
+<meta property="og:title" content="ArchLinux">
+<meta property="og:description" content="# 安装ArchLinux
+
+## 文章参考
+
+- [Arch Linux 安装使用教程 - ArchTutorial - Arch Linux Studio](https://archlinuxstudio.github.io/ArchLinuxTutorial/#/rookie/archlinux_pre_install)
+
+- [ArchWiki](https://wiki.archlinux.org/)
+
+## 前期准备
+
+- 虚拟机软件：VMware Workstation Lite15.5.5
+
+    虚拟机的配置：1个处理器+2核+2G内存+20G存储（不安装图形化界面系统部分只用不到5G，包括图形化界面10G左右，虚拟机配置可自由选择。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wliafe.github.io/post/ArchLinux.html">
+<meta property="og:image" content="https://wliafe.github.io/wliafe.jpg">
+<title>ArchLinux</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">ArchLinux</h1>
+<div class="title-right">
+    <a href="https://wliafe.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/wliafe/wliafe.github.io/issues/55" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h1>安装ArchLinux</h1>
+<h2>文章参考</h2>
+<ul>
+<li>
+<p><a href="https://archlinuxstudio.github.io/ArchLinuxTutorial/#/rookie/archlinux_pre_install" rel="nofollow">Arch Linux 安装使用教程 - ArchTutorial - Arch Linux Studio</a></p>
+</li>
+<li>
+<p><a href="https://wiki.archlinux.org/" rel="nofollow">ArchWiki</a></p>
+</li>
+</ul>
+<h2>前期准备</h2>
+<ul>
+<li>
+<p>虚拟机软件：VMware Workstation Lite15.5.5</p>
+<p>虚拟机的配置：1个处理器+2核+2G内存+20G存储（不安装图形化界面系统部分只用不到5G，包括图形化界面10G左右，虚拟机配置可自由选择。）网络部分是桥接模式。</p>
+</li>
+<li>
+<p>archLinux系统：archlinux-2022.03.01-x86_64.iso</p>
+<p>archlinux的U盘启动有点像是一个安全模式，本质上就是一个Linux系统，所以archlinux的安装就是用Linux系统安装Linux系统。</p>
+</li>
+</ul>
+<h2>系统连网</h2>
+<p>第一步是系统连网，由于是虚拟机安装所以网络基本不用配置，尝试ping通就可。</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">ping baidu.com</pre></div>
+<h2>分区</h2>
+<p>初学者只要分两个区就可以了，分别是swap区和根区（/）。</p>
+<p><strong>展示分区状态</strong></p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">lsblk</pre></div>
+<p><strong>分区</strong></p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">cfdisk /dev/sda</pre></div>
+<p>dev是Linux的外部设备目录，sda是硬盘。</p>
+<p>分区格式选择gpt（Linux的最佳格式），将sda分为2G（swap区）+18G（剩余的存储，给根目录）</p>
+<p><strong>格式化分区</strong></p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">mkswap /dev/sda1</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">mkfs.ext4 /dev/sda2</pre></div>
+<p><strong>挂载分区</strong></p>
+<p>swap分区不用挂载，但要启动</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">swapon /dev/sda1</pre></div>
+<p>这里的/mnt就是Linux安装好后的根目录</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">mount /dev/sda2 /mnt</pre></div>
+<h2>更换镜像源</h2>
+<p>文档参考：<a href="https://mirrors.ustc.edu.cn/help/index.html" rel="nofollow">源文档</a></p>
+<p>编译镜像文件</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">vim /etc/pacman.d/mirrorlist</pre></div>
+<p>在文件中添加镜像源（中国国内镜像源选择一个就可以，这里是清华源）</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/<span class="pl-smi">$repo</span>/os/<span class="pl-smi">$arch</span></pre></div>
+<p>更新镜像源</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">pacman -Syy</pre></div>
+<h2>下载arch软件</h2>
+<p>（具体是干啥我也不太清楚）</p>
+<p>base base-devel是Linux基础包，必须安装。linux linux-firmware是Linux驱动和Linux的其他东西。。。dhcpcd 是网络自动分配ip的服务，vim是Linux常用的编辑器。这次安装目的是方便在新装的系统中使用。</p>
+<p>安装新系统软件</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">pacstrap /mnt base base-devel linux linux -firmware dhcpcd vim</pre></div>
+<p>生成文件系统信息</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">genfstab -U /mnt <span class="pl-k">&gt;&gt;</span> /mnt/etc/fstab</pre></div>
+<p>查看文件系统信息</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">cat /mnt/etc/fstab</pre></div>
+<h2>进入新系统</h2>
+<p>这个命令将根目录切换为/mnt，也就是/mnt称为新的根目录(/)</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">arch-chroot /mnt</pre></div>
+<h2>安装系统引导工具</h2>
+<p>pacman是archlinux的包管理器</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">pacman -S grub</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">grub-install --froce /dev/sda</pre></div>
+<p>生成默认配置文件</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">grub-mkconfig -o /boot/grub/grub.cfg</pre></div>
+<h2>为root设置密码</h2>
+<div class="highlight highlight-source-shell"><pre class="notranslate">passwd</pre></div>
+<h2>解除U盘挂载，重启虚拟机</h2>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c1">exit</span></pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">umount -R /mnt</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">reboot</pre></div>
+<p>至此，你的archlinux就安装完成了，下面介绍archlinux的配置方式</p>
+<h1>配置ArchLinux</h1>
+<p>如果要安装图形化界面，可配置中文本地化，不安装则没必要。</p>
+<p>查看镜像源，重新配置镜像源</p>
+<p>重新配置网络</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">systemctl (start/status/enable/stop) dhcpcd</pre></div>
+<h2>配置语言区域</h2>
+<p>编辑/etc/locale.gen文件，删除zh_CN.UTF-8 前面的#号，运行命令locale-gen</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">vim /etc/locale.gen</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">locale-gen</pre></div>
+<h2>配置时区</h2>
+<div class="highlight highlight-source-shell"><pre class="notranslate">ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</pre></div>
+<p>时间同步</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo timedatectl set-ntp <span class="pl-c1">true</span></pre></div>
+<p>检查时间同步状态</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">timedatectl</pre></div>
+<h2>设置主机名</h2>
+<p>编辑文件/etc/hostname，将名字加入文件</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">vim /etc/hostname</pre></div>
+<p>编辑文件/etc/hosts，将名字加入文件</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">vim /etc/hosts</pre></div>
+<p>文件编辑内容</p>
+<pre lang="text" class="notranslate"><code class="notranslate">127.0.0.1   localhost
+::1         localhost
+127.0.1.1   YourHostName
+</code></pre>
+<h2>中文本地化配置</h2>
+<p>本文只参考这一个命令，拼音输入法建议ibus，具体就不写了。</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">pacman -S wqy-zenhei</pre></div>
+<h1>gnome图形化界面安装</h1>
+<h2>前期准备</h2>
+<ul>
+<li>订阅结点，参考我的文章<strong>上网</strong></li>
+</ul>
+<p><strong>添加软件源</strong></p>
+<p>文档参考：<a href="https://mirrors.ustc.edu.cn/help/index.html" rel="nofollow">源文档</a></p>
+<p>编辑/etc/pacman.conf文件，在文件末尾添加。</p>
+<pre lang="text" class="notranslate"><code class="notranslate">[archlinuxcn]
+SigLevel = Optional TrustedOnly
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+</code></pre>
+<p>导入GPG key</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo pacman -S archlinuxcn-keyring</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo pacman -Sy</pre></div>
+<h1>gnome安装</h1>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo pacman -S gnome</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">systemctl <span class="pl-c1">enable</span> gdm</pre></div>
+<h2>安装插件</h2>
+<p>这个插件的目的是和谷歌的扩展交互，使谷歌扩展中的插件能够在gnome桌面上执行</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo pacman -S chrome-gnome-shell</pre></div>
+<p>下载谷歌浏览器，安装<a href="https://extensions.gnome.org" rel="nofollow">插件</a></p>
+<p>选择插件推荐：</p>
+<ul>
+<li>
+<p>Desktop lcons NG(DING)</p>
+</li>
+<li>
+<p>Dynamic Panel Transparency</p>
+</li>
+<li>
+<p>Tray lcons:Reloaded</p>
+</li>
+<li>
+<p>User themes</p>
+</li>
+<li>
+<p>Dash To Dock</p>
+</li>
+</ul>
+<p>在Linux本地扩展中将插件打开。</p>
+<p>至此gnome的可视化界面安装和插件的安装结束。</p>
+<h1>软件安装</h1>
+<p><strong>下载软件包管理器</strong></p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo pacman -S yay</pre></div>
+<p><strong>软件模糊搜索</strong></p>
+<p>通过软件模糊搜索获得软件安装名称，然后可以有选择的安装软件。</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo pacman -Ss xxx</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">yay xxx</pre></div>
+<p><strong>软件安装</strong></p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo pacman -S xxx</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">yay -S xxx</pre></div></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://wliafe.github.io">wliafe</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","wliafe/wliafe.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script src='https://wliafe.github.io/assets/GmeekTOC.js'></script>
+
+</html>
