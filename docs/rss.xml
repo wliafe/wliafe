@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 15:26:52 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>Ubuntu</title><link>https://wliafe.github.io/post/Ubuntu.html</link><description># 包管理器&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 16:21:06 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>Ubuntu</title><link>https://wliafe.github.io/post/Ubuntu.html</link><description># 包管理器&#13;
 &#13;
 Ubuntu包管理器有：apt, apt-cache, apt-get, dpkg&#13;
 &#13;
@@ -510,7 +510,15 @@ void main(void) {&#13;
 &#13;
 设有一个N×M方格的棋盘(1≤N≤100,1≤M≤100)&#13;
 &#13;
-求出该棋盘中包含有多少个正方形、多少个长方形（不包括正方形）。</description><guid isPermaLink="true">https://wliafe.github.io/post/wang-xie-an-quan-zu-er-mian-shi-ti.html</guid><pubDate>Thu, 02 Jan 2025 15:09:18 +0000</pubDate></item><item><title>其他算法题</title><link>https://wliafe.github.io/post/qi-ta-suan-fa-ti.html</link><description># 鞍点问题&#13;
+求出该棋盘中包含有多少个正方形、多少个长方形（不包括正方形）。</description><guid isPermaLink="true">https://wliafe.github.io/post/wang-xie-an-quan-zu-er-mian-shi-ti.html</guid><pubDate>Thu, 02 Jan 2025 15:09:18 +0000</pubDate></item><item><title>数据结构实现</title><link>https://wliafe.github.io/post/shu-ju-jie-gou-shi-xian.html</link><description># 链表&#13;
+&#13;
+## C语言实现图书管理系统简化版&#13;
+&#13;
+==可保存的链表==&#13;
+&#13;
+==双向链表==&#13;
+&#13;
+图书管理系统（简化版）。</description><guid isPermaLink="true">https://wliafe.github.io/post/shu-ju-jie-gou-shi-xian.html</guid><pubDate>Thu, 02 Jan 2025 15:08:40 +0000</pubDate></item><item><title>其他算法题</title><link>https://wliafe.github.io/post/qi-ta-suan-fa-ti.html</link><description># 鞍点问题&#13;
 &#13;
 自定义函数找出二维矩阵的鞍点，如果没有鞍点打印相应信息。</description><guid isPermaLink="true">https://wliafe.github.io/post/qi-ta-suan-fa-ti.html</guid><pubDate>Thu, 02 Jan 2025 15:08:01 +0000</pubDate></item><item><title>洛谷算法题</title><link>https://wliafe.github.io/post/luo-gu-suan-fa-ti.html</link><description># P1003铺地毯&#13;
 &#13;
