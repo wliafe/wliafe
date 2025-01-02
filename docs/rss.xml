@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 14:01:57 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>常用链接</title><link>https://wliafe.github.io/post/chang-yong-lian-jie.html</link><description>#### AI&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 14:21:10 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>常用链接</title><link>https://wliafe.github.io/post/chang-yong-lian-jie.html</link><description>**AI：**&#13;
 &#13;
 [ChatGPT](https://chat.openai.com/)，[文心一言](https://yiyan.baidu.com/)，[聚联AI](https://chat.julianwl.com/)，[Kimi.ai - 帮你看更大的世界](https://kimi.moonshot.cn/)，[MindShow(PPT自动生成工具)](https://mindshow.fun/)&#13;
 &#13;
-#### 机器学习&#13;
+**机器学习：**&#13;
 &#13;
 [PyTorch](https://pytorch.org/)&#13;
 &#13;
-#### 前端&#13;
+**前端：**&#13;
 &#13;
 [Vue](https://cn.vuejs.org/)，[Vite](https://cn.vitejs.dev/)，[Vue Router](https://router.vuejs.org/zh/)，[Pinia](https://pinia.vuejs.org/zh/)，[Element Plus](https://element-plus.gitee.io/zh-CN/)，[Axios](https://www.axios-http.cn/)，[Fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch)&#13;
 &#13;
@@ -15,11 +15,11 @@
 &#13;
 [iconfont](https://www.iconfont.cn/)，[标志客](https://www.logomaker.com.cn/)，[标小智](https://www.logosc.cn/logo/favicon)，[聚合数据](https://www.juhe.cn/)&#13;
 &#13;
-#### 工具&#13;
+**工具：**&#13;
 &#13;
 [查询网](https://www.ip138.com/)，[Desmos图形计算器](https://www.desmos.com/)，[Convertio文件转换器](https://convertio.co/zh/)，[依奇在线超级转换工具](https://www.wdku.net/)，[B站视频下载工具](https://zhouql.vip/bilibili/)&#13;
 &#13;
-#### 资源&#13;
+**资源：**&#13;
 &#13;
 [Github](https://github.com/)，[Gitee](https://gitee.com/)，[阿里云盘](https://www.aliyundrive.com/)，[夸克网盘](https://pan.quark.cn/)，[巴法云](https://cloud.bemfa.com/)&#13;
 &#13;
