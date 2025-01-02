@@ -1,5 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 12:21:42 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>python基础</title><link>https://wliafe.github.io/post/python-ji-chu.html</link><description># python的基本输入&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 12:27:33 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>python生成word文档</title><link>https://wliafe.github.io/post/python-sheng-cheng-word-wen-dang.html</link><description># 简介&#13;
+&#13;
+这篇博客实现了根据模板文件自动生成word文档&#13;
+&#13;
+这里我采用的是python-docx工具来实现这个功能&#13;
+&#13;
+推荐书本：《快学Python：自动化办公轻松实战》&#13;
+&#13;
+# python-docx官方文档&#13;
+&#13;
+[python-docx](https://python-docx.readthedocs.io/)。</description><guid isPermaLink="true">https://wliafe.github.io/post/python-sheng-cheng-word-wen-dang.html</guid><pubDate>Thu, 02 Jan 2025 12:27:11 +0000</pubDate></item><item><title>python基础</title><link>https://wliafe.github.io/post/python-ji-chu.html</link><description># python的基本输入&#13;
 &#13;
 **输入字符串**&#13;
 &#13;
