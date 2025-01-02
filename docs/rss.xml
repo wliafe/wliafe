@@ -1,5 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 11:41:14 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>JetBrains软件破解</title><link>https://wliafe.github.io/post/JetBrains-ruan-jian-po-jie.html</link><description># JetBrains软件破解&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 11:42:19 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>LaTeX</title><link>https://wliafe.github.io/post/LaTeX.html</link><description># Tex Live下载与安装&#13;
+&#13;
+[清华镜像CTAN文档](https://mirrors.tuna.tsinghua.edu.cn/help/CTAN/)&#13;
+&#13;
+## 下载&#13;
+&#13;
+[官网下载](https://www.tug.org/texlive/acquire-netinstall.html)&#13;
+&#13;
+[清华镜像](https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/)&#13;
+&#13;
+官网速度特别慢，建议使用清华镜像。</description><guid isPermaLink="true">https://wliafe.github.io/post/LaTeX.html</guid><pubDate>Thu, 02 Jan 2025 11:41:45 +0000</pubDate></item><item><title>JetBrains软件破解</title><link>https://wliafe.github.io/post/JetBrains-ruan-jian-po-jie.html</link><description># JetBrains软件破解&#13;
 &#13;
 JetBrains的软件非常好用，我比较喜欢，但JetBrains的收费让人头疼，下面介绍JetBrains软件的破解方法。</description><guid isPermaLink="true">https://wliafe.github.io/post/JetBrains-ruan-jian-po-jie.html</guid><pubDate>Thu, 02 Jan 2025 11:40:49 +0000</pubDate></item><item><title>git</title><link>https://wliafe.github.io/post/git.html</link><description># 安装git&#13;
 &#13;
