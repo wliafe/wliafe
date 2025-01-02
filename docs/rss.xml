@@ -1,5 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 11:58:10 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>MySQL</title><link>https://wliafe.github.io/post/MySQL.html</link><description># 常用数据库命令&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 11:58:52 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>Spring</title><link>https://wliafe.github.io/post/Spring.html</link><description># 基本概念 &#13;
+&#13;
+## IoC(Inversion of Control)控制反转&#13;
+&#13;
+定义：使用对象时，由主动new产生对象转换为由外部提供对象，此过程中对象创建控制权由程序转移到外部，此思想称为控制反转&#13;
+&#13;
+## IoC容器&#13;
+ &#13;
+定义：spring中使用IoC容器实现IoC&#13;
+&#13;
+IoC容器负责对象的创建、初始化等一系列工作。</description><guid isPermaLink="true">https://wliafe.github.io/post/Spring.html</guid><pubDate>Thu, 02 Jan 2025 11:58:25 +0000</pubDate></item><item><title>MySQL</title><link>https://wliafe.github.io/post/MySQL.html</link><description># 常用数据库命令&#13;
 &#13;
 ```sql&#13;
 -- 展示所有数据库&#13;
