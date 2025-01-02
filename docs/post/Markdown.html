@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://wliafe.github.io/wliafe.jpg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="# Markdown编写数学公式
+
+## 简介
+
+在 Markdown 中，您可以使用 LaTeX 语法编辑数学公式。">
+<meta property="og:title" content="Markdown">
+<meta property="og:description" content="# Markdown编写数学公式
+
+## 简介
+
+在 Markdown 中，您可以使用 LaTeX 语法编辑数学公式。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wliafe.github.io/post/Markdown.html">
+<meta property="og:image" content="https://wliafe.github.io/wliafe.jpg">
+<title>Markdown</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Markdown</h1>
+<div class="title-right">
+    <a href="https://wliafe.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/wliafe/wliafe.github.io/issues/13" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h1>Markdown编写数学公式</h1>
+<h2>简介</h2>
+<p>在 Markdown 中，您可以使用 LaTeX 语法编辑数学公式。要在 Markdown 中插入数学公式，您需要使用一对美元符号（$）将公式包围起来。例如：</p>
+<p>$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$</p>
+<p>这将显示一个二次方程的解，其中 <code class="notranslate">a</code>、<code class="notranslate">b</code> 和 <code class="notranslate">c</code> 是系数，<code class="notranslate">x</code> 是未知数。</p>
+<p>如果您想在行内显示公式，只需在公式前后加上一个美元符号即可，例如：</p>
+<p>$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</p>
+<p>注意，Markdown 中的数学公式不支持像物理符号（如→）或复杂的数学标记（如矩阵）这样的特殊符号。对于这些特殊情况，您可能需要使用专门的数学编辑器或 LaTeX 文档。</p>
+<h2>常见数学符号和公式</h2>
+<h3>上下标</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$x^{2}$</td>
+<td align="center"><code class="notranslate">$x^{2}$</code></td>
+<td align="center">上标，例如：x 的平方</td>
+</tr>
+<tr>
+<td align="center">$x_{i}$</td>
+<td align="center"><code class="notranslate">$x_{i}$</code></td>
+<td align="center">下标，例如：第 i 个 x</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>括号和分隔符</h3>
+<p>()、[] 和 | 可以直接输入</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+<th align="center">显示</th>
+<th align="center">代码</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\langle$</td>
+<td align="center"><code class="notranslate">$\langle$</code></td>
+<td align="center">$\rangle$</td>
+<td align="center"><code class="notranslate">$\rangle$</code></td>
+<td align="center">尖括号</td>
+</tr>
+<tr>
+<td align="center">${$</td>
+<td align="center"><code class="notranslate">$\{$</code></td>
+<td align="center">$}$</td>
+<td align="center"><code class="notranslate">$\}$</code></td>
+<td align="center">花括号</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>分数</h3>
+<p>分数通常使用 <code class="notranslate">\frac{分子}{分母}</code> ，如：</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\frac{x}{y}$</td>
+<td align="center"><code class="notranslate">$\frac{x}{y}$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>分式较为复杂时，可以使用 <code class="notranslate">分子 \over 分母</code> 表示，如：</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$a+b+c+d+e+f \over g+h+i+j+k+l$</td>
+<td align="center"><code class="notranslate">$a+b+c+d+e+f \over g+h+i+j+k+l$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>当分式仅有两个字符时，可以使用 <code class="notranslate">\frac ab</code> 来快速生成$\frac ab$</p>
+<h3>开方</h3>
+<p>使用 <code class="notranslate">\sqrt[根指数，默认为2]{被开方数}</code>，如：</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\sqrt{2}$</td>
+<td align="center"><code class="notranslate">$\sqrt{2}$</code></td>
+</tr>
+<tr>
+<td align="center">$\sqrt[n]{5}$</td>
+<td align="center"><code class="notranslate">$\sqrt[n]{5}$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>向量和箭头</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\vec{x}$</td>
+<td align="center"><code class="notranslate">$\vec{x}$</code></td>
+<td align="center">向量 x</td>
+</tr>
+<tr>
+<td align="center">$\overleftarrow{x}$</td>
+<td align="center"><code class="notranslate">$\overleftarrow{x}$</code></td>
+<td align="center">x 上方左箭头</td>
+</tr>
+<tr>
+<td align="center">$\overrightarrow{x}$</td>
+<td align="center"><code class="notranslate">$\overrightarrow{x}$</code></td>
+<td align="center">x 上方向右箭头</td>
+</tr>
+<tr>
+<td align="center">$\leftarrow$</td>
+<td align="center"><code class="notranslate">$\leftarrow$</code></td>
+<td align="center">左箭头</td>
+</tr>
+<tr>
+<td align="center">$\rightarrow$</td>
+<td align="center"><code class="notranslate">$\rightarrow$</code></td>
+<td align="center">右箭头</td>
+</tr>
+<tr>
+<td align="center">$\uparrow$</td>
+<td align="center"><code class="notranslate">$\uparrow$</code></td>
+<td align="center">向上的箭头</td>
+</tr>
+<tr>
+<td align="center">$\downarrow$</td>
+<td align="center"><code class="notranslate">$\downarrow$</code></td>
+<td align="center">向下的箭头</td>
+</tr>
+<tr>
+<td align="center">$\Leftarrow$</td>
+<td align="center"><code class="notranslate">$\Leftarrow$</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">$\Rightarrow$</td>
+<td align="center"><code class="notranslate">$\Rightarrow$</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">$\Uparrow$</td>
+<td align="center"><code class="notranslate">$\Uparrow$</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">$\Downarrow$</td>
+<td align="center"><code class="notranslate">$\Downarrow$</code></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>积分</h3>
+<p>使用 <code class="notranslate">\int_{积分下限}^{积分上限} {被积表达式}</code></p>
+<p>例如：<code class="notranslate">$$ \int_{0}^{1}{x^{3}}dx $$</code></p>
+<p>显示：$$ \int_{0}^{1}{x^{3}}dx $$</p>
+<h3>极限运算</h3>
+<p>使用 <code class="notranslate">\lim{变量 \to 表达式}</code> 表达式</p>
+<p>例如：<code class="notranslate">$$ \lim_{x \to \infty} \frac{1}{n(n+1)} $$</code></p>
+<p>显示：$$ \lim_{x \to \infty} \frac{1}{n(n+1)} $$</p>
+<h3>累加、累乘</h3>
+<p>使用 <code class="notranslate">\sum_{下标表达式}^{上标表达式} {累加表达式}</code></p>
+<p>例如：<code class="notranslate">$$ \sum_{i=0}^{n} x_i $$</code></p>
+<p>显示：$$ \sum_{i=0}^{n} x_i $$</p>
+<p>与累加类似，</p>
+<ul>
+<li>
+<p>累乘使用 <code class="notranslate">$\prod$</code></p>
+</li>
+<li>
+<p>并集使用 <code class="notranslate">$\bigcup$</code></p>
+</li>
+<li>
+<p>交集使用 <code class="notranslate">$\bigcap$</code></p>
+</li>
+</ul>
+<p>例如：<code class="notranslate">$$ \sum_{i=1}^n \frac{1}{i^2} \quad and \quad \prod_{i=1}^n \frac{1}{i^2} \quad and \quad \bigcup_{i=1}^{2} \Bbb{R} $$</code></p>
+<p>显示：$$ \sum_{i=1}^n \frac{1}{i^2} \quad and \quad \prod_{i=1}^n \frac{1}{i^2} \quad and \quad \bigcup_{i=1}^{2} \Bbb{R} $$</p>
+<h3>希腊字母</h3>
+<p>输入 <code class="notranslate">\小写希腊字母英文全称</code> 和 <code class="notranslate">\首字母大写希腊字母英文全称</code> 来分别输入小写和大写希腊字母</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示(小写)</th>
+<th align="center">代码(小写)</th>
+<th align="center">显示(大写)</th>
+<th align="center">代码(大写)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\alpha$</td>
+<td align="center"><code class="notranslate">$\alpha$</code></td>
+<td align="center">$A$</td>
+<td align="center"><code class="notranslate">$A$</code></td>
+</tr>
+<tr>
+<td align="center">$\beta$</td>
+<td align="center"><code class="notranslate">$\beta$</code></td>
+<td align="center">$B$</td>
+<td align="center"><code class="notranslate">$B$</code></td>
+</tr>
+<tr>
+<td align="center">$\gamma$</td>
+<td align="center"><code class="notranslate">$\gamma$</code></td>
+<td align="center">$\Gamma$</td>
+<td align="center"><code class="notranslate">$\Gamma$</code></td>
+</tr>
+<tr>
+<td align="center">$\delta$</td>
+<td align="center"><code class="notranslate">$\delta$</code></td>
+<td align="center">$\Delta$</td>
+<td align="center"><code class="notranslate">$\Delta$</code></td>
+</tr>
+<tr>
+<td align="center">$\epsilon$</td>
+<td align="center"><code class="notranslate">$\epsilon$</code></td>
+<td align="center">$\Epsilon$</td>
+<td align="center"><code class="notranslate">$\Epsilon$</code></td>
+</tr>
+<tr>
+<td align="center">$\zeta$</td>
+<td align="center"><code class="notranslate">$\zeta$</code></td>
+<td align="center">$\Zeta$</td>
+<td align="center"><code class="notranslate">$\Zeta$</code></td>
+</tr>
+<tr>
+<td align="center">$\eta$</td>
+<td align="center"><code class="notranslate">$\eta$</code></td>
+<td align="center">$\Eta$</td>
+<td align="center"><code class="notranslate">$\Eta$</code></td>
+</tr>
+<tr>
+<td align="center">$\theta$</td>
+<td align="center"><code class="notranslate">$\theta$</code></td>
+<td align="center">$\Theta$</td>
+<td align="center"><code class="notranslate">$\Theta$</code></td>
+</tr>
+<tr>
+<td align="center">$\iota$</td>
+<td align="center"><code class="notranslate">$\iota$</code></td>
+<td align="center">$\Iota$</td>
+<td align="center"><code class="notranslate">$\Iota$</code></td>
+</tr>
+<tr>
+<td align="center">$\kappa$</td>
+<td align="center"><code class="notranslate">$\kappa$</code></td>
+<td align="center">$\Kappa$</td>
+<td align="center"><code class="notranslate">$\Kappa$</code></td>
+</tr>
+<tr>
+<td align="center">$\lambda$</td>
+<td align="center"><code class="notranslate">$\lambda$</code></td>
+<td align="center">$\Lambda$</td>
+<td align="center"><code class="notranslate">$\Lambda$</code></td>
+</tr>
+<tr>
+<td align="center">$\mu$</td>
+<td align="center"><code class="notranslate">$\mu$</code></td>
+<td align="center">$\Mu$</td>
+<td align="center"><code class="notranslate">$\Mu$</code></td>
+</tr>
+<tr>
+<td align="center">$\nu$</td>
+<td align="center"><code class="notranslate">$\nu$</code></td>
+<td align="center">$\Nu$</td>
+<td align="center"><code class="notranslate">$\Nu$</code></td>
+</tr>
+<tr>
+<td align="center">$\xi$</td>
+<td align="center"><code class="notranslate">$\xi$</code></td>
+<td align="center">$\Xi$</td>
+<td align="center"><code class="notranslate">$\Xi$</code></td>
+</tr>
+<tr>
+<td align="center">$o$</td>
+<td align="center"><code class="notranslate">$o$</code></td>
+<td align="center">$O$</td>
+<td align="center"><code class="notranslate">$O$</code></td>
+</tr>
+<tr>
+<td align="center">$\pi$</td>
+<td align="center"><code class="notranslate">$\pi$</code></td>
+<td align="center">$\Pi$</td>
+<td align="center"><code class="notranslate">$\Pi$</code></td>
+</tr>
+<tr>
+<td align="center">$\rho$</td>
+<td align="center"><code class="notranslate">$\rho$</code></td>
+<td align="center">$\Rho$</td>
+<td align="center"><code class="notranslate">$\Rho$</code></td>
+</tr>
+<tr>
+<td align="center">$\sigma$</td>
+<td align="center"><code class="notranslate">$\sigma$</code></td>
+<td align="center">$\Sigma$</td>
+<td align="center"><code class="notranslate">$\Sigma$</code></td>
+</tr>
+<tr>
+<td align="center">$\tau$</td>
+<td align="center"><code class="notranslate">$\tau$</code></td>
+<td align="center">$\Tau$</td>
+<td align="center"><code class="notranslate">$\Tau$</code></td>
+</tr>
+<tr>
+<td align="center">$\upsilon$</td>
+<td align="center"><code class="notranslate">$\upsilon$</code></td>
+<td align="center">$\Upsilon$</td>
+<td align="center"><code class="notranslate">$\Upsilon$</code></td>
+</tr>
+<tr>
+<td align="center">$\phi$</td>
+<td align="center"><code class="notranslate">$\phi$</code></td>
+<td align="center">$\Phi$</td>
+<td align="center"><code class="notranslate">$\Phi$</code></td>
+</tr>
+<tr>
+<td align="center">$\chi$</td>
+<td align="center"><code class="notranslate">$\chi$</code></td>
+<td align="center">$\Chi$</td>
+<td align="center"><code class="notranslate">$\Chi$</code></td>
+</tr>
+<tr>
+<td align="center">$\psi$</td>
+<td align="center"><code class="notranslate">$\psi$</code></td>
+<td align="center">$\Psi$</td>
+<td align="center"><code class="notranslate">$\Psi$</code></td>
+</tr>
+<tr>
+<td align="center">$\omega$</td>
+<td align="center"><code class="notranslate">$\omega$</code></td>
+<td align="center">$\Omega$</td>
+<td align="center"><code class="notranslate">$\Omega$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>关系运算符</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\pm$</td>
+<td align="center"><code class="notranslate">$\pm$</code></td>
+</tr>
+<tr>
+<td align="center">$\times$</td>
+<td align="center"><code class="notranslate">$\times$</code></td>
+</tr>
+<tr>
+<td align="center">$\div$</td>
+<td align="center"><code class="notranslate">$\div$</code></td>
+</tr>
+<tr>
+<td align="center">$\mid$</td>
+<td align="center"><code class="notranslate">$\mid$</code></td>
+</tr>
+<tr>
+<td align="center">$\nmid$</td>
+<td align="center"><code class="notranslate">$\nmid$</code></td>
+</tr>
+<tr>
+<td align="center">$\cdot$</td>
+<td align="center"><code class="notranslate">$\cdot$</code></td>
+</tr>
+<tr>
+<td align="center">$\circ$</td>
+<td align="center"><code class="notranslate">$\circ$</code></td>
+</tr>
+<tr>
+<td align="center">$\ast$</td>
+<td align="center"><code class="notranslate">$\ast$</code></td>
+</tr>
+<tr>
+<td align="center">$\bigodot$</td>
+<td align="center"><code class="notranslate">$\bigodot$</code></td>
+</tr>
+<tr>
+<td align="center">$\bigotimes$</td>
+<td align="center"><code class="notranslate">$\bigotimes$</code></td>
+</tr>
+<tr>
+<td align="center">$\bigoplus$</td>
+<td align="center"><code class="notranslate">$\bigoplus$</code></td>
+</tr>
+<tr>
+<td align="center">$\leq$</td>
+<td align="center"><code class="notranslate">$\leq$</code></td>
+</tr>
+<tr>
+<td align="center">$\geq$</td>
+<td align="center"><code class="notranslate">$\geq$</code></td>
+</tr>
+<tr>
+<td align="center">$\neq$</td>
+<td align="center"><code class="notranslate">$\neq$</code></td>
+</tr>
+<tr>
+<td align="center">$\approx$</td>
+<td align="center"><code class="notranslate">$\approx$</code></td>
+</tr>
+<tr>
+<td align="center">$\equiv$</td>
+<td align="center"><code class="notranslate">$\equiv$</code></td>
+</tr>
+<tr>
+<td align="center">$\sum$</td>
+<td align="center"><code class="notranslate">$\sum$</code></td>
+</tr>
+<tr>
+<td align="center">$\prod$</td>
+<td align="center"><code class="notranslate">$\prod$</code></td>
+</tr>
+<tr>
+<td align="center">$\coprod$</td>
+<td align="center"><code class="notranslate">$\coprod$</code></td>
+</tr>
+<tr>
+<td align="center">$\backslash$</td>
+<td align="center"><code class="notranslate">$\backslash$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>集合运算</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\emptyset$</td>
+<td align="center"><code class="notranslate">$\emptyset$</code></td>
+<td align="center">空集</td>
+</tr>
+<tr>
+<td align="center">$\in$</td>
+<td align="center"><code class="notranslate">$\in$</code></td>
+<td align="center">属于</td>
+</tr>
+<tr>
+<td align="center">$\notin$</td>
+<td align="center"><code class="notranslate">$\notin$</code></td>
+<td align="center">不属于</td>
+</tr>
+<tr>
+<td align="center">$\subset$</td>
+<td align="center"><code class="notranslate">$\subset$</code></td>
+<td align="center">真包含于</td>
+</tr>
+<tr>
+<td align="center">$\supset$</td>
+<td align="center"><code class="notranslate">$\supset$</code></td>
+<td align="center">真包含</td>
+</tr>
+<tr>
+<td align="center">$\subseteq$</td>
+<td align="center"><code class="notranslate">$\subseteq$</code></td>
+<td align="center">包含</td>
+</tr>
+<tr>
+<td align="center">$\supseteq$</td>
+<td align="center"><code class="notranslate">$\supseteq$</code></td>
+<td align="center">包含</td>
+</tr>
+<tr>
+<td align="center">$\cap$</td>
+<td align="center"><code class="notranslate">$\cap$</code></td>
+<td align="center">交集</td>
+</tr>
+<tr>
+<td align="center">$\cup$</td>
+<td align="center"><code class="notranslate">$\cup$</code></td>
+<td align="center">并集</td>
+</tr>
+<tr>
+<td align="center">$\vee$</td>
+<td align="center"><code class="notranslate">$\vee$</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">$\wedge$</td>
+<td align="center"><code class="notranslate">$\wedge$</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">$\uplus$</td>
+<td align="center"><code class="notranslate">$\uplus$</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">$\top$</td>
+<td align="center"><code class="notranslate">$\top$</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">$\bot$</td>
+<td align="center"><code class="notranslate">$\bot$</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">$\complement$</td>
+<td align="center"><code class="notranslate">$\complement$</code></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>对数运算</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\log$</td>
+<td align="center"><code class="notranslate">$\log$</code></td>
+</tr>
+<tr>
+<td align="center">$\lg$</td>
+<td align="center"><code class="notranslate">$\lg$</code></td>
+</tr>
+<tr>
+<td align="center">$\ln$</td>
+<td align="center"><code class="notranslate">$\ln$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>三角运算</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\backsim$</td>
+<td align="center"><code class="notranslate">$\backsim$</code></td>
+</tr>
+<tr>
+<td align="center">$\cong$</td>
+<td align="center"><code class="notranslate">$\cong$</code></td>
+</tr>
+<tr>
+<td align="center">$\angle A$</td>
+<td align="center"><code class="notranslate">$\angle A$</code></td>
+</tr>
+<tr>
+<td align="center">$\sin$</td>
+<td align="center"><code class="notranslate">$\sin$</code></td>
+</tr>
+<tr>
+<td align="center">$\cos$</td>
+<td align="center"><code class="notranslate">$\cos$</code></td>
+</tr>
+<tr>
+<td align="center">$\tan$</td>
+<td align="center"><code class="notranslate">$\tan$</code></td>
+</tr>
+<tr>
+<td align="center">$\csc$</td>
+<td align="center"><code class="notranslate">$\csc$</code></td>
+</tr>
+<tr>
+<td align="center">$\sec$</td>
+<td align="center"><code class="notranslate">$\sec$</code></td>
+</tr>
+<tr>
+<td align="center">$\cot$</td>
+<td align="center"><code class="notranslate">$\cot$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>微积分运算</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\int$</td>
+<td align="center"><code class="notranslate">$\int$</code></td>
+</tr>
+<tr>
+<td align="center">$\iint$</td>
+<td align="center"><code class="notranslate">$\iint$</code></td>
+</tr>
+<tr>
+<td align="center">$\iiint$</td>
+<td align="center"><code class="notranslate">$\iiint$</code></td>
+</tr>
+<tr>
+<td align="center">$\partial$</td>
+<td align="center"><code class="notranslate">$\partial$</code></td>
+</tr>
+<tr>
+<td align="center">$\oint$</td>
+<td align="center"><code class="notranslate">$\oint$</code></td>
+</tr>
+<tr>
+<td align="center">$\prime$</td>
+<td align="center"><code class="notranslate">$\prime$</code></td>
+</tr>
+<tr>
+<td align="center">$\lim$</td>
+<td align="center"><code class="notranslate">$\lim$</code></td>
+</tr>
+<tr>
+<td align="center">$\infty$</td>
+<td align="center"><code class="notranslate">$\infty$</code></td>
+</tr>
+<tr>
+<td align="center">$\nabla$</td>
+<td align="center"><code class="notranslate">$\nabla$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>逻辑运算</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\because$</td>
+<td align="center"><code class="notranslate">$\because$</code></td>
+<td align="center">因为</td>
+</tr>
+<tr>
+<td align="center">$\therefore$</td>
+<td align="center"><code class="notranslate">$\therefore$</code></td>
+<td align="center">所以</td>
+</tr>
+<tr>
+<td align="center">$\neg$</td>
+<td align="center"><code class="notranslate">$\neg$</code></td>
+<td align="center">非</td>
+</tr>
+<tr>
+<td align="center">$\forall$</td>
+<td align="center"><code class="notranslate">$\forall$</code></td>
+<td align="center">任意</td>
+</tr>
+<tr>
+<td align="center">$\exists$</td>
+<td align="center"><code class="notranslate">$\exists$</code></td>
+<td align="center">存在</td>
+</tr>
+<tr>
+<td align="center">$\not\subset$</td>
+<td align="center"><code class="notranslate">$\not\subset$</code></td>
+<td align="center">不包含于</td>
+</tr>
+<tr>
+<td align="center">$\not&amp;lt;$</td>
+<td align="center"><code class="notranslate">$\not&lt;$</code></td>
+<td align="center">不小于</td>
+</tr>
+<tr>
+<td align="center">$\not&amp;gt;$</td>
+<td align="center"><code class="notranslate">$\not&gt;$</code></td>
+<td align="center">不大于</td>
+</tr>
+<tr>
+<td align="center">$\not=$</td>
+<td align="center"><code class="notranslate">$\not=$</code></td>
+<td align="center">不等于</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>戴帽运算</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\hat{xy}$</td>
+<td align="center"><code class="notranslate">$\hat{xy}$</code></td>
+</tr>
+<tr>
+<td align="center">$\widehat{xyz}$</td>
+<td align="center"><code class="notranslate">$\widehat{xyz}$</code></td>
+</tr>
+<tr>
+<td align="center">$\bar{y}$</td>
+<td align="center"><code class="notranslate">$\bar{y}$</code></td>
+</tr>
+<tr>
+<td align="center">$\tilde{xy}$</td>
+<td align="center"><code class="notranslate">$\tilde{xy}$</code></td>
+</tr>
+<tr>
+<td align="center">$\widetilde{xyz}$</td>
+<td align="center"><code class="notranslate">$\widetilde{xyz}$</code></td>
+</tr>
+<tr>
+<td align="center">$\acute{y}$</td>
+<td align="center"><code class="notranslate">$\acute{y}$</code></td>
+</tr>
+<tr>
+<td align="center">$\breve{y}$</td>
+<td align="center"><code class="notranslate">$\breve{y}$</code></td>
+</tr>
+<tr>
+<td align="center">$\check{y}$</td>
+<td align="center"><code class="notranslate">$\check{y}$</code></td>
+</tr>
+<tr>
+<td align="center">$\grave{y}$</td>
+<td align="center"><code class="notranslate">$\grave{y}$</code></td>
+</tr>
+<tr>
+<td align="center">$\dot{x}$</td>
+<td align="center"><code class="notranslate">$\dot{x}$</code></td>
+</tr>
+<tr>
+<td align="center">$\ddot{x}$</td>
+<td align="center"><code class="notranslate">$\ddot{x}$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>为公式加注释</h3>
+<p>使用 <code class="notranslate">\text{注释内容}</code></p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$f(x)= \begin{cases} 0,&amp; \text{if x is even} \ 1, &amp; \text{if x is odd} \end{cases}$</td>
+<td align="center"><code class="notranslate">$f(x)= \begin{cases} 0,&amp; \text{if x is even} \\ 1, &amp; \text{if x is odd} \end{cases}$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>为公式加序号</h3>
+<p>使用 <code class="notranslate">\tag{公式序号}</code></p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$$y=ax+b \tag{公式1}$$</td>
+<td align="center"><code class="notranslate">$$y=ax+b \tag{公式1}$$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>加粗</h3>
+<p>数字加粗：</p>
+<p>使用<code class="notranslate">$\mathbf{数学符号}$</code></p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\mathbf{0123456789}$</td>
+<td align="center"><code class="notranslate">$\mathbf{0123456789}$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>希腊字母加粗：</p>
+<p>使用<code class="notranslate">$\pmb{希腊字母}$</code></p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\pmb{\alpha\beta}$</td>
+<td align="center"><code class="notranslate">$\pmb{\alpha\beta}$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>斜体加粗：</p>
+<p>使用<code class="notranslate">$\boldsymbol{希腊字母}$</code></p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\boldsymbol{\alpha\beta}$</td>
+<td align="center"><code class="notranslate">$\boldsymbol{\alpha\beta}$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>矩阵</h3>
+<p>使用<code class="notranslate">$$\begin{matrix}…\end{matrix}$$</code>来实现矩阵。</p>
+<p>不带括号的矩阵</p>
+<p>代码：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate"><span class="pl-s">$$</span><span class="pl-c1"></span>
+<span class="pl-c1">  \begin{matrix}</span>
+<span class="pl-c1">   1 &amp; 2 &amp; 3 \\</span>
+<span class="pl-c1">   4 &amp; 5 &amp; 6 \\</span>
+<span class="pl-c1">   7 &amp; 8 &amp; 9</span>
+<span class="pl-c1">  \end{matrix} \tag{1}</span>
+<span class="pl-c1"></span><span class="pl-s">$$</span></pre></div>
+<p>显示效果：</p>
+<p>$$
+\begin{matrix}
+1 &amp; 2 &amp; 3 \\
+4 &amp; 5 &amp; 6 \\
+7 &amp; 8 &amp; 9
+\end{matrix} \tag{1}
+$$</p>
+<p>带{ }的矩阵</p>
+<p>代码：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate"><span class="pl-s">$$</span><span class="pl-c1"></span>
+<span class="pl-c1">  \left\{</span>
+<span class="pl-c1">  \begin{matrix}</span>
+<span class="pl-c1">   1 &amp; 2 &amp; 3 \\</span>
+<span class="pl-c1">   4 &amp; 5 &amp; 6 \\</span>
+<span class="pl-c1">   7 &amp; 8 &amp; 9</span>
+<span class="pl-c1">  \end{matrix}</span>
+<span class="pl-c1">  \right\} \tag{2}</span>
+<span class="pl-c1"></span><span class="pl-s">$$</span></pre></div>
+<p>显示效果：</p>
+<p>​$$<br>
+\left{<br>
+\begin{matrix}<br>
+1 &amp; 2 &amp; 3 \<br>
+4 &amp; 5 &amp; 6 \<br>
+7 &amp; 8 &amp; 9<br>
+\end{matrix}<br>
+\right} \tag{2}<br>
+$$</p>
+<p>带[ ]的矩阵</p>
+<p>代码：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate"><span class="pl-s">$$</span><span class="pl-c1"></span>
+<span class="pl-c1"> \left[</span>
+<span class="pl-c1"> \begin{matrix}</span>
+<span class="pl-c1">   1 &amp; 2 &amp; 3 \\</span>
+<span class="pl-c1">   4 &amp; 5 &amp; 6 \\</span>
+<span class="pl-c1">   7 &amp; 8 &amp; 9</span>
+<span class="pl-c1">  \end{matrix}</span>
+<span class="pl-c1">  \right] \tag{3}</span>
+<span class="pl-c1"></span><span class="pl-s">$$</span></pre></div>
+<p>显示效果：</p>
+<p>$$
+\left[
+\begin{matrix}
+1 &amp; 2 &amp; 3 \\
+4 &amp; 5 &amp; 6 \\
+7 &amp; 8 &amp; 9
+\end{matrix}
+\right] \tag{3}
+$$</p>
+<p>带省略号的矩阵</p>
+<p>代码：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate"><span class="pl-s">$$</span><span class="pl-c1"></span>
+<span class="pl-c1">  \left[</span>
+<span class="pl-c1">  \begin{matrix}</span>
+<span class="pl-c1">   1      &amp; 2      &amp; \cdots &amp; 4       \\</span>
+<span class="pl-c1">   7      &amp; 6      &amp; \cdots &amp; 5       \\</span>
+<span class="pl-c1">   \vdots &amp; \vdots &amp; \ddots &amp; \vdots  \\</span>
+<span class="pl-c1">   8      &amp; 9      &amp; \cdots &amp; 0       \\</span>
+<span class="pl-c1">  \end{matrix}</span>
+<span class="pl-c1">  \right] \tag{4}</span>
+<span class="pl-c1"></span><span class="pl-s">$$</span></pre></div>
+<p>显示效果：</p>
+<p>$$
+\left[
+\begin{matrix}
+1      &amp; 2      &amp; \cdots &amp; 4       \\
+7      &amp; 6      &amp; \cdots &amp; 5       \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots  \\
+8      &amp; 9      &amp; \cdots &amp; 0       \\
+\end{matrix}
+\right] \tag{4}
+$$</p>
+<h3>乘积</h3>
+<p>叉乘：</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$a \times b$</td>
+<td align="center"><code class="notranslate">$a \times b$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>点乘：</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$a \cdot b$</td>
+<td align="center"><code class="notranslate">$a \cdot b$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>内积：</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\langle a , b \rangle$</td>
+<td align="center"><code class="notranslate">$\langle a , b \rangle$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>外积：</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$a \otimes b$</td>
+<td align="center"><code class="notranslate">$a \otimes b$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>实数R</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">显示</th>
+<th align="center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$\mathbb{R}$</td>
+<td align="center"><code class="notranslate">$\mathbb{R}$</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://wliafe.github.io">wliafe</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","wliafe/wliafe.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script>MathJax = {tex: {inlineMath: [["$", "$"]]}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</html>
