@@ -1,0 +1,163 @@
+# 什么是全局异常处理器
+
+软件开发springboot项目过程中，不可避免的需要处理各种异常，spring mvc架构中各层会出现大量的try{...} catch{...} finally{...}代码块，不仅有大量的冗余代码，而且还影响代码的可读性。这样就需要定义个全局统一异常处理器，以便业务层再也不必处理异常。
+
+Spring在3.2版本增加了一个注解@ControllerAdvice，可以与@ExceptionHandler、@InitBinder、@ModelAtribute等注解配套使用。不过跟异常处理相关的只有注解@ExceptionHandler,从字面上看，就是异常处理器的意思。
+
+# 为什么需要全局异常
+
+不用强制写try-catch，由全局异常处理器统一捕获处理。
+
+自定义异常，只能用全局异常来捕获。不能直接返回给客户端，客户端是看不懂的，需要接入全局异常处理器
+
+JSR303规范的Validator参数校验器，参数校验不通过会抛异常，是无法使用try-catch语句直接捕获，只能使用全局异常处理器。
+
+# 原理和目标
+
+简单的说，@ControllerAdvice注解可以把异常处理器应用到所有控制器，而不是单个控制器。借助该注解，我们可以实现：在独立的某个地方，比如单独的一个类，定义一套对各章异常的处理机制，然后在类的签名加上注解@ControllerAdvice，统一对不同阶段的，不同异常进行处理。这就是统一异常处理的原理。
+
+对异常按阶段进行分类，大体可以分成：进入Controller前的异常和Service层异常
+
+目标就是消灭95%以上的try catch代码块，并以优雅的Assert（断言）方式来校验业务的异常情况，只关注业务逻辑，而不用花费大量精力写冗余的try catch代码块。
+
+# 编码实现全局异常处理器
+
+```java
+package com.wliafe.common.exception;
+
+import com.wliafe.common.domain.MyResult;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ * 全局异常处理
+ *
+ * @author wliafe
+ * @date 2023/1/3 14:11
+ **/
+@Slf4j
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler(value = RuntimeException.class)
+    @ResponseBody
+    public MyResult RuntimeExceptionHandler(RuntimeException e) {
+        log.error(e.getMessage());
+        System.out.println(e.getStackTrace()[0]);
+        return MyResult.error(e.getMessage());
+    }
+
+    @ExceptionHandler(value = NullPointerException.class)
+    @ResponseBody
+    public MyResult exceptionHandler(NullPointerException e) {
+        log.error(e.getMessage());
+        System.out.println(e.getStackTrace()[0]);
+        return MyResult.error(e.getMessage());
+    }
+
+    @ExceptionHandler(value = Exception.class)
+    @ResponseBody
+    public MyResult exceptionHandler(Exception e) {
+        log.error(e.getMessage());
+        System.out.println(e.getStackTrace()[0]);
+        return MyResult.error(e.getMessage());
+    }
+}
+```
+
+# 处理filter中抛出的异常
+
+## 简介
+
+使用全局异常处理并不能处理filter中的异常。
+
+## 分析
+
+我们在过滤器中抛出了异常，抛出异常以后程序不会继续向下执行，也就是请求并没有到达controller层。而全局异常拦截的注解@ControllerAdvice只针对controller层出现的异常才会处理。
+
+## 解决方法
+
+定义一个过滤器，专门捕获我们过滤器抛出的异常，如果捕获到异常，那么我们就把这个异常传递到指定的controller来处理，并把异常也传递过去，这个controller拿到传递过来的异常，然后再把异常抛出去，这样全局异常处理器就可以感知到这个异常了。
+
+## 代码实现
+
+定义过滤器：
+
+```java
+public class ExceptionFilter implements Filter {
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        try {
+            filterChain.doFilter(request, response);
+        } catch (UserException e) {
+            e.printStackTrace();
+            // 传递异常信息
+            request.setAttribute("filterError", e);
+            // 指定处理该请求的处理器
+            request.getRequestDispatcher(CommonConstant.ERROR_CONTROLLER_PATH).forward(request, response);
+        }
+    }
+}
+```
+
+定义异常处理controller:
+
+```java
+@RestController
+public class ExceptionController {
+
+    @RequestMapping(CommonConstant.ERROR_CONTROLLER_PATH)
+    public void handleException(HttpServletRequest request){
+        throw (UserException) request.getAttribute("filterError");
+    }
+}
+
+public class CommonConstant {
+
+    /**
+     * 异常处理 controller request url
+     */
+    public static final String ERROR_CONTROLLER_PATH = "/error/throw";
+}
+```
+
+注册过滤器：
+
+```java
+	@Bean
+    public FilterRegistrationBean exceptionFilter() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        ExceptionFilter filter = new ExceptionFilter();
+        registrationBean.setFilter(filter);
+        registrationBean.setName("exceptionFilter");
+        registrationBean.setOrder(-1);
+        return registrationBean;
+    }
+```
+
+开测，很幸运的我们拿到了预想的结果
+
+```json
+{
+    "code": 500,
+    "msg": "用户信息获取异常",
+    "data": null
+}
+```
+
+全局异常处理器的相关代码
+
+```java
+@RestControllerAdvice
+public class CustomExceptionHandler {
+
+    @ExceptionHandler(UserException.class)
+    public ResultCode HandleException(UserException e) {
+        return ResultCode.fail(e.getCode(), e.getMsg());
+    }
+	
+	// 针对其他异常的处理
+}
+```
