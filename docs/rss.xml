@@ -1,5 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 12:14:13 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>Swagger-SpringDoc</title><link>https://wliafe.github.io/post/Swagger-SpringDoc.html</link><description># 简介&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 12:16:23 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>路由器刷Breed</title><link>https://wliafe.github.io/post/lu-you-qi-shua-Breed.html</link><description># Breed作者博客&#13;
+&#13;
+[Breed作者博客](https://blog.hackpascal.net/)&#13;
+&#13;
+# Breed版本设备表&#13;
+&#13;
+[Breed版本设备表](https://www.right.com.cn/forum/thread-161906-1-1.html)&#13;
+&#13;
+# Breed下载地址&#13;
+&#13;
+[Breed下载地址](https://breed.hackpascal.net/)。</description><guid isPermaLink="true">https://wliafe.github.io/post/lu-you-qi-shua-Breed.html</guid><pubDate>Thu, 02 Jan 2025 12:16:02 +0000</pubDate></item><item><title>Swagger-SpringDoc</title><link>https://wliafe.github.io/post/Swagger-SpringDoc.html</link><description># 简介&#13;
 &#13;
 SpringDoc是Swagger的优化版本，比较好用，这是[SpringDoc的官方文档](https://springdoc.org/)&#13;
 &#13;
