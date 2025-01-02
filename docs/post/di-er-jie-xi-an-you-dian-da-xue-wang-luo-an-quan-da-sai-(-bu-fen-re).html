@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://wliafe.github.io/wliafe.jpg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="# ez_MATH
+
+下载文件后打开：
+
+```cpp
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	//welcome to XUPT_CTF!
+	//在CTF逆向中，首先需要建立起逆向思维，希望本次CTF校赛能够给你带来一些收获！
+	char flag[] = 'xxx';
+	for (int i = 0; i < strlen(flag); i++)
+	{
+		//printf('%c', flag[i]);
+		flag[i] -= 5;
+		flag[i] += 2;
+		flag[i] -= 1;
+		flag[i] ^= 5;
+		flag[i] += 2;
+		flag[i] = (flag[i] + 1);
+		printf('%d,', flag[i]);
+	}
+}
+//encodeflag = {106, 112, 91, 105, 117, 79, 91, 120, 100, 97, 67, 109, 97, 71, 71, 71, 91, 109, 115, 127}
+```
+
+提示加密后的flag为：
+
+```cpp
+encodeflag = {106, 112, 91, 105, 117, 79, 91, 120, 100, 97, 67, 109, 97, 71, 71, 71, 91, 109, 115, 127}
+```
+
+经过逆推后的代码是：
+
+```cpp
+int s[] = {106, 112, 91, 105, 117, 79, 91, 120, 100, 97, 67, 109, 97, 71, 71, 71, 91, 109, 115, 127};
+int main(void){
+	for (int i = 0; i < 20; i++)
+	{
+		s[i]--;
+		s[i]-=2;
+		s[i]^=5;
+		s[i]+=1;
+		s[i]-=2;
+		s[i]+=5;
+		printf('%c',s[i]);
+	}
+} 
+```
+
+# eazy_encode
+
+下载后打开程序：
+
+![1](https://github.com/user-attachments/assets/3a69e7ed-5137-4ec4-9b1d-f3815ed8dcc8)
+
+![2](https://github.com/user-attachments/assets/8d5a3f30-c842-479b-9ad3-8c8490b085ba)
+
+发现缺少两个dll文件,没关系，网上搜索直接下载，放入与exe文件同一个文件夹中。">
+<meta property="og:title" content="第二届西安邮电大学网络安全大赛(部分re)">
+<meta property="og:description" content="# ez_MATH
+
+下载文件后打开：
+
+```cpp
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	//welcome to XUPT_CTF!
+	//在CTF逆向中，首先需要建立起逆向思维，希望本次CTF校赛能够给你带来一些收获！
+	char flag[] = 'xxx';
+	for (int i = 0; i < strlen(flag); i++)
+	{
+		//printf('%c', flag[i]);
+		flag[i] -= 5;
+		flag[i] += 2;
+		flag[i] -= 1;
+		flag[i] ^= 5;
+		flag[i] += 2;
+		flag[i] = (flag[i] + 1);
+		printf('%d,', flag[i]);
+	}
+}
+//encodeflag = {106, 112, 91, 105, 117, 79, 91, 120, 100, 97, 67, 109, 97, 71, 71, 71, 91, 109, 115, 127}
+```
+
+提示加密后的flag为：
+
+```cpp
+encodeflag = {106, 112, 91, 105, 117, 79, 91, 120, 100, 97, 67, 109, 97, 71, 71, 71, 91, 109, 115, 127}
+```
+
+经过逆推后的代码是：
+
+```cpp
+int s[] = {106, 112, 91, 105, 117, 79, 91, 120, 100, 97, 67, 109, 97, 71, 71, 71, 91, 109, 115, 127};
+int main(void){
+	for (int i = 0; i < 20; i++)
+	{
+		s[i]--;
+		s[i]-=2;
+		s[i]^=5;
+		s[i]+=1;
+		s[i]-=2;
+		s[i]+=5;
+		printf('%c',s[i]);
+	}
+} 
+```
+
+# eazy_encode
+
+下载后打开程序：
+
+![1](https://github.com/user-attachments/assets/3a69e7ed-5137-4ec4-9b1d-f3815ed8dcc8)
+
+![2](https://github.com/user-attachments/assets/8d5a3f30-c842-479b-9ad3-8c8490b085ba)
+
+发现缺少两个dll文件,没关系，网上搜索直接下载，放入与exe文件同一个文件夹中。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wliafe.github.io/post/di-er-jie-xi-an-you-dian-da-xue-wang-luo-an-quan-da-sai-%28-bu-fen-re%29.html">
+<meta property="og:image" content="https://wliafe.github.io/wliafe.jpg">
+<title>第二届西安邮电大学网络安全大赛(部分re)</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">第二届西安邮电大学网络安全大赛(部分re)</h1>
+<div class="title-right">
+    <a href="https://wliafe.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/wliafe/wliafe.github.io/issues/5" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h1>ez_MATH</h1>
+<p>下载文件后打开：</p>
+<div class="highlight highlight-source-c++"><pre class="notranslate">#<span class="pl-k">include</span><span class="pl-s"><span class="pl-pds">&lt;</span>stdio.h<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span><span class="pl-s"><span class="pl-pds">&lt;</span>string.h<span class="pl-pds">&gt;</span></span>
+<span class="pl-k">int</span> <span class="pl-en">main</span>()
+{
+	<span class="pl-c"><span class="pl-c">//</span>welcome to XUPT_CTF!</span>
+	<span class="pl-c"><span class="pl-c">//</span>在CTF逆向中，首先需要建立起逆向思维，希望本次CTF校赛能够给你带来一些收获！</span>
+	<span class="pl-k">char</span> flag[] = <span class="pl-s"><span class="pl-pds">"</span>xxx<span class="pl-pds">"</span></span>;
+	<span class="pl-k">for</span> (<span class="pl-k">int</span> i = <span class="pl-c1">0</span>; i &lt; <span class="pl-c1">strlen</span>(flag); i++)
+	{
+		<span class="pl-c"><span class="pl-c">//</span>printf("%c", flag[i]);</span>
+		flag[i] -= <span class="pl-c1">5</span>;
+		flag[i] += <span class="pl-c1">2</span>;
+		flag[i] -= <span class="pl-c1">1</span>;
+		flag[i] ^= <span class="pl-c1">5</span>;
+		flag[i] += <span class="pl-c1">2</span>;
+		flag[i] = (flag[i] + <span class="pl-c1">1</span>);
+		<span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">"</span>%d,<span class="pl-pds">"</span></span>, flag[i]);
+	}
+}
+<span class="pl-c"><span class="pl-c">//</span>encodeflag = {106, 112, 91, 105, 117, 79, 91, 120, 100, 97, 67, 109, 97, 71, 71, 71, 91, 109, 115, 127}</span></pre></div>
+<p>提示加密后的flag为：</p>
+<div class="highlight highlight-source-c++"><pre class="notranslate">encodeflag = {<span class="pl-c1">106</span>, <span class="pl-c1">112</span>, <span class="pl-c1">91</span>, <span class="pl-c1">105</span>, <span class="pl-c1">117</span>, <span class="pl-c1">79</span>, <span class="pl-c1">91</span>, <span class="pl-c1">120</span>, <span class="pl-c1">100</span>, <span class="pl-c1">97</span>, <span class="pl-c1">67</span>, <span class="pl-c1">109</span>, <span class="pl-c1">97</span>, <span class="pl-c1">71</span>, <span class="pl-c1">71</span>, <span class="pl-c1">71</span>, <span class="pl-c1">91</span>, <span class="pl-c1">109</span>, <span class="pl-c1">115</span>, <span class="pl-c1">127</span>}</pre></div>
+<p>经过逆推后的代码是：</p>
+<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">int</span> s[] = {<span class="pl-c1">106</span>, <span class="pl-c1">112</span>, <span class="pl-c1">91</span>, <span class="pl-c1">105</span>, <span class="pl-c1">117</span>, <span class="pl-c1">79</span>, <span class="pl-c1">91</span>, <span class="pl-c1">120</span>, <span class="pl-c1">100</span>, <span class="pl-c1">97</span>, <span class="pl-c1">67</span>, <span class="pl-c1">109</span>, <span class="pl-c1">97</span>, <span class="pl-c1">71</span>, <span class="pl-c1">71</span>, <span class="pl-c1">71</span>, <span class="pl-c1">91</span>, <span class="pl-c1">109</span>, <span class="pl-c1">115</span>, <span class="pl-c1">127</span>};
+<span class="pl-k">int</span> <span class="pl-en">main</span>(<span class="pl-k">void</span>){
+	<span class="pl-k">for</span> (<span class="pl-k">int</span> i = <span class="pl-c1">0</span>; i &lt; <span class="pl-c1">20</span>; i++)
+	{
+		s[i]--;
+		s[i]-=<span class="pl-c1">2</span>;
+		s[i]^=<span class="pl-c1">5</span>;
+		s[i]+=<span class="pl-c1">1</span>;
+		s[i]-=<span class="pl-c1">2</span>;
+		s[i]+=<span class="pl-c1">5</span>;
+		<span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">"</span>%c<span class="pl-pds">"</span></span>,s[i]);
+	}
+} </pre></div>
+<h1>eazy_encode</h1>
+<p>下载后打开程序：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/3a69e7ed-5137-4ec4-9b1d-f3815ed8dcc8"><img src="https://github.com/user-attachments/assets/3a69e7ed-5137-4ec4-9b1d-f3815ed8dcc8" alt="1" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/8d5a3f30-c842-479b-9ad3-8c8490b085ba"><img src="https://github.com/user-attachments/assets/8d5a3f30-c842-479b-9ad3-8c8490b085ba" alt="2" style="max-width: 100%;"></a></p>
+<p>发现缺少两个dll文件,没关系，网上搜索直接下载，放入与exe文件同一个文件夹中。之后程序就能运行了：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/fc78891c-25e4-4ea9-8351-8668eb512857"><img src="https://github.com/user-attachments/assets/fc78891c-25e4-4ea9-8351-8668eb512857" alt="3" style="max-width: 100%;"></a></p>
+<p>通过peid检查文件信息，包括文件是否加壳，文件是32位还是64位。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/8e4446f8-8979-447b-a35d-e1de2bb82dba"><img src="https://github.com/user-attachments/assets/8e4446f8-8979-447b-a35d-e1de2bb82dba" alt="4" style="max-width: 100%;"></a></p>
+<p>发现是未加壳的32位文件，放入ida中。F5找到main函数：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/3e8f4e46-1510-4a7b-856a-333b8becc51f"><img src="https://github.com/user-attachments/assets/3e8f4e46-1510-4a7b-856a-333b8becc51f" alt="5" style="max-width: 100%;"></a></p>
+<p>能知道str2的内容。需要知道str1的内容，显然str1和v10有关，而v10就是flag，发现sub_411294这个函数比较重要。点开后：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/f5358df5-ca2a-466a-9302-ff11ead0416f"><img src="https://github.com/user-attachments/assets/f5358df5-ca2a-466a-9302-ff11ead0416f" alt="6" style="max-width: 100%;"></a></p>
+<p>能看出来这是base64加密。</p>
+<p>将[nyi[4ujZYOmOkSgcn:1Y4KmenWzd3W:所有字母减一后base64解码后就能获得flag。</p>
+<h1>easy_re</h1>
+<p>解压后两个文件：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/e6cda954-bcc5-4b1c-a0e9-e83bf25690ab"><img src="https://github.com/user-attachments/assets/e6cda954-bcc5-4b1c-a0e9-e83bf25690ab" alt="7" style="max-width: 100%;"></a></p>
+<p>zip文件打不开有密码，显然key是他的密码。打开key：</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">BITS 64
+global check
+section .text
+check:
+    mov rbp, rsp
+    sub rsp, 0x100
+    VMOVDQA ymm0, [rdi]
+    and rsp, 0xffffffffffffff00
+    mov rax, 0xfeca50051345b0b0
+    push rax
+    push rax
+    push rax
+    push rax
+    VMOVDQA ymm1, [rsp]
+    VPXOR ymm2, ymm1, ymm0
+    mov rax, 0x0100030205040706
+    push rax
+    mov rax, 0x09080b0a0c0d0f0e
+    push rax
+    mov rax, 0x1110131215141716
+    push rax
+    mov rax, 0x19181b1a1c1d1f1e
+    push rax
+    VMOVDQA ymm3, [rsp]
+    VPSHUFB ymm4, ymm2, ymm3
+    mov rax, 0xd1d3762335619aab
+    push rax
+    mov rax, 0xd5d52327356583f8
+    push rax
+    mov rax, 0xdcd67424217e9bbd
+    push rax
+    mov rax,0xd5d622713161cbf8 
+    push rax
+    VMOVDQA ymm0, [rsp]
+    VPCMPEQQ  ymm1, ymm4, ymm0
+    VMOVDQA [rsp], ymm1
+    pop rax
+    cmp rax, 0xffffffffffffffff
+    jnz fail
+    pop rax
+    cmp rax, 0xffffffffffffffff
+    jnz fail
+    pop rax
+    cmp rax, 0xffffffffffffffff
+    jnz fail
+    pop rax
+    cmp rax, 0xffffffffffffffff
+    jnz fail
+    mov rax, 1
+    jmp fin
+fail:
+    xor rax, rax
+fin:
+    mov rsp, rbp
+    ret</pre></div>
+<p>读代码知，key实际上是[rdi]，这个程序先把rdi与rax异或，然后用VPSHUFB调整代码顺序，最后一个比较跳转到fin</p>
+<p>主要是VPSHUFB这条指令的学习 通过百度了解到</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/a077b9eb-d03b-4978-8c38-2d35bfbf9935"><img src="https://github.com/user-attachments/assets/a077b9eb-d03b-4978-8c38-2d35bfbf9935" alt="8" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/8976b54c-36e3-4ee2-bccc-c0ccd12e537b"><img src="https://github.com/user-attachments/assets/8976b54c-36e3-4ee2-bccc-c0ccd12e537b" alt="9" style="max-width: 100%;"></a></p>
+<p>这两幅图可以让我们清楚的学会这条指令 ，然后就可以在纸上画出正确的值（一共就四条，不写脚本了）</p>
+<p>拿到四个正确的值后 一个异或即可拿到key</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">e</span><span class="pl-c1">=</span><span class="pl-c1">0xfeca50051345b0b0</span>
+
+<span class="pl-s1">a</span><span class="pl-c1">=</span><span class="pl-c1">0xcbf861312271d5d6</span>
+<span class="pl-s1">b</span><span class="pl-c1">=</span><span class="pl-c1">0x9bbd217e7424dcd6</span>
+<span class="pl-s1">c</span><span class="pl-c1">=</span><span class="pl-c1">0x83f865352327d5d5</span> 
+<span class="pl-s1">d</span><span class="pl-c1">=</span><span class="pl-c1">0x9aab35617623d1d3</span>
+
+<span class="pl-s1">a</span><span class="pl-c1">=</span><span class="pl-s1">a</span><span class="pl-c1">^</span><span class="pl-s1">e</span>
+<span class="pl-s1">b</span><span class="pl-c1">=</span><span class="pl-s1">b</span><span class="pl-c1">^</span><span class="pl-s1">e</span>
+<span class="pl-s1">c</span><span class="pl-c1">=</span><span class="pl-s1">c</span><span class="pl-c1">^</span><span class="pl-s1">e</span>
+<span class="pl-s1">d</span><span class="pl-c1">=</span><span class="pl-s1">d</span><span class="pl-c1">^</span><span class="pl-s1">e</span>
+<span class="pl-en">print</span>(<span class="pl-en">hex</span>(<span class="pl-s1">a</span>)[<span class="pl-c1">2</span>:]<span class="pl-c1">+</span><span class="pl-en">hex</span>(<span class="pl-s1">b</span>)[<span class="pl-c1">2</span>:]<span class="pl-c1">+</span><span class="pl-en">hex</span>(<span class="pl-s1">c</span>)[<span class="pl-c1">2</span>:]<span class="pl-c1">+</span><span class="pl-en">hex</span>(<span class="pl-s1">d</span>)[<span class="pl-c1">2</span>:])
+<span class="pl-en">print</span>(<span class="pl-en">hex</span>(<span class="pl-s1">a</span>)[<span class="pl-c1">2</span>:],<span class="pl-en">hex</span>(<span class="pl-s1">b</span>)[<span class="pl-c1">2</span>:],<span class="pl-en">hex</span>(<span class="pl-s1">c</span>)[<span class="pl-c1">2</span>:],<span class="pl-en">hex</span>(<span class="pl-s1">d</span>)[<span class="pl-c1">2</span>:])</pre></div>
+<p>用key解压easy_re.zip文件。打开后：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/14a1d661-7228-413f-bf2d-e005aaca100a"><img src="https://github.com/user-attachments/assets/14a1d661-7228-413f-bf2d-e005aaca100a" alt="10" style="max-width: 100%;"></a></p>
+<p>用peid查看发现是upx加壳的32位文件。</p>
+<p>然后脱壳处理，初次使用upx脱壳工具会发现无法脱壳，原因是upx加密后进行了防解密的修饰。</p>
+<p>用Stud_PE修改区段名</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/5844210b-ac7f-45d1-bfa4-429bd2a70fdd"><img src="https://github.com/user-attachments/assets/5844210b-ac7f-45d1-bfa4-429bd2a70fdd" alt="11" style="max-width: 100%;"></a></p>
+<p>将区段名的R都改为U，这样就能用upx工具脱壳了。</p>
+<p>脱壳后的文件放入ida中：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/c3183496-679a-4cd7-ba66-d9db2cf82a29"><img src="https://github.com/user-attachments/assets/c3183496-679a-4cd7-ba66-d9db2cf82a29" alt="12" style="max-width: 100%;"></a></p>
+<p>通过shift+F12获取字符串</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/bac7bf2c-6326-40e3-b847-32b4f711b339"><img src="https://github.com/user-attachments/assets/bac7bf2c-6326-40e3-b847-32b4f711b339" alt="13" style="max-width: 100%;"></a></p>
+<p>发现you are right  you are wrong</p>
+<p>点击跳转到字符串位置，向上翻找到：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/018b3f7d-5297-4079-9804-1bec9d3b641b"><img src="https://github.com/user-attachments/assets/018b3f7d-5297-4079-9804-1bec9d3b641b" alt="14" style="max-width: 100%;"></a></p>
+<p>选定后按d 和p后就可以按F5</p>
+<p>获得函数：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/da4d9c13-b6a0-4b37-b0c0-2ed6b08fa376"><img src="https://github.com/user-attachments/assets/da4d9c13-b6a0-4b37-b0c0-2ed6b08fa376" alt="15" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/867945f4-45b0-4f89-a957-41a9740f2a0f"><img src="https://github.com/user-attachments/assets/867945f4-45b0-4f89-a957-41a9740f2a0f" alt="16" style="max-width: 100%;"></a></p>
+<p>知道了xmmword_403018和dword_402140获得dword_40343c</p>
+<p>通过下面代码获得flag。</p>
+<div class="highlight highlight-source-c++"><pre class="notranslate">#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>stdio.h<span class="pl-pds">&gt;</span></span>
+<span class="pl-k">int</span> s[] = {<span class="pl-c1">103</span>, <span class="pl-c1">110</span>, <span class="pl-c1">100</span>, <span class="pl-c1">101</span>, <span class="pl-c1">128</span>, <span class="pl-c1">55</span>, <span class="pl-c1">49</span>, <span class="pl-c1">63</span>, <span class="pl-c1">58</span>, <span class="pl-c1">59</span>, <span class="pl-c1">59</span>, <span class="pl-c1">52</span>, <span class="pl-c1">107</span>, <span class="pl-c1">64</span>, <span class="pl-c1">112</span>, <span class="pl-c1">60</span>, <span class="pl-c1">116</span>, <span class="pl-c1">36</span>, <span class="pl-c1">117</span>, <span class="pl-c1">38</span>, <span class="pl-c1">46</span>, <span class="pl-c1">46</span>, <span class="pl-c1">38</span>, <span class="pl-c1">114</span>, <span class="pl-c1">43</span>, <span class="pl-c1">34</span>, <span class="pl-c1">35</span>, <span class="pl-c1">44</span>, <span class="pl-c1">121</span>, <span class="pl-c1">47</span>, <span class="pl-c1">45</span>, <span class="pl-c1">123</span>, <span class="pl-c1">19</span>, <span class="pl-c1">25</span>, <span class="pl-c1">66</span>, <span class="pl-c1">28</span>, <span class="pl-c1">17</span>, <span class="pl-c1">89</span>};
+<span class="pl-k">int</span> m[] = {<span class="pl-c1">0</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>, <span class="pl-c1">5</span>, <span class="pl-c1">6</span>, <span class="pl-c1">7</span>, <span class="pl-c1">8</span>, <span class="pl-c1">9</span>, <span class="pl-c1">10</span>, <span class="pl-c1">11</span>, <span class="pl-c1">12</span>, <span class="pl-c1">13</span>, <span class="pl-c1">14</span>, <span class="pl-c1">15</span>, <span class="pl-c1">16</span>, <span class="pl-c1">17</span>, <span class="pl-c1">18</span>, <span class="pl-c1">19</span>, <span class="pl-c1">20</span>, <span class="pl-c1">21</span>, <span class="pl-c1">22</span>, <span class="pl-c1">23</span>, <span class="pl-c1">24</span>, <span class="pl-c1">25</span>, <span class="pl-c1">26</span>, <span class="pl-c1">27</span>, <span class="pl-c1">28</span>, <span class="pl-c1">29</span>, <span class="pl-c1">30</span>, <span class="pl-c1">31</span>, <span class="pl-c1">32</span>, <span class="pl-c1">33</span>, <span class="pl-c1">34</span>, <span class="pl-c1">35</span>, <span class="pl-c1">36</span>,<span class="pl-c1">37</span>};
+<span class="pl-k">int</span> <span class="pl-en">main</span>(<span class="pl-k">void</span>) {
+    <span class="pl-k">for</span>(<span class="pl-k">int</span> i=<span class="pl-c1">0</span>;i&lt;<span class="pl-c1">38</span>;i++)
+        <span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">"</span>%c<span class="pl-pds">"</span></span>,(s[i]-<span class="pl-c1">1</span>)^m[i]);
+}</pre></div></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://wliafe.github.io">wliafe</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","wliafe/wliafe.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+
+
+</html>
