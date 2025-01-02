@@ -2,5 +2,6 @@
     "title":"wliafe",
     "subTitle":"一种生活，一种态度",
     "avatarUrl":"https://wliafe.github.io/wliafe.jpg",
-    "GMEEK_VERSION":"last"
+    "GMEEK_VERSION":"last",
+    "singlePage":["link","about"],
 }
