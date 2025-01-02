@@ -1,5 +1,25 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Mon, 16 Dec 2024 13:43:00 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>python基础</title><link>https://wliafe.github.io/post/python-ji-chu.html</link><description># python的基本输入&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Thu, 02 Jan 2025 11:22:24 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>安全网站</title><link>https://wliafe.github.io/post/an-quan-wang-zhan.html</link><description># 安全网站&#13;
+&#13;
+[攻防世界](https://adworld.xctf.org.cn/)，[BUUCTF](https://buuoj.cn/)&#13;
+&#13;
+[看雪](https://bbs.kanxue.com/)，[安全客](https://www.anquanke.com/)，[i春秋](https://www.ichunqiu.com/)，[吾爱破解](https://www.52pojie.cn/)&#13;
+&#13;
+[全国大学生安全竞赛](http://www.ciscn.cn/)&#13;
+&#13;
+# 安全工具&#13;
+&#13;
+[JSON在线](https://www.sojson.com/)，[在线工具](https://tool.lu/)，[CTF在线工具](http://www.hiencode.com/)&#13;
+&#13;
+[CMD5](https://www.cmd5.com/)，[MD5](https://www.somd5.com/)，[查看字符编码(UTF-8)](http://www.mytju.com/classcode/tools/encode_utf8.asp)&#13;
+&#13;
+[VIRUSTOTAL(病毒检测工具)](https://www.virustotal.com/)&#13;
+&#13;
+[Cheat Engine](https://cheatengine.org/)&#13;
+&#13;
+# 安全文档&#13;
+&#13;
+[CTF Wiki](https://ctf-wiki.org/)，[Windows API 参考手册](http://www.office-cn.net/t/api/api_content.htm)。</description><guid isPermaLink="true">https://wliafe.github.io/post/an-quan-wang-zhan.html</guid><pubDate>Thu, 02 Jan 2025 11:21:59 +0000</pubDate></item><item><title>python基础</title><link>https://wliafe.github.io/post/python-ji-chu.html</link><description># python的基本输入&#13;
 &#13;
 **输入字符串**&#13;
 &#13;
