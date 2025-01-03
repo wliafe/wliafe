@@ -4,5 +4,6 @@
     "avatarUrl":"https://wliafe.github.io/wliafe.jpg",
     "GMEEK_VERSION":"last",
     "singlePage":["link","about"],
-    "script":"<script src='https://wliafe.github.io/assets/GmeekTOC.js'></script>"
+    "script":"<script src='https://wliafe.github.io/assets/GmeekTOC.js'></script>",
+    "bottomText":"❤️ 转载文章请注明出处，谢谢！❤️"
 }
