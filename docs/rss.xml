@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Fri, 03 Jan 2025 11:20:13 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>Ubuntu</title><link>https://wliafe.github.io/post/Ubuntu.html</link><description># 包管理器&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Fri, 03 Jan 2025 11:55:25 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>Ubuntu</title><link>https://wliafe.github.io/post/Ubuntu.html</link><description># 包管理器&#13;
 &#13;
 Ubuntu包管理器有：apt, apt-cache, apt-get, dpkg&#13;
 &#13;
@@ -1629,4 +1629,4 @@ int main(void){&#13;
 &#13;
 ### 我的项目&#13;
 &#13;
-- [TFRS](https://github.com/wliafe/TFRS) 我的毕业设计，基于深度学习的印刷字体识别系统设计与实现。</description><guid isPermaLink="true">https://wliafe.github.io/link.html</guid><pubDate>Thu, 02 Jan 2025 13:43:02 +0000</pubDate></item><item><title>关于</title><link>https://wliafe.github.io/about.html</link><description>#### 关于。</description><guid isPermaLink="true">https://wliafe.github.io/about.html</guid><pubDate>Thu, 02 Jan 2025 13:57:31 +0000</pubDate></item></channel></rss>
+- [TFRS](https://github.com/wliafe/TFRS) 我的毕业设计，基于深度学习的印刷字体识别系统设计与实现。</description><guid isPermaLink="true">https://wliafe.github.io/link.html</guid><pubDate>Thu, 02 Jan 2025 13:43:02 +0000</pubDate></item><item><title>个人简介</title><link>https://wliafe.github.io/about.html</link><description>#### 关于。</description><guid isPermaLink="true">https://wliafe.github.io/about.html</guid><pubDate>Thu, 02 Jan 2025 13:57:31 +0000</pubDate></item></channel></rss>
