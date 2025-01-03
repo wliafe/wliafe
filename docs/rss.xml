@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Fri, 03 Jan 2025 10:17:20 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>Ubuntu</title><link>https://wliafe.github.io/post/Ubuntu.html</link><description># 包管理器&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>wliafe</title><link>https://wliafe.github.io</link><description>一种生活，一种态度</description><copyright>wliafe</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://wliafe.github.io/wliafe.jpg</url><title>avatar</title><link>https://wliafe.github.io</link></image><lastBuildDate>Fri, 03 Jan 2025 11:19:40 +0000</lastBuildDate><managingEditor>wliafe</managingEditor><ttl>60</ttl><webMaster>wliafe</webMaster><item><title>Ubuntu</title><link>https://wliafe.github.io/post/Ubuntu.html</link><description># 包管理器&#13;
 &#13;
 Ubuntu包管理器有：apt, apt-cache, apt-get, dpkg&#13;
 &#13;
@@ -1623,7 +1623,13 @@ int main(void){&#13;
 &#13;
 # 安全文档&#13;
 &#13;
-[CTF Wiki](https://ctf-wiki.org/)，[Windows API 参考手册](http://www.office-cn.net/t/api/api_content.htm)。</description><guid isPermaLink="true">https://wliafe.github.io/post/an-quan-wang-zhan.html</guid><pubDate>Thu, 02 Jan 2025 11:21:59 +0000</pubDate></item><item><title>友情链接</title><link>https://wliafe.github.io/link.html</link><description>这里记录了一些有趣的链接。</description><guid isPermaLink="true">https://wliafe.github.io/link.html</guid><pubDate>Thu, 02 Jan 2025 13:43:02 +0000</pubDate></item><item><title>常用链接</title><link>https://wliafe.github.io/about.html</link><description>**AI：**&#13;
+[CTF Wiki](https://ctf-wiki.org/)，[Windows API 参考手册](http://www.office-cn.net/t/api/api_content.htm)。</description><guid isPermaLink="true">https://wliafe.github.io/post/an-quan-wang-zhan.html</guid><pubDate>Thu, 02 Jan 2025 11:21:59 +0000</pubDate></item><item><title>链接</title><link>https://wliafe.github.io/link.html</link><description>### 我的友链&#13;
+&#13;
+- [Phantomor](https://phantomor.github.io/)&#13;
+&#13;
+### 我的项目&#13;
+&#13;
+- [TFRS](https://github.com/wliafe/TFRS) 我的毕业设计，基于深度学习的印刷字体识别系统设计与实现。</description><guid isPermaLink="true">https://wliafe.github.io/link.html</guid><pubDate>Thu, 02 Jan 2025 13:43:02 +0000</pubDate></item><item><title>常用链接</title><link>https://wliafe.github.io/about.html</link><description>**AI：**&#13;
 &#13;
 - [ChatGPT](https://chat.openai.com/)，[文心一言](https://yiyan.baidu.com/)，[聚联AI](https://chat.julianwl.com/)，[Kimi.ai - 帮你看更大的世界](https://kimi.moonshot.cn/)，[MindShow(PPT自动生成工具)](https://mindshow.fun/)&#13;
 &#13;
