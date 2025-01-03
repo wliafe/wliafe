@@ -6,5 +6,6 @@
     "singlePage":["link","about"],
     "email":"wliafe@qq.com",
     "script":"<script src='https://wliafe.github.io/assets/GmeekTOC.js'></script>",
+    "allHead":"<script src='https://wliafe.github.io/assets/GmeekVercount.js'></script>",
     "bottomText":"❤️ 转载文章请注明出处，谢谢！❤️"
 }
